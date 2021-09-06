@@ -32,9 +32,9 @@ export default {
 <style scoped>
 button,
 a {
-  background-color: aquamarine;
-  padding: 0.8rem;
-  border-radius: 1.8rem;
+  /* background-color: rgba(76, 175, 80, 0.2);; */
+  padding: 0.3rem;
+  border-radius: 1.5rem;
   box-shadow: 0.25rem 0.25rem 0.25rem teal;
   cursor: pointer;
   display: inline-block;

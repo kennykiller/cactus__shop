@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 li {
-  margin: 0.5rem;
+  margin: 0.2rem;
   list-style: none;
   text-align: center;
   padding: 0.3rem;
@@ -33,16 +33,24 @@ li {
     color: #05270a;
     font-size: 1.2rem;
     font-weight: bold;
-  }
-  img {
-    display: block;
-    width: 225px;
-    height: 225px;
-    border-radius: 50%;
-    border: 1px solid gray;
+    h3 {
+      transition: transform 0.5s;
+    }
+    img {
+      display: block;
+      width: 225px;
+      height: 225px;
+      border-radius: 25%;
+      border: 1px solid gray;
+      transition: transform 0.5s;
+    }
   }
 }
-li:hover {
-  box-shadow: 2px 2px 2px 2px teal;
+li:hover img {
+  box-shadow: 2px 2px 2px 2px rgba(76, 175, 80, 0.5);
+  transform: translateX(-0.5rem) translateY(-0.5rem) scale3d(1.1, 1.1, 1.1);
+}
+li:hover h3 {
+  transform: translateX(-0.5rem) translateY(-0.5rem) scale3d(1.1, 1.1, 1.1);
 }
 </style>

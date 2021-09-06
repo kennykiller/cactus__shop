@@ -2,11 +2,9 @@
   <div class="container">
     <header>
       <div>
-        <base-setting
-          img="titanic titanic-menu-close"
-          @click="openBurger"
-          class="img-switch"
-        ></base-setting>
+        <div class="burger" @click="toggleBurger">
+          <span :class="{ active: burgerIsOpened }"></span>
+        </div>
         <h1>
           <router-link to="/">Кактус</router-link>
         </h1>
@@ -29,17 +27,18 @@
         </ul>
       </nav>
     </header>
-    <nav-bar v-if="burgerIsOpened" @close="closeBurger"></nav-bar>
+    <transition name="openedBar">
+      <nav-bar v-if="burgerIsOpened" @close="toggleBurger"></nav-bar>
+    </transition>
     <base-dialog
       v-if="burgerIsOpened"
-      @close="closeBurger"
+      @close="toggleBurger"
       :show="false"
     ></base-dialog>
   </div>
 </template>
 
 <script>
-import BaseButton from "../UI/BaseButton.vue";
 import NavBar from "./NavBar.vue";
 
 export default {
@@ -47,7 +46,6 @@ export default {
     NavBar,
   },
   data() {
-    BaseButton;
     return {
       burgerIsOpened: false,
     };
@@ -58,10 +56,7 @@ export default {
     },
   },
   methods: {
-    openBurger() {
-      this.burgerIsOpened = !this.burgerIsOpened;
-    },
-    closeBurger() {
+    toggleBurger() {
       this.burgerIsOpened = !this.burgerIsOpened;
     },
   },
@@ -94,11 +89,68 @@ div {
   display: flex;
   align-items: center;
 }
+// burger starts
+.burger {
+  position: absolute;
+  right: 0.625rem;
+  top: 0.625rem;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+}
 
+.burger span,
+.burger span:before,
+.burger span:after {
+  width: 100%;
+  position: absolute;
+  height: 0.625rem;
+  background-color: #081b06;
+  display: block;
+  transition: 0.4s;
+  border-radius: 5px;
+}
+
+.burger span:before {
+  content: "";
+  top: -1.25rem;
+  transition: top 0.3s 0.3s, transform 0.3s linear;
+}
+
+.burger span {
+  top: 1.25rem;
+}
+
+.burger span:after {
+  content: "";
+  bottom: -1.25rem;
+  transition: bottom 0.3s 0.3s, transform 0.3s linear;
+}
+
+.burger span.active:before {
+  content: "";
+  top: 0rem;
+  transform: rotate(45deg);
+  transition: top 0.3s, transform 0.3s 0.3s linear;
+}
+
+.burger span.active:after {
+  content: "";
+  bottom: 0;
+  transform: rotate(-45deg);
+  transition: bottom 0.3s, transform 0.3s 0.3s linear;
+}
+
+.burger span.active {
+  background: rgba(255, 255, 255, 0);
+}
+
+// burger ends
 a:active,
 a:hover,
 a.router-link-active {
   border: 1px solid #081b06;
+  background: rgba(76, 175, 80, 0.2);
 }
 
 .cartBtn-container {
@@ -143,6 +195,20 @@ h1 {
 header nav {
   display: none;
 }
+
+.openedBar-enter-active,
+.openedBar-leave-active {
+  transition: all 1.1s ease;
+}
+.openedBar-enter-from,
+.openedBar-leave-to {
+  transform: translateX(-20rem);
+}
+.openedBar-enter-to,
+.openedBar-leave-from {
+  transform: translateX(0);
+}
+
 
 @media (min-width: 768px) {
   .img-switch {

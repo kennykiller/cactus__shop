@@ -8,30 +8,6 @@
         :itemName="item.itemName"
         :link="item.source"
         ></base-card>
-        <!-- <li>
-          <router-link to="/cactus">Сухоцветы</router-link
-          ><img src="../assets/sukho.jpg" alt="" />
-        </li>
-        <li>
-          <router-link to="/cactus">Розы</router-link
-          ><img src="../assets/rose.jpg" alt="" />
-        </li>
-        <li>
-          <router-link to="/cactus">Кустовые цветы</router-link
-          ><img src="../assets/kust.jpg" alt="" />
-        </li>
-        <li>
-          <router-link to="/cactus">Горшечные цветы</router-link
-          ><img src="../assets/gorsh.jpg" alt="" />
-        </li>
-        <li>
-          <router-link to="/cactus">Букеты</router-link
-          ><img src="../assets/bucket.jpg" alt="" />
-        </li>
-        <li>
-          <router-link to="/cactus">Экзотика</router-link
-          ><img src="../assets/exotic.jpg" alt="" />
-        </li> -->
       </ul>
       <h2>
         <router-link to="/catalogue">И многое - многое другое!!!</router-link>
@@ -47,15 +23,15 @@ export default {
       baseItems: [
         {
           itemName: "Сухоцветы",
-          source: "sukho",
+          source: "sukho2",
         },
         {
           itemName: "Розы",
-          source: "rose",
+          source: "rose2",
         },
         {
           itemName: "Кустовые цветы",
-          source: "kust",
+          source: "kust3",
         },
         {
           itemName: "Горшечные цветы",
@@ -63,7 +39,7 @@ export default {
         },
         {
           itemName: "Букеты",
-          source: "bucket",
+          source: "bucket3",
         },
         {
           itemName: "Экзотика",
@@ -79,8 +55,7 @@ export default {
 .container {
   position: relative;
   width: 100%;
-  background: url("../assets/2.jpg") no-repeat;
-  background-size: cover;
+  background: rgba(76, 175, 80, 0.2);
 }
 
 h1 {

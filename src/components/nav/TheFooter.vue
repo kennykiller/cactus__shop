@@ -1,10 +1,15 @@
 <template>
   <footer class="footer">
-    <h2>
+    <span @click="toggleSupport" class="support">Обратиться в поддержку</span>
+
+    <span class="contacts">
       <router-link to="/cactus">Наши контакты</router-link>
-    </h2>
-    <base-button @click="toggleSupport">Обратиться в поддержку</base-button>
-    <base-support v-if="supportDialog" @closeDialog="toggleSupport"></base-support>
+    </span>
+
+    <base-support
+      v-if="supportDialog"
+      @closeDialog="toggleSupport"
+    ></base-support>
   </footer>
 </template>
 
@@ -12,8 +17,8 @@
 export default {
   data() {
     return {
-      supportDialog: false
-    }
+      supportDialog: false,
+    };
   },
   methods: {
     toggleSupport() {
@@ -27,12 +32,30 @@ export default {
 .footer {
   width: 100%;
   display: flex;
-  justify-content: space-around;
-  background-color: aquamarine;
+  justify-content: space-between;
+  align-items: center;
   padding: 0.5rem;
   margin: 0;
-  h2 a {
-    color: #081b06;
+
+  .support {
+    font-size: 1.2rem;
+    margin-left: 0.2rem;
+    font-weight: bold;
+    color: #05270a;
+    transition: transform 0.3s linear;
+  }
+  .contacts {
+    transition: transform 0.3s linear;
+    a {
+      color: #0c661a;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  }
+  .support:hover,
+  .contacts:hover {
+    cursor: pointer;
+    transform: scale3d(1.1, 1.1, 1.1);
   }
 }
 </style>

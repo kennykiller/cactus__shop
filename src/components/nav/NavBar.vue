@@ -1,57 +1,58 @@
 <template>
-  <div class="container--mobile" @click="tryClose">
-    <nav>
-      <ul>
-        <li>
-          <router-link to="/auth">Войти в личный кабинет</router-link>
-        </li>
-        <li>
-          <router-link to="/cart">Корзина</router-link>
-        </li>
-        <li>
-          <router-link to="/catalogue">Каталог</router-link>
-        </li>
-        <li>
-          <router-link to="/cactus">Доставка</router-link>
-        </li>
-        <li>
-          <router-link to="/cactus">Программа скидок</router-link>
-        </li>
-        <li>
-          <router-link to="/cactus">О нас</router-link>
-        </li>
-      </ul>
-    </nav>
-  </div>
-  <div class="container--desktop">
-    <nav>
-      <ul>
-        <li>
-          <router-link to="/catalogue">Каталог</router-link>
-        </li>
-        <li>
-          <router-link to="/cactus">Доставка</router-link>
-        </li>
-        <li>
-          <router-link to="/cactus">Программа скидок</router-link>
-        </li>
-        <li>
-          <router-link to="/cactus">О нас</router-link>
-        </li>
-      </ul>
-    </nav>
-  </div>
+  <!-- <div> -->
+    <div class="container--mobile" @click="tryClose">
+      <nav>
+        <ul>
+          <li>
+            <router-link to="/auth">Войти в личный кабинет</router-link>
+          </li>
+          <li>
+            <router-link to="/cart">Корзина</router-link>
+          </li>
+          <li>
+            <router-link to="/catalogue">Каталог</router-link>
+          </li>
+          <li>
+            <router-link to="/cactus">Доставка</router-link>
+          </li>
+          <li>
+            <router-link to="/cactus">Программа скидок</router-link>
+          </li>
+          <li>
+            <router-link to="/cactus">О нас</router-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- <div class="container--desktop">
+      <nav>
+        <ul>
+          <li>
+            <router-link to="/catalogue">Каталог</router-link>
+          </li>
+          <li>
+            <router-link to="/cactus">Доставка</router-link>
+          </li>
+          <li>
+            <router-link to="/cactus">Программа скидок</router-link>
+          </li>
+          <li>
+            <router-link to="/cactus">О нас</router-link>
+          </li>
+        </ul>
+      </nav>
+    </div> -->
+  <!-- </div> -->
 </template>
 
 <script>
 export default {
-  emits: ['close'],
+  emits: ["close"],
   methods: {
     tryClose() {
-      this.$emit('close');
-    }
-  }
-
+      this.$emit("close");
+    },
+  },
 };
 </script>
 
@@ -75,6 +76,7 @@ export default {
   }
   li:hover {
     border: 1px solid teal;
+    background-color: rgba(76, 175, 80, 0.2);
   }
   li a {
     color: white;
