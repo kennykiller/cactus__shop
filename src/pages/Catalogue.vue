@@ -5,16 +5,16 @@
       :show="false"
       @close="toggleFilters"
     ></base-dialog>
-    <base-setting
-      class="toggle-button"
-      img="titanic titanic-toggle"
-      @click="toggleFilters"
-    ></base-setting>
-    <catalogue-filters
-      v-if="filtersAreVisible"
-      class="catalogue-filters"
-      @apply-filters="applyFilters"
-    ></catalogue-filters>
+    <div class="toggle-button">
+      <img src="../assets/filter.png" alt="" @click="toggleFilters" />
+    </div>
+    <transition name="filters">
+      <catalogue-filters
+        v-if="filtersAreVisible"
+        class="catalogue-filters"
+        @apply-filters="applyFilters"
+      ></catalogue-filters>
+    </transition>
     <catalogue-main class="catalogue-main"></catalogue-main>
   </div>
 </template>
@@ -54,7 +54,25 @@ export default {
 .toggle-button {
   position: absolute;
   left: 0.2rem;
-  top: 1rem;
+  top: -1rem;
+}
+
+.filters-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.filters-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.filters-enter-from,
+.filters-leave-to {
+  transform: scale(0.9) translateX(-40rem)
+}
+
+.filters-enter-to,
+.filters-leave-from {
+  transform: scale(1) translateX(0)
 }
 
 @media (min-width: 768px) {

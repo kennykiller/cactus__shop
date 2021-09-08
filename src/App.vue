@@ -15,23 +15,12 @@ export default {
     TheHeader,
     TheFooter,
   },
-  data() {
-    return {
-      titanic: null,
-    };
-  },
-  created() {
-    this.titanic = new window.Titanic({
-      hover: false, // auto animated on hover (default true)
-      click: true, // auto animated on click/tap (default false)
-    });
-  },
 };
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 * {
   box-sizing: border-box;
 }
@@ -42,7 +31,6 @@ body {
   padding: 0;
   height: 100%;
   font-family: Roboto, "Helvetica Neue", Helvetica, sans-serif;
-  font-style: italic;
 }
 
 #app {

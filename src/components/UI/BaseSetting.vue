@@ -1,5 +1,7 @@
 <template>
-  <div :class="img"></div>
+  <div>
+    <!-- <img :src="require(`@/img`)" alt=""> -->
+  </div>
 </template>
 
 <script>

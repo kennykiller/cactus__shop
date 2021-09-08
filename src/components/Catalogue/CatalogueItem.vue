@@ -2,8 +2,8 @@
   <li class="catalogue-item__list" v-if="stock > 0">
     <div class="catalogue-image__container">
       <img :src="require(`@/assets/${img}`)" alt="" />
-      <base-badge :class="name">{{ name }}</base-badge>
-      <base-badge :class="price">{{ price }} Руб</base-badge>
+      <base-badge :name="!!name">{{ name }}</base-badge>
+      <base-badge :price="!!price">{{ price }} Руб</base-badge>
       <base-rating
         :id="id"
         :popularity="String(popularity)"
@@ -15,19 +15,25 @@
         Осталось всего: <span>{{ stock }}</span
         >!!!
       </h3>
-      <img
-        class="toCart"
-        src="../../assets/toCart.png"
-        alt=""
-        @click="addToCart"
-      />
-      <div class="counter">{{ counter - 1 }}</div>
-      <img
-        class="outCart"
-        src="../../assets/outCart.png"
-        alt=""
-        @click="deleteFromCart"
-      />
+      <div class="catalogue-item__ordered">
+        <div>
+          <img
+            class="toCart"
+            src="../../assets/toCart.png"
+            alt=""
+            @click="addToCart"
+          />
+        </div>
+        <div class="counter">{{ counter - 1 }}</div>
+        <div>
+          <img
+            class="outCart"
+            src="../../assets/outCart.png"
+            alt=""
+            @click="deleteFromCart"
+          />
+        </div>
+      </div>
     </div>
   </li>
 </template>
@@ -71,48 +77,44 @@ export default {
 
 .catalogue-image__container {
   position: relative;
+  margin-right: 0.5rem;
 }
 
 .catalogue-image__container > img {
   display: block;
   width: 225px;
   height: 225px;
-  border-radius: 25%;
+  border-radius: 10%;
   border: 1px solid gray;
   transition: transform 0.5s;
 }
 
 .simple-rating.catalogue-rating {
   position: absolute;
-  bottom: 1rem;
-  left: 0;
+  bottom: 0rem;
+  left: 0.5rem;
 }
 
 .catalogue-item__info {
-  font-family: "Pacifico", cursive;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem;
   color: rgb(25, 175, 25);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   span {
     color: rgb(255, 95, 95);
   }
 }
 
-.toCart {
-  position: absolute;
-  top: 2rem;
-  left: -3.7rem;
-}
-
-.outCart {
-  position: absolute;
-  top: 2rem;
-  left: 0.8rem;
+.catalogue-item__ordered {
+  position: relative;
+  display: flex;
+  padding: 0.2rem;
 }
 
 .counter {
-  position: absolute;
-  top: 2rem;
-  left: -1.5rem;
   width: 2rem;
   height: 2rem;
   border: 1px solid teal;
@@ -120,5 +122,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-style: normal;
+  font-family: 'Montserrat', sans-serif;
 }
 </style>
