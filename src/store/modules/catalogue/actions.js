@@ -27,6 +27,7 @@ export default {
         popularity: responseData[key].popularity,
         price: responseData[key].price,
         stockLeft: responseData[key].stockLeft,
+        imgSrc: responseData[key].imgSrc
       });
     }
   },

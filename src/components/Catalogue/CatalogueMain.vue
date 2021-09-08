@@ -10,6 +10,7 @@
         :popularity="item.popularity"
         :stock="item.stockLeft"
         :counter="item.counter"
+        :img="item.imgSrc"
       >
       </catalogue-item>
     </ul>
@@ -24,6 +25,7 @@
         :popularity="item.popularity"
         :stock="item.stockLeft"
         :counter="item.counter"
+        :img="item.imgSrc"
       >
       </catalogue-item>
     </ul>

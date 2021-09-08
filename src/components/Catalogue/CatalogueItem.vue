@@ -1,14 +1,20 @@
 <template>
   <li class="catalogue-item__list" v-if="stock > 0">
-    <img src="../../assets/bucket.jpg" alt="" />
+    <div class="catalogue-image__container">
+      <img :src="require(`@/assets/${img}`)" alt="" />
+      <base-badge :class="name">{{ name }}</base-badge>
+      <base-badge :class="price">{{ price }} Руб</base-badge>
+      <base-rating
+        :id="id"
+        :popularity="String(popularity)"
+        class="catalogue-rating"
+      ></base-rating>
+    </div>
     <div class="catalogue-item__info">
-      <h3>{{ name }}</h3>
-      <h3>{{ price }} Руб</h3>
       <h3 v-if="stock < 10">
         Осталось всего: <span>{{ stock }}</span
         >!!!
       </h3>
-      <h3>Рейтинг: {{ popularity }}</h3>
       <img
         class="toCart"
         src="../../assets/toCart.png"
@@ -28,7 +34,7 @@
 
 <script>
 export default {
-  props: ["id", "name", "price", "stock", "popularity", "counter"],
+  props: ["id", "name", "price", "stock", "popularity", "counter", "img"],
   methods: {
     addToCart() {
       this.$store.commit("addToCart", {
@@ -44,11 +50,11 @@ export default {
     },
     deleteFromCart() {
       this.$store.commit("removeFromCart", {
-        id: this.id
+        id: this.id,
       });
       this.$store.commit("resetCounter", {
-        id: this.id
-      })
+        id: this.id,
+      });
     },
   },
 };
@@ -57,19 +63,37 @@ export default {
 <style lang="scss" scoped>
 .catalogue-item__list {
   font-size: 1rem;
-  margin: 5px;
+  margin: 1.5rem;
   padding: 5px;
   text-align: center;
+  display: flex;
 }
 
-.catalogue-item__list img {
+.catalogue-image__container {
+  position: relative;
+}
+
+.catalogue-image__container > img {
   display: block;
+  width: 225px;
+  height: 225px;
+  border-radius: 25%;
+  border: 1px solid gray;
+  transition: transform 0.5s;
+}
+
+.simple-rating.catalogue-rating {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
 }
 
 .catalogue-item__info {
-  position: relative;
+  font-family: "Pacifico", cursive;
+  font-size: 1.2rem;
+  color: rgb(25, 175, 25);
   span {
-    color: red;
+    color: rgb(255, 95, 95);
   }
 }
 

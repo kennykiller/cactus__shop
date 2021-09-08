@@ -1,5 +1,4 @@
 <template>
-  <!-- <div> -->
     <div class="container--mobile" @click="tryClose">
       <nav>
         <ul>
@@ -24,25 +23,6 @@
         </ul>
       </nav>
     </div>
-    <!-- <div class="container--desktop">
-      <nav>
-        <ul>
-          <li>
-            <router-link to="/catalogue">Каталог</router-link>
-          </li>
-          <li>
-            <router-link to="/cactus">Доставка</router-link>
-          </li>
-          <li>
-            <router-link to="/cactus">Программа скидок</router-link>
-          </li>
-          <li>
-            <router-link to="/cactus">О нас</router-link>
-          </li>
-        </ul>
-      </nav>
-    </div> -->
-  <!-- </div> -->
 </template>
 
 <script>

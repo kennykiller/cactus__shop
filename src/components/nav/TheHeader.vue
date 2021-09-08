@@ -196,19 +196,24 @@ header nav {
   display: none;
 }
 
-.openedBar-enter-active,
+.openedBar-enter-active {
+  animation: modal 0.5s ease-out;
+}
 .openedBar-leave-active {
-  transition: all 1.1s ease;
-}
-.openedBar-enter-from,
-.openedBar-leave-to {
-  transform: translateX(-20rem);
-}
-.openedBar-enter-to,
-.openedBar-leave-from {
-  transform: translateX(0);
+  animation: modal 0.5s ease-in reverse;
 }
 
+@keyframes modal {
+  from {
+    opacity: 0;
+    transform: translateX(-3rem) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
 
 @media (min-width: 768px) {
   .img-switch {
