@@ -80,13 +80,23 @@ export default {
   margin-right: 0.5rem;
 }
 
+.catalogue-image__container:hover {
+  background: url("../../assets/roses/1.jpg") no-repeat 50% 50%;
+  background-size: contain;
+  border-radius: 10%;
+}
+
+.catalogue-image__container:hover img{
+  opacity: 0;
+}
+
 .catalogue-image__container > img {
   display: block;
   width: 225px;
   height: 225px;
   border-radius: 10%;
   border: 1px solid gray;
-  transition: transform 0.5s;
+  transition: all 0.3s ease;
 }
 
 .simple-rating.catalogue-rating {
@@ -96,7 +106,7 @@ export default {
 }
 
 .catalogue-item__info {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.2rem;
   color: rgb(25, 175, 25);
   display: flex;
@@ -123,6 +133,6 @@ export default {
   justify-content: center;
   align-items: center;
   font-style: normal;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 </style>

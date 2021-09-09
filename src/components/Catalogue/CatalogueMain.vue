@@ -56,6 +56,6 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 0;
+  padding-inline-start: 0;
 }
 </style>
