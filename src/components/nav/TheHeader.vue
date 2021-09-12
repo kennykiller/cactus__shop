@@ -6,7 +6,7 @@
           <span :class="{ active: burgerIsOpened }"></span>
         </div>
         <h1>
-          <router-link to="/">Кактус</router-link>
+          <router-link to="/">Kaktus</router-link>
         </h1>
         <router-link to="cart" class="cartBtn-container"
           ><span class="cartBtn-name">Корзина</span>
@@ -182,8 +182,11 @@ a.router-link-active {
 h1 {
   margin: 0;
   a {
-    color: rgb(2, 44, 2);
+    color: rgb(58, 100, 58);
+    font-family: 'Allison', cursive;
     margin: 0;
+    font-size: 3rem;
+    padding: 0.75rem;
   }
   a:hover,
   a:active,

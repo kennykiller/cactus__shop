@@ -5,7 +5,6 @@
     <span class="contacts">
       <router-link to="/cactus">Наши контакты</router-link>
     </span>
-
     <base-support
       v-if="supportDialog"
       @closeDialog="toggleSupport"

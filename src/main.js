@@ -10,6 +10,8 @@ import BaseSupport from './components/UI/BaseSupport.vue';
 import BaseCard from './components/UI/BaseCard.vue';
 import BaseBadge from './components/UI/BaseBadge.vue';
 import BaseRating from './components/UI/BaseRating.vue';
+import CarouselItem from './components/Catalogue/CarouselItem.vue';
+
 
 const app = createApp(App);
 
@@ -23,5 +25,6 @@ app.component('base-support', BaseSupport);
 app.component('base-card', BaseCard);
 app.component('base-badge', BaseBadge);
 app.component('base-rating', BaseRating);
+app.component('carousel-item', CarouselItem);
 
 app.mount('#app')

@@ -1,8 +1,11 @@
 <template>
   <li class="catalogue-item__list" v-if="stock > 0">
+    <div>
+      <h3>{{ name }}</h3>
+    </div>
     <div class="catalogue-image__container">
       <img :src="require(`@/assets/${img}`)" alt="" />
-      <base-badge :name="!!name">{{ name }}</base-badge>
+      <!-- <base-badge :name="!!name">{{ name }}</base-badge> -->
       <base-badge :price="!!price">{{ price }} Руб</base-badge>
       <base-rating
         :id="id"
@@ -10,7 +13,7 @@
         class="catalogue-rating"
       ></base-rating>
     </div>
-    <div class="catalogue-item__info">
+    <!-- <div class="catalogue-item__info">
       <h3 v-if="stock < 10">
         Осталось всего: <span>{{ stock }}</span
         >!!!
@@ -34,7 +37,7 @@
           />
         </div>
       </div>
-    </div>
+    </div> -->
   </li>
 </template>
 
@@ -69,10 +72,11 @@ export default {
 <style lang="scss" scoped>
 .catalogue-item__list {
   font-size: 1rem;
-  margin: 1.5rem;
-  padding: 5px;
+  margin: 0.5rem;
+  padding: 0.3rem;
   text-align: center;
   display: flex;
+  flex-direction: column;
 }
 
 .catalogue-image__container {
@@ -86,7 +90,7 @@ export default {
   border-radius: 10%;
 }
 
-.catalogue-image__container:hover img{
+.catalogue-image__container:hover img {
   opacity: 0;
 }
 
