@@ -68,23 +68,23 @@ export default {
   display: none;
 }
 
-@media (min-width: 768px) {
-  .container--mobile {
-    display: none;
-  }
-  .container--desktop {
-    display: block;
-    background-color: rgb(17, 189, 189);
-    ul {
-      display: flex;
-      justify-content: space-around;
-      list-style: none;
-    }
-    li a {
-      text-decoration: none;
-      color: white;
-      font-size: 1.2rem;
-    }
-  }
-}
+// @media (min-width: 768px) {
+//   .container--mobile {
+//     display: none;
+//   }
+//   .container--desktop {
+//     display: block;
+//     background-color: rgb(17, 189, 189);
+//     ul {
+//       display: flex;
+//       justify-content: space-around;
+//       list-style: none;
+//     }
+//     li a {
+//       text-decoration: none;
+//       color: white;
+//       font-size: 1.2rem;
+//     }
+//   }
+// }
 </style>

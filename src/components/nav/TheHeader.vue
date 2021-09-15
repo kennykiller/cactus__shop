@@ -8,14 +8,14 @@
         <h1>
           <router-link to="/">Kaktus</router-link>
         </h1>
-        <router-link to="cart" class="cartBtn-container"
+        <!-- <router-link to="cart" class="cartBtn-container"
           ><span class="cartBtn-name">Корзина</span>
           <div class="cartBtn-count">
             <span class="cart-count">{{ ordersQuantity }}</span>
           </div></router-link
-        >
+        > -->
       </div>
-      <nav>
+      <nav class="desktop-view">
         <ul>
           <li>
             <router-link to="/cart">Корзина</router-link>
@@ -76,9 +76,10 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid lightgray;
   a {
     text-decoration: none;
-    color: #081b06;
+    color: black;
     display: inline-block;
     padding: 0.75rem 1.5rem;
     border: 1px solid transparent;
@@ -105,7 +106,7 @@ div {
   width: 100%;
   position: absolute;
   height: 0.625rem;
-  background-color: #081b06;
+  background-color: black;
   display: block;
   transition: 0.4s;
   border-radius: 5px;
@@ -150,12 +151,13 @@ a:active,
 a:hover,
 a.router-link-active {
   border: 1px solid #081b06;
-  background: rgba(76, 175, 80, 0.2);
+  background: white;
 }
 
 .cartBtn-container {
   display: flex;
-  padding: 0.625rem;
+  padding: 0.5rem;
+
 }
 
 .cartBtn-name {
@@ -168,6 +170,7 @@ a.router-link-active {
   justify-content: center;
   align-items: center;
   width: 1.25rem;
+  min-width: 1.25rem;
   max-width: 1.25rem;
   height: 1.25rem;
   max-height: 1.25rem;
@@ -183,7 +186,7 @@ h1 {
   margin: 0;
   a {
     color: rgb(58, 100, 58);
-    font-family: 'Allison', cursive;
+    font-family: "Allison", cursive;
     margin: 0;
     font-size: 3rem;
     padding: 0.75rem;
@@ -192,6 +195,21 @@ h1 {
   a:active,
   a.router-link-active {
     border-color: transparent;
+  }
+}
+@media (min-width: 500px) {
+  h1 a {
+    font-size: 4rem;
+  }
+  .cartBtn-name {
+    font-size: 2rem;
+  }
+  .cartBtn-count {
+    min-width: 2rem;
+    max-width: 2rem;
+    height: 2rem;
+    max-height: 2rem;
+    font-size: 1rem;
   }
 }
 
@@ -218,15 +236,12 @@ header nav {
   }
 }
 
-@media (min-width: 768px) {
-  .img-switch {
-    display: none;
-  }
-
+@media (min-width: 748px) {
   header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-right: 4rem;
     ul {
       list-style: none;
       margin: 0;

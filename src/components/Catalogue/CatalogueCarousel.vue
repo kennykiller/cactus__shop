@@ -6,7 +6,7 @@
         <carousel-item
           v-for="item in carousel"
           :key="item.front"
-          :id="item.front"
+          :id="id"
           :name="name"
           :price="price"
           :popularity="popularity"
@@ -43,11 +43,27 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: center;
+  h3 {
+    font-family: "Raleway", sans-serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: rgb(58, 100, 58);
+  }
 }
 .carousel__list-container {
   min-height: 20rem;
   width: auto;
   overflow-x: auto;
+}
+@media (min-width: 748px) {
+  .carousel__list-container {
+    min-height: 25rem;
+    width: auto;
+    overflow-x: none;
+  }
+  .carousel__list {
+    justify-content: space-between;
+  }
 }
 .carousel__list-container::-webkit-scrollbar {
   height: 0.3rem;
@@ -60,54 +76,5 @@ export default {
   list-style: none;
   height: 100%;
 }
-.carousel__item {
-  margin: 0 0.3rem;
-  min-height: 15rem;
-  min-width: 15rem;
-  border: 1px solid black;
-  .carousel__image-container {
-    img {
-      margin: 0.5rem 0 0 0;
-      height: 90%;
-      width: 90%;
-      // object-fit: contain;
-      border: 1px solid lightgray;
-    }
-  }
-}
-.carousel__image-container:hover img {
-  opacity: 0;
-  border: 0;
-}
-.carousel__image-container:hover {
-  background-image: url("../../assets/roses/2.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.description-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5rem;
-  font-family: "Raleway", sans-serif;
-}
-.addToCart-container {
-  display: flex;
-  align-items: center;
-  button {
-    height: 2rem;
-    width: 2rem;
-    font-size: 1.5rem;
-    font-family: Roboto, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-.counter-container {
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid lightgray;
-  margin: 0 0.7rem;
-}
+
 </style>

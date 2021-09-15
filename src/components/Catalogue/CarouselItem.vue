@@ -1,16 +1,20 @@
 <template>
   <li class="carousel__item">
-    <div class="carousel__image-container" >
-      <img :src="require(`@/assets/${front}`)" alt=""/>
-      <img :src="require(`@/assets/${back}`)" alt=""/>
+    <div class="carousel__image-container">
+      <img :src="require(`@/assets/${front}`)" alt="" />
+      <img :src="require(`@/assets/${back}`)" alt="" />
     </div>
     <div class="description-container">
       <p>{{ desc }}</p>
-      <base-button v-if="counter < 2">{{ price }} Руб</base-button>
-      <div class="addToCart-container" v-else>
-        <button>-</button>
-        <div class="counter-container">{{ counter }}</div>
-        <button>+</button>
+      <div class="price-container">
+        <base-button v-if="counter < 2" @click="addToCart"
+          >{{ price }} Руб</base-button
+        >
+        <div class="addToCart-container" v-else>
+          <button @click="reduceFromCart">-</button>
+          <div class="counter-container">{{ quantity }}</div>
+          <button @click="addToCart">+</button>
+        </div>
       </div>
     </div>
   </li>
@@ -18,7 +22,49 @@
 
 <script>
 export default {
-  props: ["id", "name", "desc", "back", "front", "counter", "price"],
+  props: ["id", "name", "desc", "back", "stock", "front", "counter", "price"],
+  data() {
+    return {
+      updatedCounter: this.counter,
+    };
+  },
+  watch: {
+    counter(value) {
+      if (this.updatedCounter !== value) {
+        this.updatedCounter = value;
+      }
+    },
+  },
+  computed: {
+    quantity() {
+      return this.$store.getters.orders.find((el) => this.id === el.id)
+        .quantityOrdered;
+    },
+  },
+  methods: {
+    addToCart() {
+      this.$store.commit("addToCart", {
+        id: this.id,
+        name: this.name,
+        price: this.price,
+        quantityOrdered: this.counter,
+        img: this.front,
+      });
+      this.$store.commit("qtyDecrease", {
+        value: 1,
+        id: this.id,
+      });
+    },
+    reduceFromCart() {
+      this.$store.commit("reduceFromCart", {
+        id: this.id,
+      });
+      this.$store.commit("qtyIncrease", {
+        value: 1,
+        id: this.id,
+      });
+    },
+  },
 };
 </script>
 
@@ -27,7 +73,6 @@ export default {
   margin: 0 0.3rem;
   min-height: 15rem;
   min-width: 15rem;
-  border: 1px solid black;
   .carousel__image-container {
     img {
       display: block;
@@ -57,7 +102,19 @@ export default {
   align-items: center;
   padding: 0.5rem;
   font-family: "Raleway", sans-serif;
+  position: relative;
+  p {
+    font-family: inherit;
+    font-size: 1.2rem;
+  }
 }
+.price-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
 .addToCart-container {
   display: flex;
   align-items: center;

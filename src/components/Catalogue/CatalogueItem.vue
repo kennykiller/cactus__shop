@@ -13,7 +13,7 @@
         class="catalogue-rating"
       ></base-rating>
     </div>
-    <!-- <div class="catalogue-item__info">
+    <div class="catalogue-item__info">
       <h3 v-if="stock < 10">
         Осталось всего: <span>{{ stock }}</span
         >!!!
@@ -37,7 +37,7 @@
           />
         </div>
       </div>
-    </div> -->
+    </div>
   </li>
 </template>
 

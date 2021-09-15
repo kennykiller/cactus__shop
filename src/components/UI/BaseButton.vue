@@ -32,10 +32,8 @@ export default {
 <style scoped>
 button,
 a {
-  /* background-color: rgba(76, 175, 80, 0.2);; */
   padding: 0.3rem;
-  border-radius: 1.5rem;
-  box-shadow: 0.25rem 0.25rem 0.25rem teal;
+  border-radius: 30%;
   cursor: pointer;
   display: inline-block;
   color: #081b06;
@@ -43,34 +41,17 @@ a {
   font-family: inherit;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  border: none;
+  background-color: white;
 }
 
 a:hover,
 a:active,
 button:hover,
 button:active {
-  background-color: #0dc569cb;
+  background-color: rgb(245, 196, 196);
   border-color: #011805;
-  color: #011805;
+  /* color: rgb(245, 196, 196) */
 }
 
-.flat {
-  background-color: transparent;
-  color: #6af388;
-  border: 1px solid teal;
-}
-
-.outline {
-  background-color: rgb(221, 233, 223);
-  border-color: #2f9271;
-  color: #128622c0;
-  box-shadow: none;
-}
-
-.flat:hover,
-.flat:active,
-.outline:hover,
-.outline:active {
-  background-color: #25e0a27a;
-}
 </style>
