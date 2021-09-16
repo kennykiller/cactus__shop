@@ -48,11 +48,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../variables.scss';
+
 .wrapper {
   margin-top: 1rem;
   display: block;
   flex-direction: column;
   position: relative;
+  // background: $base-color;
 }
 .toggle-button {
   position: absolute;

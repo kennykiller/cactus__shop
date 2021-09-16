@@ -42,7 +42,8 @@ export default {
       });
       this.$store.commit("qtyIncrease", {
         value: 1,
-        id: this.id
+        id: this.id,
+        name: this.name
       });
     },
     addFromCart() {
@@ -57,6 +58,7 @@ export default {
       this.$store.commit("qtyDecrease", {
         value: 1,
         id: this.id,
+        name: this.name
       });
     },
   },

@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  props: ["id", "name", "desc", "back", "stock", "front", "counter", "price"],
+  props: ["id", "name", "desc", "back", "stock", "front", "counter", "price", "popularity", "initialStock"],
   data() {
     return {
       updatedCounter: this.counter,
@@ -53,6 +53,7 @@ export default {
       this.$store.commit("qtyDecrease", {
         value: 1,
         id: this.id,
+        name: this.name
       });
     },
     reduceFromCart() {
@@ -62,6 +63,7 @@ export default {
       this.$store.commit("qtyIncrease", {
         value: 1,
         id: this.id,
+        name: this.name
       });
     },
   },

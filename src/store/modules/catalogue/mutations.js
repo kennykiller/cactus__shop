@@ -1,21 +1,33 @@
 export default {
   qtyDecrease(state, payload) {
-    let orderedItem = state.catalogue.find((a) => payload.id === a.id);
-    if (orderedItem.stockLeft === 0) {
-      return;
+    let orderedCarousel = state.catalogue.find(a => payload.name === a.name);
+    
+    for (let key in orderedCarousel.carousel) {
+      if (orderedCarousel.id + orderedCarousel.carousel[key].front === payload.id) {
+        orderedCarousel.carousel[key].stockLeft -= payload.value;
+        orderedCarousel.carousel[key].counter += payload.value;
+      }
     }
-    orderedItem.stockLeft -= payload.value;
-    orderedItem.counter += payload.value;
   },
   qtyIncrease(state, payload) {
-    let orderedItem = state.catalogue.find((a) => payload.id === a.id);
-    orderedItem.stockLeft += payload.value;
-    orderedItem.counter -= payload.value;
+    let orderedCarousel = state.catalogue.find(a => payload.name === a.name);
+
+    for (let key in orderedCarousel.carousel) {
+      if (orderedCarousel.id + orderedCarousel.carousel[key].front === payload.id) {
+        orderedCarousel.carousel[key].stockLeft += payload.value;
+        orderedCarousel.carousel[key].counter -= payload.value;
+      }
+    }
   },
   resetCounter(state, payload) {
-    let orderedItem = state.catalogue.find((a) => payload.id === a.id);
-    orderedItem.counter = 1;
-    orderedItem.stockLeft = orderedItem.initialStock;
+    let orderedCarousel = state.catalogue.find(a => payload.name === a.name);
+    
+    for (let key in orderedCarousel.carousel) {
+      if (orderedCarousel.id + orderedCarousel.carousel[key].front === payload.id) {
+        orderedCarousel.carousel[key].counter = 1;
+        orderedCarousel.carousel[key].stockLeft = orderedCarousel.carousel[key].initialStock;
+      }
+    }
   },
   setItems(state, payload) {
     console.log(payload);

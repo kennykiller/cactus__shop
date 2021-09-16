@@ -19,15 +19,9 @@ export default {
     console.log(responseData);
     for (let key in responseData) {
       context.commit("setItems", {
-        counter: responseData[key].counter,
-        description: responseData[key].description,
         id: key,
-        initialStock: responseData[key].initialStock,
         name: responseData[key].name,
         popularity: responseData[key].popularity,
-        price: responseData[key].price,
-        stockLeft: responseData[key].stockLeft,
-        imgSrc: responseData[key].imgSrc,
         carousel: responseData[key].carousel
       });
     }

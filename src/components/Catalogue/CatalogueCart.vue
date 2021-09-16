@@ -15,7 +15,6 @@
           :key="order.id"
           :id="order.id"
           :name="order.name"
-          :stock="order.stock"
           :amount="order.quantityOrdered"
           :price="order.price"
           :img="order.img"
@@ -39,7 +38,6 @@ export default {
   components: {
     CartIt,
   },
-  props: ["id", "name", "amount", "price"],
   computed: {
     ordersQuantity() {
       return this.$store.getters.orders.length;
@@ -69,12 +67,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../variables.scss';
+
 .cart {
   position: fixed;
   right: 0;
   top: 5rem;
   text-align: right;
   background: rgba(146, 125, 150, 0.863);
+  // background: $secondary-color;
   color: black;
   z-index: 1;
 

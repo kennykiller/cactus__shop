@@ -1,18 +1,19 @@
 <template>
-  <div class="carousel" v-if="stock > 0">
+  <div class="carousel">
     <h3>{{ name }}</h3>
     <div class="carousel__list-container">
       <ul class="carousel__list">
         <carousel-item
           v-for="item in carousel"
           :key="item.front"
-          :id="id"
+          :id="id + item.front"
           :name="name"
-          :price="price"
+          :price="item.price"
           :popularity="popularity"
-          :stock="stock"
-          :counter="counter"
-          :desc="desc"
+          :stock="item.stockLeft"
+          :initialStock="item.initialStock"
+          :counter="item.counter"
+          :desc="item.description"
           :back="item.back"
           :front="item.front"
         ></carousel-item>
@@ -28,11 +29,7 @@ export default {
   props: [
     "id",
     "name",
-    "price",
     "popularity",
-    "stock",
-    "counter",
-    "desc",
     "carousel",
   ],
 };
