@@ -51,6 +51,7 @@ export default {
   min-height: 20rem;
   width: auto;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 @media (min-width: 748px) {
   .carousel__list-container {
@@ -63,7 +64,7 @@ export default {
   }
 }
 .carousel__list-container::-webkit-scrollbar {
-  height: 0.3rem;
+  height: 0.5rem;
   background-color: #aaa;
 }
 

@@ -5,6 +5,7 @@
       :show="false"
       @close="toggleFilters"
     ></base-dialog>
+    <side-bar></side-bar>
     <div class="toggle-button">
       <img src="../assets/filter.png" alt="" @click="toggleFilters" />
     </div>
@@ -15,7 +16,7 @@
         @apply-filters="applyFilters"
       ></catalogue-filters>
     </transition>
-    <side-bar></side-bar>
+    
     <catalogue-main class="catalogue-main"></catalogue-main>
   </div>
 </template>
@@ -52,8 +53,8 @@ export default {
 
 .wrapper {
   margin-top: 1rem;
-  display: block;
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   position: relative;
   // background: $base-color;
 }
@@ -61,6 +62,9 @@ export default {
   position: absolute;
   left: 0.2rem;
   top: -1rem;
+  @media (min-width: 768px) {
+    display: none;
+  }
 }
 
 .filters-enter-active {

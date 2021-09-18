@@ -53,12 +53,16 @@ export default {
 
 <style lang="scss" scoped>
 .catalogue-items__list {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  // display: flex;
+  // justify-content: flex-start;
+  // flex-wrap: wrap;
   padding-inline-start: 0;
 }
 main {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: calc(100% - 18rem);
+  overflow-y: hidden;
 }
 </style>

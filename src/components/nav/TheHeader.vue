@@ -98,54 +98,53 @@ div {
   width: 3rem;
   height: 3rem;
   cursor: pointer;
-}
+  span,
+  span:before,
+  span:after {
+    width: 100%;
+    position: absolute;
+    height: 0.625rem;
+    background-color: black;
+    display: block;
+    transition: 0.4s;
+    border-radius: 5px;
+  }
+  span:before {
+    content: "";
+    top: -1.25rem;
+    transition: top 0.3s 0.3s, transform 0.3s linear;
+  }
+  span {
+    top: 1.25rem;
+  }
 
-.burger span,
-.burger span:before,
-.burger span:after {
-  width: 100%;
-  position: absolute;
-  height: 0.625rem;
-  background-color: black;
-  display: block;
-  transition: 0.4s;
-  border-radius: 5px;
-}
+  span:after {
+    content: "";
+    bottom: -1.25rem;
+    transition: bottom 0.3s 0.3s, transform 0.3s linear;
+  }
 
-.burger span:before {
-  content: "";
-  top: -1.25rem;
-  transition: top 0.3s 0.3s, transform 0.3s linear;
-}
+  span.active:before {
+    content: "";
+    top: 0rem;
+    transform: rotate(45deg);
+    transition: top 0.3s, transform 0.3s 0.3s linear;
+  }
 
-.burger span {
-  top: 1.25rem;
-}
+  span.active:after {
+    content: "";
+    bottom: 0;
+    transform: rotate(-45deg);
+    transition: bottom 0.3s, transform 0.3s 0.3s linear;
+  }
 
-.burger span:after {
-  content: "";
-  bottom: -1.25rem;
-  transition: bottom 0.3s 0.3s, transform 0.3s linear;
+  span.active {
+    background: rgba(255, 255, 255, 0);
+  }
+  @media(min-width: 768px) {
+    display: none;
+  }
 }
-
-.burger span.active:before {
-  content: "";
-  top: 0rem;
-  transform: rotate(45deg);
-  transition: top 0.3s, transform 0.3s 0.3s linear;
-}
-
-.burger span.active:after {
-  content: "";
-  bottom: 0;
-  transform: rotate(-45deg);
-  transition: bottom 0.3s, transform 0.3s 0.3s linear;
-}
-
-.burger span.active {
-  background: rgba(255, 255, 255, 0);
-}
-
 // burger ends
 a:active,
 a:hover,
@@ -157,7 +156,6 @@ a.router-link-active {
 .cartBtn-container {
   display: flex;
   padding: 0.5rem;
-
 }
 
 .cartBtn-name {

@@ -1,5 +1,5 @@
 <template>
-  <li class="carousel__item">
+  <li class="carousel__item" v-if="idChecker">
     <div class="carousel__image-container">
       <img :src="require(`@/assets/${front}`)" alt="" />
       <img :src="require(`@/assets/${back}`)" alt="" />
@@ -40,6 +40,11 @@ export default {
       return this.$store.getters.orders.find((el) => this.id === el.id)
         .quantityOrdered;
     },
+    idChecker() {
+      let idCheck = this.id;
+      let checkingFormula = +(idCheck.match(/\/\d+/g).join().slice(1));
+      return checkingFormula > 10 ? false : true;
+    }
   },
   methods: {
     addToCart() {
@@ -81,7 +86,6 @@ export default {
       margin: 0.5rem auto;
       height: 90%;
       width: 90%;
-      // object-fit: contain;
       border: 1px solid lightgray;
     }
     img:nth-child(2) {
