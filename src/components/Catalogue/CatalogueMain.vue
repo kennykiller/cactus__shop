@@ -63,6 +63,11 @@ main {
   display: flex;
   flex-direction: column;
   min-width: calc(100% - 18rem);
-  overflow-y: hidden;
+  overflow-y: auto;
+  height: calc(100vh - 10rem);
+  &::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: #aaa;
+}
 }
 </style>

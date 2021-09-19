@@ -102,7 +102,12 @@ export default {
   padding: 0;
   position: fixed;
   top: 5rem;
-  left: 0;
+  left: calc((100vw - 116rem) / 2);
+  bottom: 5rem;
+  @media (max-width: 115rem) {
+    position: static;
+    height: calc(100vh - 10rem)
+  } 
 }
 .filters__desktop {
   border: 1px solid $secondary-color;
@@ -116,7 +121,7 @@ export default {
   }
 }
 .filter-option__desktop {
-  margin: 0.5rem 0 1rem 0;
+  margin: 0.3rem 0 1rem 0;
   text-align: start;
   display: flex;
   align-items: flex-start;
@@ -186,8 +191,8 @@ export default {
   padding: 0;
   width: 100%;
   li {
-    padding: 0.5rem;
-    margin: 0.5rem 0;
+    padding: 0.3rem;
+    margin: 0.2rem 0;
     &:hover {
       background: $secondary-color;
     }

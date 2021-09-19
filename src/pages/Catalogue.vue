@@ -1,10 +1,10 @@
 <template>
+  <base-dialog
+    v-if="filtersAreVisible"
+    :show="false"
+    @close="toggleFilters"
+  ></base-dialog>
   <div class="wrapper">
-    <base-dialog
-      v-if="filtersAreVisible"
-      :show="false"
-      @close="toggleFilters"
-    ></base-dialog>
     <side-bar></side-bar>
     <div class="toggle-button">
       <img src="../assets/filter.png" alt="" @click="toggleFilters" />
@@ -16,7 +16,7 @@
         @apply-filters="applyFilters"
       ></catalogue-filters>
     </transition>
-    
+
     <catalogue-main class="catalogue-main"></catalogue-main>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
   components: {
     CatalogueFilters,
     CatalogueMain,
-    SideBar
+    SideBar,
   },
   data() {
     return {
@@ -49,20 +49,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../variables.scss';
+@import "../variables.scss";
 
 .wrapper {
-  margin-top: 1rem;
   display: flex;
   flex-direction: row;
   position: relative;
+  max-width: 78rem;
+  @media (min-width: 768px) {
+    margin: 0 auto;
+  }
   // background: $base-color;
 }
 .toggle-button {
   position: absolute;
   left: 0.2rem;
   top: -1rem;
-  @media (min-width: 768px) {
+  @media (min-width: 80rem) {
     display: none;
   }
 }
@@ -77,14 +80,17 @@ export default {
 
 .filters-enter-from,
 .filters-leave-to {
-  transform: scale(0.9) translateX(-40rem)
+  transform: scale(0.9) translateX(-40rem);
 }
 
 .filters-enter-to,
 .filters-leave-from {
-  transform: scale(1) translateX(0)
+  transform: scale(1) translateX(0);
 }
 
+.catalogue-main {
+  overflow-y: scroll;
+}
 // @media (min-width: 768px) {
 //   .wrapper {
 //     display: grid;

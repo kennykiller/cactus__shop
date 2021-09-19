@@ -30,7 +30,8 @@ export default {
 
 html,
 body {
-  margin: 0;
+  max-width: 78rem;
+  margin: 0 auto;
   padding: 0;
   height: 100%;
   font-family: Roboto, "Helvetica Neue", Helvetica, sans-serif;

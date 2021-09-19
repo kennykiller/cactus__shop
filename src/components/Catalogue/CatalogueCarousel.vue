@@ -26,12 +26,7 @@
 // import CarouselItem from "./CarouselItem.vue";
 export default {
   components: [],
-  props: [
-    "id",
-    "name",
-    "popularity",
-    "carousel",
-  ],
+  props: ["id", "name", "popularity", "carousel"],
 };
 </script>
 
@@ -52,17 +47,18 @@ export default {
   width: auto;
   overflow-x: auto;
   overflow-y: hidden;
-}
-@media (min-width: 748px) {
-  .carousel__list-container {
-    min-height: 25rem;
-    width: auto;
-    overflow-x: none;
+  @media (min-width: 80rem) {
+    .carousel__list-container {
+      min-height: 25rem;
+      width: auto;
+      overflow-x: none;
+    }
+    .carousel__list {
+      justify-content: space-between;
+    }
   }
-  .carousel__list {
-    justify-content: space-between;
-  }
 }
+
 .carousel__list-container::-webkit-scrollbar {
   height: 0.5rem;
   background-color: #aaa;
@@ -74,5 +70,4 @@ export default {
   list-style: none;
   height: 100%;
 }
-
 </style>

@@ -112,6 +112,7 @@ export default {
   p {
     font-family: inherit;
     font-size: 1.2rem;
+    height: 1.8rem;
   }
 }
 .price-container {
