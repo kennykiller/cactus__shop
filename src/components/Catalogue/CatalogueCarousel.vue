@@ -47,6 +47,25 @@ export default {
   width: auto;
   overflow-x: auto;
   overflow-y: hidden;
+  &::-webkit-scrollbar {
+    height: 0.7rem;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #555;
+  }
   @media (min-width: 80rem) {
     .carousel__list-container {
       min-height: 25rem;
@@ -57,11 +76,6 @@ export default {
       justify-content: space-between;
     }
   }
-}
-
-.carousel__list-container::-webkit-scrollbar {
-  height: 0.5rem;
-  background-color: #aaa;
 }
 
 .carousel__list {

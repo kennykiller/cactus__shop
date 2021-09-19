@@ -82,6 +82,17 @@ export default {
     openInfo() {
       this.infoIsOpened = !this.infoIsOpened;
     },
+    applyFilters() {
+      let name = document.querySelector("#filter-type__desktop").value;
+      console.log(name);
+      let price = document.querySelector("#filter-price__desktop").value;
+      console.log(price);
+      
+      this.$store.commit("setFiltered", {
+        name: name,
+        price: price
+      })
+    },
   },
 };
 </script>
@@ -106,8 +117,8 @@ export default {
   bottom: 5rem;
   @media (max-width: 115rem) {
     position: static;
-    height: calc(100vh - 10rem)
-  } 
+    height: calc(100vh - 10rem);
+  }
 }
 .filters__desktop {
   border: 1px solid $secondary-color;
