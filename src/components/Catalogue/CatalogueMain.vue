@@ -1,29 +1,27 @@
 <template>
   <main>
-    <!-- <ul v-if="filters">
-      <catalogue-item
+    <div v-if="filters">
+      <catalogue-carousel
         v-for="item in $store.getters.filtered"
         :key="item.id"
         :id="item.id"
         :name="item.name"
-        :price="item.price"
         :popularity="item.popularity"
-        :stock="item.stockLeft"
-        :counter="item.counter"
-        :img="item.imgSrc"
+        :carousel="item.carousel"
       >
-      </catalogue-item>
-    </ul> -->
-    <catalogue-carousel
-      v-show="!filters"
-      v-for="item in $store.getters.catalogue"
-      :key="item.id"
-      :id="item.id"
-      :name="item.name"
-      :popularity="item.popularity"
-      :carousel="item.carousel"
-    >
-    </catalogue-carousel>
+      </catalogue-carousel>
+    </div>
+    <div v-if="!filters">
+      <catalogue-carousel  
+        v-for="item in $store.getters.catalogue"
+        :key="item.id"
+        :id="item.id"
+        :name="item.name"
+        :popularity="item.popularity"
+        :carousel="item.carousel"
+      >
+      </catalogue-carousel>
+    </div>
     <catalogue-cart></catalogue-cart>
   </main>
 </template>

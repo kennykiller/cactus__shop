@@ -28,10 +28,10 @@
           </select>
         </div>
         <div class="button-container">
-          <button class="clearFilters">
+          <button @click="clearFilters">
             Убрать фильтры
           </button>
-          <button class="applyFilters">Применить</button>
+          <button @click="applyFilters">Применить</button>
         </div>
       </div>
     </section>
@@ -83,16 +83,21 @@ export default {
       this.infoIsOpened = !this.infoIsOpened;
     },
     applyFilters() {
+      this.clearFilters();
       let name = document.querySelector("#filter-type__desktop").value;
       console.log(name);
       let price = document.querySelector("#filter-price__desktop").value;
       console.log(price);
-      
+
       this.$store.commit("setFiltered", {
         name: name,
-        price: price
-      })
+        price: price,
+      });
     },
+    clearFilters() {
+      this.$store.commit("clearFilters");
+      console.log(123);
+    }
   },
 };
 </script>

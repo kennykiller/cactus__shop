@@ -73,7 +73,7 @@ export default {
       overflow-x: none;
     }
     .carousel__list {
-      justify-content: space-between;
+      // justify-content: center;
     }
   }
 }

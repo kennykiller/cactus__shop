@@ -22,7 +22,18 @@
 
 <script>
 export default {
-  props: ["id", "name", "desc", "back", "stock", "front", "counter", "price", "popularity", "initialStock"],
+  props: [
+    "id",
+    "name",
+    "desc",
+    "back",
+    "stock",
+    "front",
+    "counter",
+    "price",
+    "popularity",
+    "initialStock",
+  ],
   data() {
     return {
       updatedCounter: this.counter,
@@ -41,10 +52,15 @@ export default {
         .quantityOrdered;
     },
     idChecker() {
-      let idCheck = this.id;
-      let checkingFormula = +(idCheck.match(/\/\d+/g).join().slice(1));
-      return checkingFormula > 10 ? false : true;
-    }
+      if (this.$store.getters.filtered.length === 0) {
+        let idCheck = this.id;
+        let checkingFormula = +idCheck
+          .match(/\/\d+/g)
+          .join()
+          .slice(1);
+        return checkingFormula > 10 ? false : true;
+      } return true;
+    },
   },
   methods: {
     addToCart() {
@@ -58,7 +74,7 @@ export default {
       this.$store.commit("qtyDecrease", {
         value: 1,
         id: this.id,
-        name: this.name
+        name: this.name,
       });
     },
     reduceFromCart() {
@@ -68,7 +84,7 @@ export default {
       this.$store.commit("qtyIncrease", {
         value: 1,
         id: this.id,
-        name: this.name
+        name: this.name,
       });
     },
   },
