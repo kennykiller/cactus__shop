@@ -1,7 +1,7 @@
 <template>
   <menu id="toggleMenu">
     <section class="filters__desktop">
-      <h2 @click="setFilters">Настроить фильтры</h2>
+      <h2 @click="setFilters">Фильтры</h2>
       <div v-if="filterIsSet">
         <div class="filter-option__desktop">
           <label for="filter-type__desktop">По типу:</label>
@@ -38,17 +38,20 @@
 
     <nav class="sidebar-nav__container">
       <ul class="sidebar-list__items">
-        <li>
-          <router-link to="/auth">Войти</router-link>
-        </li>
-        <li>
-          <router-link to="/cactus">Доставка</router-link>
-        </li>
-        <li>
-          <router-link to="/cactus">Программа скидок</router-link>
-        </li>
-        <li>
-          <h2 @click="openInfo">Как нас найти</h2>
+        <router-link to="/auth"
+          ><li class="sidebar-list__item enter">Войти</li></router-link
+        >
+
+        <router-link to="/cactus"
+          ><li class="sidebar-list__item delivery">Доставка</li></router-link
+        >
+
+        <router-link to="/cactus"
+          ><li class="sidebar-list__item sales">Скидки</li></router-link
+        >
+
+        <li class="sidebar-list__item location">
+          <h2 @click="openInfo" class="shop-location">Как нас найти</h2>
           <div v-if="infoIsOpened">
             <p>Наш адрес: г.Санкт-Петербург, Комендантский 17к1</p>
             <iframe
@@ -97,7 +100,7 @@ export default {
     clearFilters() {
       this.$store.commit("clearFilters");
       console.log(123);
-    }
+    },
   },
 };
 </script>
@@ -128,12 +131,17 @@ export default {
 .filters__desktop {
   border: 1px solid $secondary-color;
   width: 100%;
-  text-align: center;
   &:hover {
     background-color: $secondary-color;
   }
   h2 {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    &::before {
+      content: url("../../assets/filter.png");
+      margin-right: 1.5rem;
+    }
   }
 }
 .filter-option__desktop {
@@ -206,11 +214,18 @@ export default {
   flex-direction: column;
   padding: 0;
   width: 100%;
-  li {
+  .sidebar-list__item {
     padding: 0.3rem;
     margin: 0.2rem 0;
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 1.4rem;
     &:hover {
       background: $secondary-color;
+    }
+    &::before {
+      margin-right: 1.5rem;
     }
     a {
       color: black;
@@ -218,6 +233,29 @@ export default {
     }
     h2 {
       cursor: pointer;
+    }
+  }
+  .sidebar-list__item.enter::before {
+    content: url("../../assets/login.png");
+  }
+  .sidebar-list__item.delivery::before {
+    content: url("../../assets/delivery.png");
+  }
+  .sidebar-list__item.sales::before {
+    content: url("../../assets/sales.png");
+  }
+  .sidebar-list__item.location {
+    flex-direction: column;
+  }
+  .shop-location {
+    width: 100%;
+    font-weight: 400;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    &::before {
+      margin-right: 1.5rem;
+      content: url("../../assets/location.png");
     }
   }
 }

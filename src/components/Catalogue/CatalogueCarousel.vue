@@ -1,7 +1,7 @@
 <template>
   <div class="carousel">
     <h3>{{ name }}</h3>
-    <div class="carousel__list-container">
+    <div class="carousel__list-container" :id="id">
       <ul class="carousel__list">
         <carousel-item
           v-for="item in carousel"
@@ -19,6 +19,10 @@
         ></carousel-item>
       </ul>
     </div>
+    <div>
+      <button @click="scrollBack">Back</button>
+      <button @click="scrollForward">Forward</button>
+    </div>
   </div>
 </template>
 
@@ -27,6 +31,30 @@
 export default {
   components: [],
   props: ["id", "name", "popularity", "carousel"],
+  methods: {
+    sideScroll(element, direction, speed, distance, step) {
+      let scrollAmount = 0;
+      let slideTimer = setInterval(function() {
+        if (direction === "left") {
+          element.scrollLeft -= step;
+        } else {
+          element.scrollLeft += step;
+        }
+        scrollAmount += step;
+        if (scrollAmount >= distance) {
+          window.clearInterval(slideTimer);
+        }
+      }, speed);
+    },
+    scrollBack() {
+      let div = document.querySelector(`#${this.id}`);
+      this.sideScroll(div, "left", 25, 100, 10);
+    },
+    scrollForward() {
+      let div = document.querySelector(`#${this.id}`);
+      this.sideScroll(div, "right", 25, 100, 10);
+    },
+  },
 };
 </script>
 
@@ -45,7 +73,7 @@ export default {
 .carousel__list-container {
   min-height: 20rem;
   width: auto;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
   &::-webkit-scrollbar {
     height: 0.7rem;
