@@ -19,17 +19,21 @@
         ></carousel-item>
       </ul>
     </div>
-    <div>
-      <button @click="scrollBack">Back</button>
-      <button @click="scrollForward">Forward</button>
-    </div>
+    <base-button @click="scrollBack" class="arrow-back">
+      <img src="../../assets/arrow-back.png" alt="" />
+    </base-button>
+    <base-button @click="scrollForward" class="arrow-forward"
+      ><img src="../../assets/arrow-forward.png" alt=""
+    /></base-button>
   </div>
 </template>
 
 <script>
-// import CarouselItem from "./CarouselItem.vue";
+import CarouselItem from "./CarouselItem.vue";
 export default {
-  components: [],
+  components: {
+    CarouselItem,
+  },
   props: ["id", "name", "popularity", "carousel"],
   methods: {
     sideScroll(element, direction, speed, distance, step) {
@@ -59,10 +63,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../variables.scss";
 .carousel {
   display: flex;
   flex-direction: column;
   text-align: center;
+  position: relative;
   h3 {
     font-family: "Raleway", sans-serif;
     font-size: 2rem;
@@ -111,5 +117,16 @@ export default {
   padding: 0;
   list-style: none;
   height: 100%;
+}
+
+.arrow-back {
+  position: absolute;
+  top: 50%;
+  left: 3rem;
+}
+.arrow-forward {
+  position: absolute;
+  top: 50%;
+  right: 3rem;
 }
 </style>

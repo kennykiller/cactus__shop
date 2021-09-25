@@ -1,4 +1,11 @@
 <template>
+  <base-dialog
+    v-if="successfulOrder || isShortage"
+    titleSuccess="Спасибо за покупку"
+    titleFail="Приносим свои извинения"
+    :show="successfulOrder || isShortage"
+    @close="closeDialog"
+  ></base-dialog>
   <div class="cart">
     <div
       class="cart-indicator"
@@ -23,20 +30,25 @@
       </div>
       <h4 class="cartSubTotal">Итого: {{ totalSum }} рублей</h4>
       <div class="button-container">
-        <button class="clearCart" @click="clearCart">
+        <base-button class="clearCart" @click="clearCart">
           Убрать все из корзины
-        </button>
-        <button class="checkoutCart">Оформить заказ</button>
+        </base-button>
+        <base-button @click="submitOrder" v-if="isAuthenticated" class="checkoutCart"
+          >Оформить заказ</base-button
+        >
+        <base-button v-else :link="true" to="/auth" class="checkoutCart">Войти и купить</base-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import BaseButton from '../UI/BaseButton.vue';
 import CartIt from "./../Cart/CartIt.vue";
 export default {
   components: {
     CartIt,
+    BaseButton,
   },
   computed: {
     ordersQuantity() {
@@ -45,10 +57,17 @@ export default {
     totalSum() {
       return this.$store.getters.totalSum;
     },
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+    isShortage() {
+      return this.$store.getters.shortage !== null ? true : false;
+    },
   },
   data() {
     return {
       cartIsOpened: false,
+      successfulOrder: false,
     };
   },
   methods: {
@@ -62,20 +81,30 @@ export default {
       this.$store.commit("clearCart");
       console.log(this.$store.getters.catalogue);
     },
+    submitOrder() {
+      this.$store.dispatch("checkStock");
+      this.successfulOrder = true;
+    },
+    closeDialog() {
+      this.successfulOrder = false;
+      this.$store.commit("clearCart");
+      this.$store.commit("clearShortage");
+      this.$router.push("catalogue");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../../variables.scss';
+@import "../../variables.scss";
 
 .cart {
   position: fixed;
   right: 0;
   top: 5rem;
   text-align: right;
-  background: rgba(146, 125, 150, 0.863);
-  // background: $secondary-color;
+  background: rgba(255, 226, 226, 0.85);;
+  
   color: black;
   z-index: 1;
 
@@ -125,19 +154,6 @@ export default {
     align-items: center;
     justify-content: space-around;
     margin: 0;
-    button {
-      border: 1px solid lightgray;
-      box-shadow: 2px 2px 3px rgb(31, 30, 30);
-      border-radius: 2rem;
-      padding: 0.6rem;
-      font-family: "Raleway", sans-serif;
-      cursor: pointer;
-      &:hover {
-        background-color: rgba(27, 26, 26, 0.836);
-        color: white;
-        border: none;
-      }
-    }
     .clearCart {
       margin: 2rem 2rem 1rem 0;
     }

@@ -1,8 +1,8 @@
 <template>
-  <button v-if="!link" :class="mode">
+  <button v-if="!link">
     <slot></slot>
   </button>
-  <router-link v-else :to="to" :class="mode">
+  <router-link v-else :to="to">
     <slot></slot>
   </router-link>
 </template>
@@ -10,11 +10,6 @@
 <script>
 export default {
   props: {
-    mode: {
-      type: String,
-      required: false,
-      default: null,
-    },
     link: {
       type: Boolean,
       required: false,
@@ -29,29 +24,34 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../../variables.scss';
+
 button,
 a {
-  padding: 0.3rem;
-  border-radius: 30%;
+  display: block;
+  border: 1px solid lightgray;
+  box-shadow: 2px 2px 3px rgb(31, 30, 30);
+  background-color: $base-color;
+  border-radius: 2rem;
+  padding: 0.6rem;
+  font-family: "Raleway", sans-serif;
   cursor: pointer;
-  display: inline-block;
-  color: #081b06;
-  text-decoration: none;
-  font-family: inherit;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  border: none;
-  background-color: white;
+  &:hover,
+  &:active {
+    background-color: $secondary-color;
+    color: black;
+    font-weight: 700;
+    border: none;
+  }
 }
 
-a:hover,
-a:active,
-button:hover,
-button:active {
-  background-color: rgb(245, 196, 196);
-  border-color: #011805;
-  /* color: rgb(245, 196, 196) */
-}
-
+// a:hover,
+// a:active,
+// button:hover,
+// button:active {
+//   background-color: rgb(245, 196, 196);
+//   border-color: #011805;
+//   /* color: rgb(245, 196, 196) */
+// }
 </style>

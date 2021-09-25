@@ -15,6 +15,21 @@ export default {
     TheHeader,
     TheFooter,
   },
+  created() {
+    return this.$store.dispatch('tryLogin');
+  },
+  computed: {
+    didAutoLogout() {
+      return this.$store.getters.didAutoLogout;
+    }
+  },
+  watch: {
+    didAutoLogout(curValue, oldValue) {
+      if (curValue && curValue !== oldValue) {
+        this.$router.replace('/catalogue')
+      }
+    }
+  }
 };
 </script>
 

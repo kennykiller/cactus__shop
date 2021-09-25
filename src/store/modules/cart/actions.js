@@ -18,22 +18,37 @@ export default {
     }
 
     console.log(responseData);
-    const flowers = [];
+    const flowersType = [];
     for (const key in responseData) {
-      const flowerStock = {
+      const flowers = {
         id: key,
-        initialStock: responseData[key].initialStock,
-        stockLeft: responseData[key].stockLeft,
-        name: responseData[key].name,
+        carousel: responseData[key].carousel
       };
-      flowers.push(flowerStock);
+      flowersType.push(flowers);
     }
+
+    console.log(flowersType);
+
+    let flowersArr = [];
+
+    flowersType.forEach(obj => {
+      for (let key in obj.carousel) {
+        const flowers = {
+          id: obj.id + obj.carousel[key].front,
+          initialStock: obj.carousel[key].initialStock,
+          stockLeft: obj.carousel[key].stockLeft
+        };
+        flowersArr.push(flowers)
+      }
+    })
+
+    console.log(flowersArr);
 
     const checkedItems = [];
 
     for (const order of context.getters.orders) {
       console.log(order.id);
-      const orderedItem = flowers.find((flower) => {
+      const orderedItem = flowersArr.find((flower) => {
         console.log(flower.id);
         return flower.id === order.id;
       });

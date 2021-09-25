@@ -11,7 +11,7 @@
       >
       </catalogue-carousel>
     </div>
-    <div v-if="!filters">
+    <div v-else>
       <catalogue-carousel  
         v-for="item in $store.getters.catalogue"
         :key="item.id"
@@ -27,12 +27,10 @@
 </template>
 
 <script>
-// import CatalogueItem from "./CatalogueItem.vue";
 import CatalogueCarousel from "./CatalogueCarousel.vue";
 import CatalogueCart from "./CatalogueCart.vue";
 export default {
   components: {
-    // CatalogueItem,
     CatalogueCarousel,
     CatalogueCart,
   },
