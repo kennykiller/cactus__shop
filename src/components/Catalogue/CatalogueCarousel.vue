@@ -1,7 +1,12 @@
 <template>
   <div class="carousel">
     <h3>{{ name }}</h3>
-    <div class="carousel__list-container" :id="id">
+    <div
+      class="carousel__list-container"
+      :id="id"
+      @mouseover="displayArrows"
+      @mouseout="hideArrows"
+    >
       <ul class="carousel__list">
         <carousel-item
           v-for="item in carousel"
@@ -18,13 +23,15 @@
           :front="item.front"
         ></carousel-item>
       </ul>
+      <div class="arrows">
+        <base-button @click="scrollBack" class="arrow arrow-back">
+          <img src="../../assets/arrow-back.png" alt="" />
+        </base-button>
+        <base-button @click="scrollForward" class="arrow arrow-forward"
+          ><img src="../../assets/arrow-forward.png" alt=""
+        /></base-button>
+      </div>
     </div>
-    <base-button @click="scrollBack" class="arrow-back">
-      <img src="../../assets/arrow-back.png" alt="" />
-    </base-button>
-    <base-button @click="scrollForward" class="arrow-forward"
-      ><img src="../../assets/arrow-forward.png" alt=""
-    /></base-button>
   </div>
 </template>
 
@@ -52,11 +59,23 @@ export default {
     },
     scrollBack() {
       let div = document.querySelector(`#${this.id}`);
-      this.sideScroll(div, "left", 25, 100, 10);
+      this.sideScroll(div, "left", 40, 100, 25);
     },
     scrollForward() {
       let div = document.querySelector(`#${this.id}`);
-      this.sideScroll(div, "right", 25, 100, 10);
+      this.sideScroll(div, "right", 40, 100, 25);
+    },
+    chooseArrows() {
+      let div = document.querySelector(`#${this.id}`);
+      return div.lastElementChild;
+    },
+    displayArrows() {
+      let arrows = this.chooseArrows();
+      arrows.classList.add("active");
+    },
+    hideArrows() {
+      let arrows = this.chooseArrows();
+      arrows.classList.remove("active");
     },
   },
 };
@@ -119,14 +138,30 @@ export default {
   height: 100%;
 }
 
-.arrow-back {
-  position: absolute;
-  top: 50%;
-  left: 3rem;
+.arrows {
+  transition: opacity 0.3s ease-out;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  .arrow {
+    position: absolute;
+    height: 4rem;
+    background-color: $base-color-transparent;
+    &:hover {
+      background-color: $secondary-color-transparent;
+    }
+  }
+  .arrow-back {
+    top: 50%;
+    left: 10vw;
+  }
+  .arrow-forward {
+    top: 50%;
+    right: 10vw;
+  }
 }
-.arrow-forward {
-  position: absolute;
-  top: 50%;
-  right: 3rem;
+.arrows.active {
+  opacity: 1;
+  height: auto;
 }
 </style>

@@ -6,44 +6,51 @@
     :show="successfulOrder || isShortage"
     @close="closeDialog"
   ></base-dialog>
-  <div class="cart">
-    <div
-      class="cart-indicator"
-      @click="toggleCart"
-      :class="{ opened: cartIsOpened }"
-    >
-      <span class="cart-size" v-if="!cartIsOpened">{{ ordersQuantity }}</span>
-      <span class="fa fa-shopping-cart"></span>
-    </div>
-    <div class="cart-items" v-if="cartIsOpened">
-      <div class="cart-container">
-        <cart-it
-          v-for="order in $store.getters.orders"
-          :key="order.id"
-          :id="order.id"
-          :name="order.name"
-          :amount="order.quantityOrdered"
-          :price="order.price"
-          :img="order.img"
-          :counter="order.quantityOrdered"
-        ></cart-it>
+  <div class="wrapper">
+    <div class="cart">
+      <div
+        class="cart-indicator"
+        @click="toggleCart"
+        :class="{ opened: cartIsOpened }"
+      >
+        <span class="cart-size" v-if="!cartIsOpened">{{ ordersQuantity }}</span>
+        <span class="fa fa-shopping-cart"></span>
       </div>
-      <h4 class="cartSubTotal">Итого: {{ totalSum }} рублей</h4>
-      <div class="button-container">
-        <base-button class="clearCart" @click="clearCart">
-          Убрать все из корзины
-        </base-button>
-        <base-button @click="submitOrder" v-if="isAuthenticated" class="checkoutCart"
-          >Оформить заказ</base-button
-        >
-        <base-button v-else :link="true" to="/auth" class="checkoutCart">Войти и купить</base-button>
+      <div class="cart-items" v-if="cartIsOpened">
+        <div class="cart-container">
+          <cart-it
+            v-for="order in $store.getters.orders"
+            :key="order.id"
+            :id="order.id"
+            :name="order.name"
+            :amount="order.quantityOrdered"
+            :price="order.price"
+            :img="order.img"
+            :counter="order.quantityOrdered"
+          ></cart-it>
+        </div>
+        <h4 class="cartSubTotal">Итого: {{ totalSum }} рублей</h4>
+        <div class="button-container">
+          <base-button class="clearCart" @click="clearCart">
+            Убрать все из корзины
+          </base-button>
+          <base-button
+            @click="submitOrder"
+            v-if="isAuthenticated"
+            class="checkoutCart"
+            >Оформить заказ</base-button
+          >
+          <base-button v-else :link="true" to="/auth" class="checkoutCart"
+            >Войти и купить</base-button
+          >
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import BaseButton from '../UI/BaseButton.vue';
+import BaseButton from "../UI/BaseButton.vue";
 import CartIt from "./../Cart/CartIt.vue";
 export default {
   components: {
@@ -98,15 +105,20 @@ export default {
 <style lang="scss" scoped>
 @import "../../variables.scss";
 
+.wrapper {
+  position: relative;
+  transform: translate(1px);
+}
+
 .cart {
   position: fixed;
   right: 0;
-  top: 5rem;
+  top: 0;
   text-align: right;
-  background: rgba(255, 226, 226, 0.85);;
-  
+  background: rgba(255, 226, 226, 0.85);
+
   color: black;
-  z-index: 1;
+  z-index: 1000;
 
   .cart-indicator {
     display: flex;

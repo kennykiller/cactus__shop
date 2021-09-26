@@ -32,7 +32,7 @@ export default {
       let str2 = flower.id.slice(20);
       let srcNum = 'src' + Math.ceil((+str2.match(/\d+/g)) / 2);
       console.log(str1, str2, srcNum, checkedItems);
-      let token = context.getters.isToken;
+      let token = context.getters.isAuthenticated;
       const response = await fetch(
         `https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBase/${str1}/carousel/${srcNum}.json?auth=` + token,
         {

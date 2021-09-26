@@ -38,9 +38,11 @@
 
     <nav class="sidebar-nav__container">
       <ul class="sidebar-list__items">
-        <router-link to="/auth"
-          ><li class="sidebar-list__item enter">Войти</li></router-link
+        <router-link to="/auth" v-if="!isAuthenticated"
+          ><li class="sidebar-list__item login">Войти</li></router-link
         >
+
+        <li v-else class="sidebar-list__item logout" @click="logout">Выйти</li>
 
         <router-link to="/cactus"
           ><li class="sidebar-list__item delivery">Доставка</li></router-link
@@ -78,6 +80,11 @@ export default {
       infoIsOpened: false,
     };
   },
+  computed: {
+    isAuthenticated() {
+      return !!this.$store.getters.isAuthenticated;
+    },
+  },
   methods: {
     setFilters() {
       this.filterIsSet = !this.filterIsSet;
@@ -101,6 +108,9 @@ export default {
       this.$store.commit("clearFilters");
       console.log(123);
     },
+    logout() {
+      this.$store.dispatch('logout');
+    }
   },
 };
 </script>
@@ -235,8 +245,11 @@ export default {
       cursor: pointer;
     }
   }
-  .sidebar-list__item.enter::before {
+  .sidebar-list__item.login::before {
     content: url("../../assets/login.png");
+  }
+  .sidebar-list__item.logout::before {
+    content: url("../../assets/logout.png");
   }
   .sidebar-list__item.delivery::before {
     content: url("../../assets/delivery.png");

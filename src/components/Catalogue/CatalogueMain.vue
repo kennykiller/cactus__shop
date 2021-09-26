@@ -22,17 +22,14 @@
       >
       </catalogue-carousel>
     </div>
-    <catalogue-cart></catalogue-cart>
   </main>
 </template>
 
 <script>
 import CatalogueCarousel from "./CatalogueCarousel.vue";
-import CatalogueCart from "./CatalogueCart.vue";
 export default {
   components: {
     CatalogueCarousel,
-    CatalogueCart,
   },
   created() {
     if (this.$store.getters.catalogue.length === 0) {

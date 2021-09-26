@@ -59,7 +59,8 @@ export default {
           .join()
           .slice(1);
         return checkingFormula > 10 ? false : true;
-      } return true;
+      }
+      return true;
     },
   },
   methods: {
@@ -102,21 +103,29 @@ export default {
       margin: 0.5rem auto;
       height: 90%;
       width: 90%;
-      border: 1px solid lightgray;
+      box-shadow: 3px 2px 3px lightgray;
+      cursor: pointer;
     }
     img:nth-child(2) {
+      // overflow: hidden;
+      // opacity: 0;
+      // height: 0;
+      // transition: height 0ms 400ms, opacity 600ms 0ms;
+      // box-shadow: none;
       display: none;
-      border: 0;
     }
   }
 }
 .carousel__image-container:hover > img:nth-child(1) {
   display: none;
-  border: 0;
+  box-shadow: none;
 }
 .carousel__image-container:hover > img:nth-child(2) {
+  // opacity: 1;
+  // height: auto;
+  // transition: height 0ms 0ms, opacity 600ms 0ms;
+  // box-shadow: 3px 2px 3px lightgray;
   display: block;
-  border: 1px solid lightgray;
 }
 .description-container {
   display: flex;

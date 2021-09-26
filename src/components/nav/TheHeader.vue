@@ -8,24 +8,20 @@
         <h1>
           <router-link to="/">Kaktus</router-link>
         </h1>
-        <!-- <router-link to="cart" class="cartBtn-container"
-          ><span class="cartBtn-name">Корзина</span>
-          <div class="cartBtn-count">
-            <span class="cart-count">{{ ordersQuantity }}</span>
-          </div></router-link
-        > -->
       </div>
       <nav class="desktop-view">
         <ul>
-          <li>
+          <!-- <li>
             <router-link to="/cart">Корзина</router-link>
-          </li>
-          <li>
+          </li> -->
+          <li></li>
+          <li v-if="!isAuthenticated">
             <router-link to="/auth">Войти в личный кабинет</router-link>
           </li>
           <!-- <li><router-link to="/auth">Выйти</router-link></li> -->
         </ul>
       </nav>
+      <catalogue-cart></catalogue-cart>
     </header>
     <transition name="openedBar">
       <nav-bar v-if="burgerIsOpened" @close="toggleBurger"></nav-bar>
@@ -40,10 +36,12 @@
 
 <script>
 import NavBar from "./NavBar.vue";
+import CatalogueCart from "./../Catalogue/CatalogueCart.vue";
 
 export default {
   components: {
     NavBar,
+    CatalogueCart,
   },
   data() {
     return {
@@ -53,6 +51,9 @@ export default {
   computed: {
     ordersQuantity() {
       return this.$store.getters.orders.length;
+    },
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
     },
   },
   methods: {
@@ -67,15 +68,14 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
+  z-index: 50;
 }
 header {
   width: 100%;
-  height: 5rem;
   padding: 5px;
   margin: auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   border-bottom: 1px solid lightgray;
   a {
     text-decoration: none;
@@ -89,6 +89,11 @@ header {
 div {
   display: flex;
   align-items: center;
+}
+.cart-container {
+  position: relative;
+  height: auto;
+  width: auto;
 }
 // burger starts
 .burger {
@@ -141,7 +146,7 @@ div {
   span.active {
     background: rgba(255, 255, 255, 0);
   }
-  @media(min-width: 768px) {
+  @media (min-width: 768px) {
     display: none;
   }
 }
@@ -186,8 +191,8 @@ h1 {
     color: rgb(58, 100, 58);
     font-family: "Allison", cursive;
     margin: 0;
-    font-size: 3rem;
-    padding: 0.75rem;
+    font-size: 2.5rem;
+    padding: 0.3rem;
   }
   a:hover,
   a:active,
@@ -197,7 +202,7 @@ h1 {
 }
 @media (min-width: 500px) {
   h1 a {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
   .cartBtn-name {
     font-size: 2rem;

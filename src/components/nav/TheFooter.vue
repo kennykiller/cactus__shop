@@ -37,13 +37,14 @@ export default {
 
   .support {
     font-size: 1.2rem;
-    margin-left: 0.2rem;
+    margin-left: 5vw;
     font-weight: bold;
     color: #05270a;
     transition: transform 0.3s linear;
   }
   .contacts {
     transition: transform 0.3s linear;
+    margin-right: 5vw;
     a {
       color: #0c661a;
       font-size: 1.2rem;
