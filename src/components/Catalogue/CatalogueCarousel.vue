@@ -24,12 +24,12 @@
         ></carousel-item>
       </ul>
       <div class="arrows">
-        <base-button @click="scrollBack" class="arrow arrow-back">
+        <div @click="scrollBack" class="arrow arrow-back">
           <img src="../../assets/arrow-back.png" alt="" />
-        </base-button>
-        <base-button @click="scrollForward" class="arrow arrow-forward"
+        </div>
+        <div @click="scrollForward" class="arrow arrow-forward"
           ><img src="../../assets/arrow-forward.png" alt=""
-        /></base-button>
+        /></div>
       </div>
     </div>
   </div>
@@ -146,18 +146,15 @@ export default {
   .arrow {
     position: absolute;
     height: 4rem;
-    background-color: $base-color-transparent;
-    &:hover {
-      background-color: $secondary-color-transparent;
-    }
+    cursor: pointer;
   }
   .arrow-back {
     top: 50%;
-    left: 10vw;
+    left: 3vw;
   }
   .arrow-forward {
     top: 50%;
-    right: 10vw;
+    right: 3vw;
   }
 }
 .arrows.active {

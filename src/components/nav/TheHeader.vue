@@ -36,7 +36,7 @@
 
 <script>
 import NavBar from "./NavBar.vue";
-import CatalogueCart from "./../Catalogue/CatalogueCart.vue";
+import CatalogueCart from "../Cart/CatalogueCart.vue";
 
 export default {
   components: {

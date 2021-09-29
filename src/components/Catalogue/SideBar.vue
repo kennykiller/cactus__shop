@@ -225,6 +225,7 @@ export default {
   padding: 0;
   width: 100%;
   .sidebar-list__item {
+    cursor: pointer;
     padding: 0.3rem;
     margin: 0.2rem 0;
     display: flex;

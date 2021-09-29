@@ -51,7 +51,7 @@
 
 <script>
 import BaseButton from "../UI/BaseButton.vue";
-import CartIt from "./../Cart/CartIt.vue";
+import CartIt from "./CartIt.vue";
 export default {
   components: {
     CartIt,
