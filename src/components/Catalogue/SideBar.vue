@@ -1,75 +1,126 @@
 <template>
   <menu id="toggleMenu">
-    <section class="filters__desktop">
-      <h2 @click="setFilters">Фильтры</h2>
-      <div v-if="filterIsSet">
-        <div class="filter-option__desktop">
-          <label for="filter-type__desktop">По типу:</label>
-          <select name="type" id="filter-type__desktop">
-            <option value="Любая">Любые</option>
-            <option
-              v-for="item in $store.getters.catalogue"
-              :key="item.name"
-              :value="item.name"
-              >{{ item.name }}</option
+    <div class="wrapper">
+      <nav class="sidebar-nav__container">
+        <ul class="sidebar-list__items">
+          <li class="sidebar-list__item filter">
+            <section class="filters__desktop">
+              <span
+                @click="setFilters"
+                class="fas fa-filter"
+                @mouseover="showHint('filter')"
+                @mouseout="hideHint('filter')"
+              ></span>
+              <div v-if="hint.filter" class="notification filter-notification">
+                Настроить фильтры
+              </div>
+              <div class="filters__opened" :class="{ active: filterIsSet }">
+                <div class="filter-option__desktop">
+                  <label for="filter-type__desktop">Тип:</label>
+                  <select name="type" id="filter-type__desktop">
+                    <option value="Любая">Любые</option>
+                    <option
+                      v-for="item in $store.getters.catalogue"
+                      :key="item.name"
+                      :value="item.name"
+                      >{{ item.name }}</option
+                    >
+                  </select>
+                </div>
+                <div class="filter-option__desktop">
+                  <label for="filter-price__desktop">Цена:</label>
+                  <select name="price" id="filter-price__desktop">
+                    <option value="Любая">Любая</option>
+                    <option value="0    1000">До 1000</option>
+                    <option value="1000 1500">1000 - 1500</option>
+                    <option value="1500 2500">1500 - 2500</option>
+                    <option value="2500 5000">2500 - 5000</option>
+                    <option value="5000 9999">5000 - 9999</option>
+                    <option value="9999 9999999">Дороже 10000</option>
+                  </select>
+                </div>
+                <div class="button-container">
+                  <button @click="clearFilters">
+                    Убрать фильтры
+                  </button>
+                  <button @click="applyFilters">Применить</button>
+                </div>
+              </div>
+            </section>
+          </li>
+          <li
+            class="sidebar-list__item login"
+            v-if="!isAuthenticated"
+            @mouseover="showHint('login')"
+            @mouseout="hideHint('login')"
+            @click="this.$router.push('auth')"
+          >
+            <div v-if="hint.login" class="notification login-notification">
+              Войти в аккаунт
+            </div>
+          </li>
+          <li
+            v-if="isAuthenticated"
+            class="sidebar-list__item logout"
+            @click="logout"
+            @mouseover="showHint('logout')"
+            @mouseout="hideHint('logout')"
+          >
+            <div v-if="hint.logout" class="notification logout-notification">
+              Выход из аккаунта
+            </div>
+          </li>
+          <li
+            class="sidebar-list__item delivery"
+            @mouseover="showHint('delivery')"
+            @mouseout="hideHint('delivery')"
+          >
+            <div
+              v-if="hint.delivery"
+              class="notification delivery-notification"
             >
-          </select>
-        </div>
-        <div class="filter-option__desktop">
-          <label for="filter-price__desktop">По цене (руб):</label>
-          <select name="price" id="filter-price__desktop">
-            <option value="Любая">Любая</option>
-            <option value="0    1000">До 1000</option>
-            <option value="1000 1500">1000 - 1500</option>
-            <option value="1500 2500">1500 - 2500</option>
-            <option value="2500 5000">2500 - 5000</option>
-            <option value="5000 9999">5000 - 9999</option>
-            <option value="9999 9999999">Дороже 10000</option>
-          </select>
-        </div>
-        <div class="button-container">
-          <button @click="clearFilters">
-            Убрать фильтры
-          </button>
-          <button @click="applyFilters">Применить</button>
-        </div>
-      </div>
-    </section>
-
-    <nav class="sidebar-nav__container">
-      <ul class="sidebar-list__items">
-        <router-link to="/auth" v-if="!isAuthenticated"
-          ><li class="sidebar-list__item login">Войти</li></router-link
-        >
-
-        <li v-else class="sidebar-list__item logout" @click="logout">Выйти</li>
-
-        <router-link to="/cactus"
-          ><li class="sidebar-list__item delivery">Доставка</li></router-link
-        >
-
-        <router-link to="/cactus"
-          ><li class="sidebar-list__item sales">Скидки</li></router-link
-        >
-
-        <li class="sidebar-list__item location">
-          <h2 @click="openInfo" class="shop-location">Как нас найти</h2>
-          <div v-if="infoIsOpened">
-            <p>Наш адрес: г.Санкт-Петербург, Комендантский 17к1</p>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1994.2389795602746!2d30.255201716175783!3d60.01111236321207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696343696da5921%3A0x9020ee07809b84e8!2z0JrQvtC80LXQvdC00LDQvdGC0YHQutC40Lkg0L_RgC4sIDE3INC60L7RgNC_0YPRgSAxLCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQsywgMTk3Mzcx!5e0!3m2!1sru!2sru!4v1631976866536!5m2!1sru!2sru"
-              width="250"
-              height="250"
-              style="border:0;"
-              allowfullscreen=""
-              loading="lazy"
-            ></iframe>
-            <p>Время работы: 06.50 - 22.50</p>
-          </div>
-        </li>
-      </ul>
-    </nav>
+              Условия доставки
+            </div>
+          </li>
+          <li
+            class="sidebar-list__item sales"
+            @mouseover="showHint('sales')"
+            @mouseout="hideHint('sales')"
+          >
+            <div v-if="hint.sales" class="notification sales-notification">
+              Скидки
+            </div>
+          </li>
+          <li
+            class="sidebar-list__item location"
+            @mouseover="showHint('location')"
+            @mouseout="hideHint('location')"
+          >
+            <span class="fas fa-search-location" @click="toggleInfo"></span>
+            <div v-if="hint.location" class="notification sales-notification">
+              Где нас найти
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </menu>
+  <div v-if="infoIsOpened" class="shop-location">
+    <div class="location_header">
+      <p>г.Санкт-Петербург, Комендантский 17к1</p>
+      <span class="fas fa-window-close" @click="toggleInfo"></span>
+    </div>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1994.2389795602746!2d30.255201716175783!3d60.01111236321207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696343696da5921%3A0x9020ee07809b84e8!2z0JrQvtC80LXQvdC00LDQvdGC0YHQutC40Lkg0L_RgC4sIDE3INC60L7RgNC_0YPRgSAxLCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQsywgMTk3Mzcx!5e0!3m2!1sru!2sru!4v1631976866536!5m2!1sru!2sru"
+      width="370"
+      height="370"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+    ></iframe>
+    <p>Время работы: 06.50 - 22.50</p>
+  </div>
+  <base-dialog v-if="infoIsOpened" :show="false"></base-dialog>
 </template>
 
 <script>
@@ -78,6 +129,14 @@ export default {
     return {
       filterIsSet: false,
       infoIsOpened: false,
+      hint: {
+        filter: false,
+        login: false,
+        logout: false,
+        delivery: false,
+        sales: false,
+        location: false,
+      },
     };
   },
   computed: {
@@ -86,10 +145,16 @@ export default {
     },
   },
   methods: {
+    showHint(item) {
+      this.hint[item] = true;
+    },
+    hideHint(item) {
+      this.hint[item] = false;
+    },
     setFilters() {
       this.filterIsSet = !this.filterIsSet;
     },
-    openInfo() {
+    toggleInfo() {
       this.infoIsOpened = !this.infoIsOpened;
     },
     applyFilters() {
@@ -109,8 +174,8 @@ export default {
       console.log(123);
     },
     logout() {
-      this.$store.dispatch('logout');
-    }
+      this.$store.dispatch("logout");
+    },
   },
 };
 </script>
@@ -119,50 +184,79 @@ export default {
 @import "../../variables.scss";
 
 #toggleMenu {
-  background: $base-color;
+  background: $fourth-color;
   border: 1px solid $third-color;
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 18rem;
-  flex-basis: 18rem;
+  width: 4rem;
   flex-grow: 0;
-  flex-shrink: 0;
   padding: 0;
   position: fixed;
   top: 5rem;
   left: calc((100vw - 116rem) / 2);
   bottom: 5rem;
+  border-radius: 0.5rem;
   @media (max-width: 115rem) {
     position: static;
     height: calc(100vh - 10rem);
   }
+  .wrapper {
+    // position: relative;
+    width: 100%;
+  }
 }
 .filters__desktop {
-  border: 1px solid $secondary-color;
   width: 100%;
-  &:hover {
+  text-align: center;
+  position: relative;
+  .filters__opened {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 18rem;
+    right: 0;
+    top: 0;
+    transform: translateX(19rem);
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+    z-index: 100;
     background-color: $secondary-color;
-  }
-  h2 {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    &::before {
-      content: url("../../assets/filter.png");
-      margin-right: 1.5rem;
+    transition: all 0.5s ease;
+    &.active {
+      opacity: 1;
+      pointer-events: painted;
     }
   }
+}
+.notification {
+  display: block;
+  position: absolute;
+  width: 8rem;
+  top: 0;
+  right: 0;
+  transform: translateX(9rem);
+  padding: 0.2rem;
+  border-radius: 0.5rem;
+  z-index: 50;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  background-color: $fourth-color;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .filter-option__desktop {
   margin: 0.3rem 0 1rem 0;
   text-align: start;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   label {
     display: block;
-    margin-bottom: 0.5rem;
-    margin-left: 0.5rem;
+    margin: 0.5rem;
     font-size: 1.2rem;
   }
   select {
@@ -218,6 +312,7 @@ export default {
 }
 .sidebar-nav__container {
   width: 100%;
+  z-index: 50;
 }
 .sidebar-list__items {
   display: flex;
@@ -225,6 +320,7 @@ export default {
   padding: 0;
   width: 100%;
   .sidebar-list__item {
+    position: relative;
     cursor: pointer;
     padding: 0.3rem;
     margin: 0.2rem 0;
@@ -232,15 +328,9 @@ export default {
     align-items: center;
     color: black;
     font-size: 1.4rem;
+    transition: all 0.3s ease;
     &:hover {
-      background: $secondary-color;
-    }
-    &::before {
-      margin-right: 1.5rem;
-    }
-    a {
-      color: black;
-      font-size: 1.5rem;
+      transform: scale(1.2);
     }
     h2 {
       cursor: pointer;
@@ -258,18 +348,50 @@ export default {
   .sidebar-list__item.sales::before {
     content: url("../../assets/sales.png");
   }
-  .sidebar-list__item.location {
-    flex-direction: column;
+}
+.fa-search-location,
+.fa-filter {
+  font-size: 2.7rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: rgb(19, 18, 18);
+  font-weight: 700;
+  &:hover {
+    transform: scale(1.1);
   }
-  .shop-location {
+}
+.shop-location {
+  position: absolute;
+  height: 30rem;
+  width: 30rem;
+  top: 50%;
+  left: 50%;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  background-color: $secondary-color;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  .location_header {
     width: 100%;
-    font-weight: 400;
-    font-size: 1.5rem;
     display: flex;
     align-items: center;
-    &::before {
-      margin-right: 1.5rem;
-      content: url("../../assets/location.png");
+    justify-content: center;
+    padding: 0 0.5rem;
+    position: relative;
+  }
+  .fa-window-close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.4s linear;
+    &:hover {
+      transform: scale(1.2)
     }
   }
 }
