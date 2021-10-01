@@ -1,5 +1,9 @@
 <template>
-  <main>
+  <main :class="{ loading: isLoading }">
+    <div v-if="isLoading" class="loading-spinner">
+      <span class="fa fa-spin fa-3x fa-spinner" aria-hidden="true"></span>
+      <span>Список товаров загружается...</span>
+    </div>
     <div v-if="filters">
       <catalogue-carousel
         v-for="item in $store.getters.filtered"
@@ -12,7 +16,7 @@
       </catalogue-carousel>
     </div>
     <div v-else>
-      <catalogue-carousel  
+      <catalogue-carousel
         v-for="item in $store.getters.catalogue"
         :key="item.id"
         :id="item.id"
@@ -31,9 +35,16 @@ export default {
   components: {
     CatalogueCarousel,
   },
-  created() {
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
+  async created() {
     if (this.$store.getters.catalogue.length === 0) {
-      this.$store.dispatch("getItems");
+      this.isLoading = true;
+      await this.$store.dispatch("getItems");
+      this.isLoading = false;
     }
   },
   computed: {
@@ -73,6 +84,19 @@ main {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #555;
+  }
+}
+.loading {
+  align-items: center;
+  justify-content: center;
+  .loading-spinner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    span {
+      padding: 1rem;
+    }
   }
 }
 </style>
