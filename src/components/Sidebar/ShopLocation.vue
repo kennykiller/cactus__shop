@@ -1,0 +1,68 @@
+<template>
+  <div class="shop-location">
+    <header class="location_header">
+      <p>г.Санкт-Петербург, Комендантский 17к1</p>
+      <span class="fas fa-window-close" @click="toggleInfo"></span>
+    </header>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1994.2389795602746!2d30.255201716175783!3d60.01111236321207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696343696da5921%3A0x9020ee07809b84e8!2z0JrQvtC80LXQvdC00LDQvdGC0YHQutC40Lkg0L_RgC4sIDE3INC60L7RgNC_0YPRgSAxLCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQsywgMTk3Mzcx!5e0!3m2!1sru!2sru!4v1631976866536!5m2!1sru!2sru"
+      width="370"
+      height="370"
+      style="border:0;border-radius: 0.5rem"
+      allowfullscreen=""
+      loading="lazy"
+    ></iframe>
+    <p>Время работы: 06.50 - 22.50</p>
+  </div>
+</template>
+
+<script>
+export default {
+  emits: ["toggle-info"],
+  methods: {
+    toggleInfo() {
+      this.$emit("toggle-info");
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '../../variables.scss';
+.shop-location {
+  position: absolute;
+  height: 30rem;
+  width: 30rem;
+  top: 50%;
+  left: 50%;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-shadow: 1rem 1rem 2.5rem  $base-color;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-shadow: 1px 1px 2px $base-color;
+  .location_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.5rem;
+    position: relative;
+  }
+  .fa-window-close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.4s linear;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+</style>

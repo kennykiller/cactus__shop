@@ -74,6 +74,7 @@
             class="sidebar-list__item delivery"
             @mouseover="showHint('delivery')"
             @mouseout="hideHint('delivery')"
+            @click="toggleInfo('delivery')"
           >
             <div
               v-if="hint.delivery"
@@ -96,7 +97,10 @@
             @mouseover="showHint('location')"
             @mouseout="hideHint('location')"
           >
-            <span class="fas fa-search-location" @click="toggleInfo"></span>
+            <span
+              class="fas fa-search-location"
+              @click="toggleInfo('location')"
+            ></span>
             <div v-if="hint.location" class="notification sales-notification">
               Где нас найти
             </div>
@@ -105,30 +109,40 @@
       </nav>
     </div>
   </menu>
-  <div v-if="infoIsOpened" class="shop-location">
-    <div class="location_header">
-      <p>г.Санкт-Петербург, Комендантский 17к1</p>
-      <span class="fas fa-window-close" @click="toggleInfo"></span>
-    </div>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1994.2389795602746!2d30.255201716175783!3d60.01111236321207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4696343696da5921%3A0x9020ee07809b84e8!2z0JrQvtC80LXQvdC00LDQvdGC0YHQutC40Lkg0L_RgC4sIDE3INC60L7RgNC_0YPRgSAxLCDQodCw0L3QutGCLdCf0LXRgtC10YDQsdGD0YDQsywgMTk3Mzcx!5e0!3m2!1sru!2sru!4v1631976866536!5m2!1sru!2sru"
-      width="370"
-      height="370"
-      style="border:0;border-radius: 0.5rem"
-      allowfullscreen=""
-      loading="lazy"
-    ></iframe>
-    <p>Время работы: 06.50 - 22.50</p>
-  </div>
-  <base-dialog v-if="infoIsOpened" :show="false"></base-dialog>
+  <shop-location
+    v-if="infoIsOpened.location"
+    @toggleInfo="toggleInfo('location')"
+  ></shop-location>
+  <delivery
+    v-if="infoIsOpened.delivery"
+    @toggleInfo="toggleInfo('delivery')"
+  ></delivery>
+  <sales v-if="infoIsOpened.sales" @toggleInfo="toggleInfo('sales')"></sales>
+  <base-dialog
+    v-if="infoIsOpened.delivery || infoIsOpened.location || infoIsOpened.sales"
+    :show="false"
+  ></base-dialog>
 </template>
 
 <script>
+import Sales from "../Sidebar/Sales.vue";
+import Delivery from "../Sidebar/Delivery.vue";
+import ShopLocation from "../Sidebar/ShopLocation.vue";
+
 export default {
+  components: {
+    ShopLocation,
+    Delivery,
+    Sales,
+  },
   data() {
     return {
       filterIsSet: false,
-      infoIsOpened: false,
+      infoIsOpened: {
+        delivery: false,
+        location: false,
+        sales: false,
+      },
       hint: {
         filter: false,
         login: false,
@@ -154,8 +168,8 @@ export default {
     setFilters() {
       this.filterIsSet = !this.filterIsSet;
     },
-    toggleInfo() {
-      this.infoIsOpened = !this.infoIsOpened;
+    toggleInfo(item) {
+      this.infoIsOpened[item] = !this.infoIsOpened[item];
     },
     applyFilters() {
       this.clearFilters();
@@ -184,7 +198,16 @@ export default {
 @import "../../variables.scss";
 
 #toggleMenu {
-  background: $fourth-color;
+  background: linear-gradient(
+    to right bottom,
+    $base-color,
+    $base-color-transparent,
+    $secondary-color-transparent,
+    $secondary-color,
+    $fourth-color
+  );
+  background-size: 300% 300%;
+  animation: menu-gradient 6s ease infinite;
   border: 1px solid $third-color;
   display: flex;
   flex-direction: column;
@@ -203,8 +226,19 @@ export default {
     height: calc(100vh - 10rem);
   }
   .wrapper {
-    // position: relative;
     width: 100%;
+  }
+}
+
+@keyframes menu-gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
   }
 }
 .filters__desktop {
@@ -234,16 +268,19 @@ export default {
   display: block;
   position: absolute;
   width: 8rem;
+  height: 3.5rem;
   top: 0;
   right: 0;
   transform: translateX(9rem);
   padding: 0.2rem;
+  background-color: #fff;
   border-radius: 0.5rem;
+  border: 1px solid lightgray;
+  box-shadow: 0.2rem 0.2rem 0.5rem black;
   z-index: 50;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1.1rem;
   font-style: italic;
-  background-color: $fourth-color;
   text-align: center;
   display: flex;
   align-items: center;
@@ -359,40 +396,6 @@ export default {
   font-weight: 700;
   &:hover {
     transform: scale(1.1);
-  }
-}
-.shop-location {
-  position: absolute;
-  height: 30rem;
-  width: 30rem;
-  top: 50%;
-  left: 50%;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  background-color: $secondary-color;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  .location_header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.5rem;
-    position: relative;
-  }
-  .fa-window-close {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.4s linear;
-    &:hover {
-      transform: scale(1.2)
-    }
   }
 }
 </style>
