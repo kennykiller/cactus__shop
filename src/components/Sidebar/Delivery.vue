@@ -1,6 +1,6 @@
 <template>
-  <div class="delivery-area">
-    <header class="delivery-header">
+  <div class="base-form">
+    <header class="base-header">
       <p>Мы доставляем бесплатно в следующие районы Санкт-Петербурга</p>
       <p>Среднее время доставки после заказа: 3,5 - 4 часа</p>
       <span class="fas fa-window-close" @click="toggleInfo"></span>
@@ -27,28 +27,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../variables.scss';
-.delivery-area {
-  position: absolute;
+@import './sidebar-form.scss';
+.base-form {
   width: 42rem;
-  top: 50%;
-  left: 50%;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
   box-shadow: 1rem 1rem 2.5rem $secondary-color;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  font-family: Georgia, "Times New Roman", Times, serif;
   text-shadow: 1px 1px 2px $secondary-color;
-  .delivery-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.5rem;
-    position: relative;
+  .base-header {
     flex-direction: column;
   }
   .fa-window-close {

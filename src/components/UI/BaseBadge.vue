@@ -22,14 +22,13 @@ export default {
 <style lang="scss" scoped>
 div {
   position: absolute;
-  background-color: rgb(27, 172, 39);
+  background-color: rgb(200, 236, 40);
   opacity: 0.8;
   z-index: 1;
   font-weight: 700;
   color: rgb(0, 0, 0);
   padding: 0.5rem;
   border-radius: 2rem;
-  border: 1px rgb(2, 44, 2);
 }
 
 .name {
@@ -38,7 +37,13 @@ div {
   background-color: rgb(30, 214, 46);
 }
 .price {
-  bottom: -0.7rem;
-  right: 0.3rem;
+  top: 0.5rem;
+  left: -1.5rem;
+  width: 5rem;
+  height: 1.4rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transform: rotate(-45deg);
 }
 </style>

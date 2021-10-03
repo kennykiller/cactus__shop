@@ -87,6 +87,7 @@
             class="sidebar-list__item sales"
             @mouseover="showHint('sales')"
             @mouseout="hideHint('sales')"
+            @click="toggleInfo('sales')"
           >
             <div v-if="hint.sales" class="notification sales-notification">
               Скидки

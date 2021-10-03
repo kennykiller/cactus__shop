@@ -6,16 +6,26 @@
     </div>
     <div class="description-container">
       <p>{{ desc }}</p>
-      <div class="price-container">
-        <base-button v-if="counter < 2" @click="addToCart"
-          >{{ price }} Руб</base-button
-        >
-        <div class="addToCart-container" v-else>
-          <button @click="reduceFromCart">-</button>
-          <div class="counter-container">{{ quantity }}</div>
-          <button @click="addToCart">+</button>
+      <footer class="footer-container">
+        <div class="sizes-container">
+          <i class="fa fa-arrows-h" aria-hidden="true"></i
+          ><span class="sizes-value">35</span>
         </div>
-      </div>
+        <div class="sizes-container">
+          <i class="fa fa-arrows-v" aria-hidden="true"></i
+          ><span class="sizes-value">40</span>
+        </div>
+        <div class="price-container">
+          <base-button v-if="counter < 2" @click="addToCart"
+            >{{ price }} Руб</base-button
+          >
+          <div class="addToCart-container" v-else>
+            <button @click="reduceFromCart">-</button>
+            <div class="counter-container">{{ quantity }}</div>
+            <button @click="addToCart">+</button>
+          </div>
+        </div>
+      </footer>
     </div>
   </li>
 </template>
@@ -93,10 +103,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../variables.scss";
 .carousel__item {
   margin: 0 0.3rem;
   min-height: 15rem;
   min-width: 15rem;
+  box-shadow: 0.2rem 0.2rem 0.5rem $base-color-transparent;
   .carousel__image-container {
     img {
       display: block;
@@ -134,10 +146,30 @@ export default {
   padding: 0.5rem;
   font-family: "Raleway", sans-serif;
   position: relative;
+
   p {
     font-family: inherit;
     font-size: 1.2rem;
     height: 1.8rem;
+  }
+}
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0.5rem;
+  .sizes-container {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    span:first-child {
+      margin-right: 0.5rem;
+    }
+    .sizes-value {
+      padding-left: 0.1rem;
+      font-family: Helvetica, sans-serif;
+    }
   }
 }
 .price-container {

@@ -1,6 +1,6 @@
 <template>
-  <div class="shop-location">
-    <header class="location_header">
+  <div class="base-form">
+    <header class="base-header">
       <p>г.Санкт-Петербург, Комендантский 17к1</p>
       <span class="fas fa-window-close" @click="toggleInfo"></span>
     </header>
@@ -29,30 +29,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../variables.scss';
-.shop-location {
-  position: absolute;
-  height: 30rem;
-  width: 30rem;
-  top: 50%;
-  left: 50%;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  box-shadow: 1rem 1rem 2.5rem  $base-color;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: space-between;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  text-shadow: 1px 1px 2px $base-color;
-  .location_header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 0.5rem;
-    position: relative;
-  }
+@import './sidebar-form.scss';
   .fa-window-close {
     position: absolute;
     right: 1rem;
@@ -64,5 +41,4 @@ export default {
       transform: scale(1.2);
     }
   }
-}
 </style>
