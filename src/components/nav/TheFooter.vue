@@ -2,7 +2,7 @@
   <footer class="footer">
     <span @click="toggleSupport" class="support">Обратиться в поддержку</span>
     <span class="contacts">
-      <router-link to="/cactus">Наши контакты</router-link>
+      <router-link to="#">Наши контакты</router-link>
     </span>
     <base-support
       v-if="supportDialog"

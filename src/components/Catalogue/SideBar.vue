@@ -333,8 +333,7 @@ export default {
   margin: 0;
   button {
     border: 1px solid lightgray;
-    box-shadow: 2px 2px 3px rgb(31, 30, 30);
-    border-radius: 2rem;
+    border-radius: 0.25rem;
     padding: 0.6rem;
     font-family: "Raleway", sans-serif;
     color: black;
@@ -367,8 +366,8 @@ export default {
     color: black;
     font-size: 1.4rem;
     transition: all 0.3s ease;
-    &:hover {
-      transform: scale(1.2);
+    &:not(.sidebar-list__item.filter):hover {
+      transform: scale(1.15);
     }
     h2 {
       cursor: pointer;
@@ -396,7 +395,7 @@ export default {
   color: rgb(19, 18, 18);
   font-weight: 700;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 }
 </style>

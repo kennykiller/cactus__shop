@@ -50,6 +50,7 @@ body {
   padding: 0;
   height: 100%;
   font-family: Roboto, "Helvetica Neue", Helvetica, sans-serif;
+  // overflow-x: hidden;
 }
 
 #app {

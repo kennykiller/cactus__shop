@@ -31,9 +31,8 @@ button,
 a {
   display: block;
   border: 1px solid lightgray;
-  box-shadow: 2px 2px 3px rgb(31, 30, 30);
   background-color: $base-color;
-  border-radius: 2rem;
+  border-radius: 0.25rem;
   padding: 0.6rem;
   font-family: "Raleway", sans-serif;
   cursor: pointer;
