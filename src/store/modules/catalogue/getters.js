@@ -7,5 +7,8 @@ export default {
     },
     filtered(state) {
         return state.filtered
+    },
+    id(state) {
+        return state.id;
     }
 }

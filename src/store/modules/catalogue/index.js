@@ -8,7 +8,8 @@ export default {
             catalogue: [],
             filtered: [],
             shortage: null,
-            unsuccessfulFilter: null
+            unsuccessfulFilter: null,
+            id: null
         }
     },
     mutations,

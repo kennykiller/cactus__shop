@@ -40,8 +40,17 @@ export default {
     }
   },
   setItems(state, payload) {
-    console.log(payload);
-    state.catalogue.push(payload);
+    const withKeys = {};
+    payload.arr.forEach(item => {
+      const keyExists = withKeys[item.name];
+      if (keyExists) {
+        return keyExists.push(item)
+      }
+      withKeys[item.name] = [item];
+    })
+    state.catalogue = Object.values(withKeys);
+    state.id = payload.id;
+    console.log(state.catalogue, state.id);
   },
   clearCatalogue(state) {
     state.catalogue.length = 0;

@@ -10,7 +10,6 @@
         :key="item.id"
         :id="item.id"
         :name="item.name"
-        :popularity="item.popularity"
         :carousel="item.carousel"
       >
       </catalogue-carousel>
@@ -18,11 +17,9 @@
     <div v-else>
       <catalogue-carousel
         v-for="item in $store.getters.catalogue"
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :popularity="item.popularity"
-        :carousel="item.carousel"
+        :key="item[0].name"
+        :carousel="item"
+        :name="item[0].name"
       >
       </catalogue-carousel>
     </div>

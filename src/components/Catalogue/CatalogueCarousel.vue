@@ -3,7 +3,7 @@
     <h3>{{ name }}</h3>
     <div
       class="carousel__list-container"
-      :id="id"
+      :id="_name"
       @mouseover="displayArrows"
       @mouseout="hideArrows"
     >
@@ -11,10 +11,9 @@
         <carousel-item
           v-for="item in carousel"
           :key="item.front"
-          :id="id + item.front"
-          :name="name"
+          :id="item.name + item.front"
+          :name="item.name"
           :price="item.price"
-          :popularity="popularity"
           :stock="item.stockLeft"
           :initialStock="item.initialStock"
           :counter="item.counter"
@@ -27,9 +26,9 @@
         <div @click="scrollBack" class="arrow arrow-back">
           <img src="../../assets/arrow-back.png" alt="" />
         </div>
-        <div @click="scrollForward" class="arrow arrow-forward"
-          ><img src="../../assets/arrow-forward.png" alt=""
-        /></div>
+        <div @click="scrollForward" class="arrow arrow-forward">
+          <img src="../../assets/arrow-forward.png" alt="" />
+        </div>
       </div>
     </div>
   </div>
@@ -41,7 +40,12 @@ export default {
   components: {
     CarouselItem,
   },
-  props: ["id", "name", "popularity", "carousel"],
+  props: ["carousel", "name"],
+  computed: {
+    _name() {
+      return this.name.replace(/\s+/g, "");
+    }
+  },
   methods: {
     sideScroll(element, direction, speed, distance, step) {
       let scrollAmount = 0;
@@ -58,15 +62,15 @@ export default {
       }, speed);
     },
     scrollBack() {
-      let div = document.querySelector(`#${this.id}`);
+      let div = document.querySelector(`#${this._name}`);
       this.sideScroll(div, "left", 40, 100, 25);
     },
     scrollForward() {
-      let div = document.querySelector(`#${this.id}`);
+      let div = document.querySelector(`#${this._name}`);
       this.sideScroll(div, "right", 40, 100, 25);
     },
     chooseArrows() {
-      let div = document.querySelector(`#${this.id}`);
+      let div = document.querySelector(`#${this._name}`);
       return div.lastElementChild;
     },
     displayArrows() {

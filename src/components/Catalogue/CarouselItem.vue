@@ -41,7 +41,6 @@ export default {
     "front",
     "counter",
     "price",
-    "popularity",
     "initialStock",
   ],
   data() {
