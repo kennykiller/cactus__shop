@@ -1,7 +1,7 @@
 export default {
   async checkStock(context) {
     const response = await fetch(
-      "https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBase.json",
+      "https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBaseDataNew.json",
       {
         method: "GET",
       }
@@ -18,39 +18,42 @@ export default {
     }
 
     console.log(responseData);
-    const flowersType = [];
-    for (const key in responseData) {
-      const flowers = {
-        id: key,
-        carousel: responseData[key].carousel
-      };
-      flowersType.push(flowers);
+    const flowers = [];
+    for (let key in responseData) {
+      flowers.push(responseData[key])
     }
+    
+    // for (const key in responseData) {
+    //   const flowers = {
+    //     id: key,
+    //     carousel: responseData[key].carousel
+    //   };
+    //   flowersType.push(flowers);
+    // }
 
-    console.log(flowersType);
+    // console.log(flowersType);
 
-    let flowersArr = [];
+    // let flowersArr = [];
 
-    flowersType.forEach(obj => {
-      for (let key in obj.carousel) {
-        const flowers = {
-          id: obj.id + obj.carousel[key].front,
-          initialStock: obj.carousel[key].initialStock,
-          stockLeft: obj.carousel[key].stockLeft
-        };
-        flowersArr.push(flowers)
-      }
-    })
+    // flowersType.forEach(obj => {
+    //   for (let key in obj.carousel) {
+    //     const flowers = {
+    //       id: obj.id + obj.carousel[key].front,
+    //       initialStock: obj.carousel[key].initialStock,
+    //       stockLeft: obj.carousel[key].stockLeft
+    //     };
+    //     flowersArr.push(flowers)
+    //   }
+    // })
 
-    console.log(flowersArr);
+    // console.log(flowersArr);
 
     const checkedItems = [];
 
     for (const order of context.getters.orders) {
       console.log(order.id);
-      const orderedItem = flowersArr.find((flower) => {
-        console.log(flower.id);
-        return flower.id === order.id;
+      const orderedItem = flowers.find((flower) => {
+        return flower.name + flower.front === order.id;
       });
       if (orderedItem.initialStock >= order.quantityOrdered) {
         console.log("GREAT");

@@ -83,6 +83,9 @@ export default {
     },
     clearCart() {
       for (let order of this.$store.getters.orders) {
+        console.log(this.$store.getters.orders);
+        console.log(this.$store.getters.catalogue);
+        console.log(order);
         this.$store.commit("resetCounter", order);
       }
       this.$store.commit("clearCart");

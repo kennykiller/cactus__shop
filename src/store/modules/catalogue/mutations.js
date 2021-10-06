@@ -1,43 +1,21 @@
 export default {
   qtyDecrease(state, payload) {
-    let orderedCarousel = state.catalogue.find((a) => payload.name === a.name);
-
-    for (let key in orderedCarousel.carousel) {
-      if (
-        orderedCarousel.id + orderedCarousel.carousel[key].front ===
-        payload.id
-      ) {
-        orderedCarousel.carousel[key].stockLeft -= payload.value;
-        orderedCarousel.carousel[key].counter += payload.value;
-      }
-    }
+    let orderedType = state.catalogue.find((a) => payload.name === a[0].name);
+    let orderedItem = orderedType.find(a => payload.id === a.name + a.front);
+    orderedItem.stockLeft -= payload.value;
+    orderedItem.counter += payload.value;
   },
   qtyIncrease(state, payload) {
-    let orderedCarousel = state.catalogue.find((a) => payload.name === a.name);
-
-    for (let key in orderedCarousel.carousel) {
-      if (
-        orderedCarousel.id + orderedCarousel.carousel[key].front ===
-        payload.id
-      ) {
-        orderedCarousel.carousel[key].stockLeft += payload.value;
-        orderedCarousel.carousel[key].counter -= payload.value;
-      }
-    }
+    let orderedType = state.catalogue.find((a) => payload.name === a[0].name);
+    let orderedItem = orderedType.find(a => payload.id === a.name + a.front);
+    orderedItem.stockLeft += payload.value;
+    orderedItem.counter -= payload.value;
   },
   resetCounter(state, payload) {
-    let orderedCarousel = state.catalogue.find((a) => payload.name === a.name);
-
-    for (let key in orderedCarousel.carousel) {
-      if (
-        orderedCarousel.id + orderedCarousel.carousel[key].front ===
-        payload.id
-      ) {
-        orderedCarousel.carousel[key].counter = 1;
-        orderedCarousel.carousel[key].stockLeft =
-          orderedCarousel.carousel[key].initialStock;
-      }
-    }
+    let orderedCarousel = state.catalogue.find((a) => a[0].name === payload.name);
+    let orderedItem = orderedCarousel.find(obj => obj.name + obj.front === payload.id);
+    orderedItem.counter = 1;
+    orderedItem.stockLeft = orderedItem.initialStock;
   },
   setItems(state, payload) {
     const withKeys = {};

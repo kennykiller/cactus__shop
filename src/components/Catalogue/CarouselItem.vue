@@ -80,11 +80,12 @@ export default {
         price: this.price,
         quantityOrdered: this.counter,
         img: this.front,
+        initialStock: this.initialStock,
       });
       this.$store.commit("qtyDecrease", {
         value: 1,
         id: this.id,
-        name: this.name,
+        name: this.name
       });
     },
     reduceFromCart() {
