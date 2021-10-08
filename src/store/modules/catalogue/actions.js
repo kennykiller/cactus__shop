@@ -26,13 +26,9 @@ export default {
   },
   async updateStock(context, checkedItems) {
     for (let flower of checkedItems) {
-      let str1 = flower.id.slice(0, 20);
-      let str2 = flower.id.slice(20);
-      let srcNum = "src" + Math.ceil(+str2.match(/\d+/g) / 2);
-      console.log(str1, str2, srcNum, checkedItems);
       let token = context.getters.isAuthenticated;
       const response = await fetch(
-        `https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBase/${str1}/carousel/${srcNum}.json?auth=` +
+        `https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBaseDataNew/-Ml5gTvGGBuLKxxN8TJO/index.json?auth=` +
           token,
         {
           method: "PATCH",

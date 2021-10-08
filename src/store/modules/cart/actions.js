@@ -20,53 +20,28 @@ export default {
     console.log(responseData);
     const flowers = [];
     for (let key in responseData) {
-      flowers.push(responseData[key])
+      flowers.push(responseData[key]);
+      console.log(responseData[key]);
     }
     
-    // for (const key in responseData) {
-    //   const flowers = {
-    //     id: key,
-    //     carousel: responseData[key].carousel
-    //   };
-    //   flowersType.push(flowers);
-    // }
-
-    // console.log(flowersType);
-
-    // let flowersArr = [];
-
-    // flowersType.forEach(obj => {
-    //   for (let key in obj.carousel) {
-    //     const flowers = {
-    //       id: obj.id + obj.carousel[key].front,
-    //       initialStock: obj.carousel[key].initialStock,
-    //       stockLeft: obj.carousel[key].stockLeft
-    //     };
-    //     flowersArr.push(flowers)
-    //   }
-    // })
-
-    // console.log(flowersArr);
-
     const checkedItems = [];
 
     for (const order of context.getters.orders) {
-      console.log(order.id);
-      const orderedItem = flowers.find((flower) => {
+      const index = flowers[0].findIndex(flower => {
         return flower.name + flower.front === order.id;
       });
-      if (orderedItem.initialStock >= order.quantityOrdered) {
+      if (flowers[0][index].initialStock >= order.quantityOrdered) {
         console.log("GREAT");
-        const updatedStock = orderedItem.initialStock - order.quantityOrdered;
+        const updatedStock = flowers[0][index].initialStock - order.quantityOrdered;
         checkedItems.push({
-          id: order.id,
+          index: index,
           initialStock: updatedStock,
           stockLeft: updatedStock,
         });
       } else {
         context.commit('setShortage', {
-          initialStock: orderedItem.initialStock,
-          name: orderedItem.name
+          initialStock: flowers[0][index].initialStock,
+          name: flowers[0][index].name
         });
         context.commit('clearCatalogue')
         context.dispatch('getItems')
