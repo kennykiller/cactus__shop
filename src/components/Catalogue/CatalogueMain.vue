@@ -7,10 +7,9 @@
     <div v-if="filters">
       <catalogue-carousel
         v-for="item in $store.getters.filtered"
-        :key="item.id"
-        :id="item.id"
-        :name="item.name"
-        :carousel="item.carousel"
+        :key="item[0].name"
+        :carousel="item"
+        :name="item[0].name"
       >
       </catalogue-carousel>
     </div>

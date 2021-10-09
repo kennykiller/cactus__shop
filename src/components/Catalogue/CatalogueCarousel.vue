@@ -7,7 +7,7 @@
       @mouseover="displayArrows"
       @mouseout="hideArrows"
     >
-      <ul class="carousel__list">
+      <ul class="carousel__list" :class="{ filtered: itemAmount }">
         <carousel-item
           v-for="item in carousel"
           :key="item.front"
@@ -20,6 +20,7 @@
           :desc="item.description"
           :back="item.back"
           :front="item.front"
+          :filtered="itemAmount"
         ></carousel-item>
       </ul>
       <div class="arrows">
@@ -44,7 +45,10 @@ export default {
   computed: {
     _name() {
       return this.name.replace(/\s+/g, "");
-    }
+    },
+    itemAmount() {
+      return this.carousel.length > 4 ? false : true;
+    },
   },
   methods: {
     sideScroll(element, direction, speed, distance, step) {
@@ -140,6 +144,10 @@ export default {
   padding: 0;
   list-style: none;
   height: 100%;
+  // justify-content: center;
+}
+.filtered {
+  justify-content: center;
 }
 
 .arrows {

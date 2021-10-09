@@ -4,6 +4,12 @@
       <nav class="sidebar-nav__container">
         <ul class="sidebar-list__items">
           <li class="sidebar-list__item filter">
+            <div
+              v-if="hint.filter && !filterIsSet"
+              class="notification filter-notification"
+            >
+              Настроить фильтры
+            </div>
             <section class="filters__desktop">
               <span
                 @click="setFilters"
@@ -11,9 +17,6 @@
                 @mouseover="showHint('filter')"
                 @mouseout="hideHint('filter')"
               ></span>
-              <div v-if="hint.filter" class="notification filter-notification">
-                Настроить фильтры
-              </div>
               <div class="filters__opened" :class="{ active: filterIsSet }">
                 <div class="filter-option__desktop">
                   <label for="filter-type__desktop">Тип:</label>
@@ -21,9 +24,9 @@
                     <option value="Любая">Любые</option>
                     <option
                       v-for="item in $store.getters.catalogue"
-                      :key="item.name"
-                      :value="item.name"
-                      >{{ item.name }}</option
+                      :key="item[0].name"
+                      :value="item[0].name"
+                      >{{ item[0].name }}</option
                     >
                   </select>
                 </div>
@@ -246,6 +249,7 @@ export default {
   width: 100%;
   text-align: center;
   position: relative;
+  transition: transform 0.3s ease;
   .filters__opened {
     position: absolute;
     opacity: 0;
