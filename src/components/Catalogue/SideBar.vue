@@ -48,6 +48,7 @@
                   </button>
                   <button @click="applyFilters">Применить</button>
                 </div>
+                <p v-if="noMatch">К сожалению нет соответствий Вашим требованиям.</p>
               </div>
             </section>
           </li>
@@ -161,6 +162,9 @@ export default {
     isAuthenticated() {
       return !!this.$store.getters.isAuthenticated;
     },
+    noMatch() {
+      return !!this.$store.getters.noMatch;
+    }
   },
   methods: {
     showHint(item) {
@@ -177,6 +181,7 @@ export default {
     },
     applyFilters() {
       this.clearFilters();
+      this.$store.commit("setMatch");
       let name = document.querySelector("#filter-type__desktop").value;
       console.log(name);
       let price = document.querySelector("#filter-price__desktop").value;
@@ -189,7 +194,6 @@ export default {
     },
     clearFilters() {
       this.$store.commit("clearFilters");
-      console.log(123);
     },
     logout() {
       this.$store.dispatch("logout");

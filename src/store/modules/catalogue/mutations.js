@@ -40,32 +40,35 @@ export default {
   setShortage(state, payload) {
     state.shortage = payload;
   },
+  setMatch(state) {
+    state.noMatch = null;
+  },
   clearShortage(state) {
     state.shortage = null;
   },
   clearFilters(state) {
     state.filtered.length = 0;
+    state.objFiltered = {};
   },
   setFiltered(state, payload) {
     console.log(payload);
-    let objFiltered = {};
     for (let key in payload) {
       if (payload[key] === "Любая") {
         continue;
       } else {
-        objFiltered[key] = payload[key];
+        state.objFiltered[key] = payload[key];
       }
     }
-    console.log(objFiltered);
+    console.log(state.objFiltered);
     console.log(state.catalogue);
 
-    if (Object.values(objFiltered).length === 0) {
+    if (Object.values(state.objFiltered).length === 0) {
       return;
     }
 
     function setPriceFilter(carousel, mode) {
-      let str1 = +objFiltered.price.slice(0, 4);
-      let str2 = +objFiltered.price.slice(5);
+      let str1 = +state.objFiltered.price.slice(0, 4);
+      let str2 = +state.objFiltered.price.slice(5);
       console.log(mode, str2);
       if (mode === "priceFilter") {
         let filtered = carousel.filter((obj) => {
@@ -76,21 +79,31 @@ export default {
         });
         state.filtered.push(filtered);
       } else {
-        state.filtered = carousel[0].filter((obj) => {
-          if (str1 < obj.price && obj.price < str2) {
-            return true;
-          }
-          return false;
-        });
+
+          state.filtered = carousel[0].filter((obj) => {
+            if (str1 < obj.price && obj.price < str2) {
+              return true;
+            }
+            return false;
+          });
+
+
+          if (state.filtered.length === 0) {
+            state.noMatch = true;
+            // setTimeout(() => this.commit("setMatch"), 2000)
+            this.commit("setMatch");
+
+            console.log(state.noMatch);
+        }
       }
     }
 
-    if (objFiltered.name) {
+    if (state.objFiltered.name) {
       state.filtered = state.catalogue.filter(
-        (obj) => obj[0].name === objFiltered.name
+        (obj) => obj[0].name === state.objFiltered.name
       );
-      console.log(state.filtered, objFiltered.price);
-      if (objFiltered.price) {
+      console.log(state.filtered, state.objFiltered.price);
+      if (state.objFiltered.price) {
         console.log(state.filtered);
         setPriceFilter(state.filtered, "bothFilters");
       }

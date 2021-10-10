@@ -4,12 +4,21 @@
       <span class="fa fa-spin fa-3x fa-spinner" aria-hidden="true"></span>
       <span>Список товаров загружается...</span>
     </div>
-    <div v-if="filters">
+    <div v-if="filter">
+      <!--available just for one filter -->
       <catalogue-carousel
         v-for="item in $store.getters.filtered"
         :key="item[0].name"
         :carousel="item"
         :name="item[0].name"
+      >
+      </catalogue-carousel>
+    </div>
+    <div v-else-if="filters">
+      <!--available just for two filters -->
+      <catalogue-carousel
+        :carousel="$store.getters.filtered"
+        :name="$store.getters.filtered[0].name"
       >
       </catalogue-carousel>
     </div>
@@ -44,8 +53,12 @@ export default {
     }
   },
   computed: {
+    filter() {
+      console.log(Object.keys(this.$store.getters.objFiltered));
+      return Object.keys(this.$store.getters.objFiltered).length === 1;
+    },
     filters() {
-      return this.$store.getters.filtered.length === 0 ? false : true;
+      return Object.keys(this.$store.getters.objFiltered).length === 2;
     },
   },
 };
