@@ -40,7 +40,10 @@ export default {
   setShortage(state, payload) {
     state.shortage = payload;
   },
-  setMatch(state) {
+  setMismatch(state) {
+    state.noMatch = true;
+  },
+  matchDefault(state) {
     state.noMatch = null;
   },
   clearShortage(state) {
@@ -79,22 +82,12 @@ export default {
         });
         state.filtered.push(filtered);
       } else {
-
           state.filtered = carousel[0].filter((obj) => {
             if (str1 < obj.price && obj.price < str2) {
               return true;
             }
             return false;
           });
-
-
-          if (state.filtered.length === 0) {
-            state.noMatch = true;
-            // setTimeout(() => this.commit("setMatch"), 2000)
-            this.commit("setMatch");
-
-            console.log(state.noMatch);
-        }
       }
     }
 

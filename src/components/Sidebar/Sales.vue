@@ -16,7 +16,7 @@
           </p>
           <div class="img-container">
             <img
-              src="https://res.cloudinary.com/dxxd2c3du/image/upload/c_scale,w_280/v1633244774/1-3-760x507_ksnl9c.jpg"
+              src="https://res.cloudinary.com/dxxd2c3du/image/upload/c_scale,w_180/v1633244774/1-3-760x507_ksnl9c.jpg"
               alt=""
             />
             <base-badge :price="true">-20%</base-badge>
@@ -25,7 +25,7 @@
         <li class="sales-item">
           <div class="img-container">
             <img
-              src="https://res.cloudinary.com/dxxd2c3du/image/upload/c_scale,w_280/v1633244111/svad-11_ml56ss.jpg"
+              src="https://res.cloudinary.com/dxxd2c3du/image/upload/c_scale,w_180/v1633244111/svad-11_ml56ss.jpg"
               alt=""
             />
             <base-badge :price="true">-30%</base-badge>
@@ -46,7 +46,7 @@
           </p>
           <div class="img-container">
             <img
-              src="https://res.cloudinary.com/dxxd2c3du/image/upload/c_scale,w_280/v1633244673/x_4ed6cb24_trypf9.jpg"
+              src="https://res.cloudinary.com/dxxd2c3du/image/upload/c_scale,w_180/v1633244673/x_4ed6cb24_trypf9.jpg"
               alt=""
             />
             <base-badge :price="true">-15%</base-badge>
@@ -78,7 +78,7 @@ export default {
   box-shadow: 1rem 1rem 2.5rem $fourth-color;
   text-shadow: 1px 1px 2px $fourth-color;
   width: 45rem;
-  height: 80vh;
+  // height: 80vh;
   top: 45%;
   .fa-window-close {
     position: absolute;

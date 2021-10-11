@@ -49,4 +49,8 @@ export default {
     context.commit("clearCatalogue");
     context.dispatch("getItems");
   },
+  setMatch(context) {
+    context.commit("setMismatch");
+    setTimeout(() => context.commit("matchDefault"), 3000);
+  },
 };

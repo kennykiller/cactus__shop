@@ -48,7 +48,9 @@
                   </button>
                   <button @click="applyFilters">Применить</button>
                 </div>
-                <p v-if="noMatch">К сожалению нет соответствий Вашим требованиям.</p>
+                <p v-if="!!noMatch">
+                  К сожалению нет соответствий Вашим требованиям.
+                </p>
               </div>
             </section>
           </li>
@@ -163,8 +165,9 @@ export default {
       return !!this.$store.getters.isAuthenticated;
     },
     noMatch() {
-      return !!this.$store.getters.noMatch;
-    }
+      console.log(this.$store.getters.noMatch); 
+      return this.$store.getters.noMatch;
+    },
   },
   methods: {
     showHint(item) {
@@ -181,16 +184,17 @@ export default {
     },
     applyFilters() {
       this.clearFilters();
-      this.$store.commit("setMatch");
+      this.$store.commit("matchDefault");
       let name = document.querySelector("#filter-type__desktop").value;
-      console.log(name);
       let price = document.querySelector("#filter-price__desktop").value;
-      console.log(price);
 
       this.$store.commit("setFiltered", {
         name: name,
         price: price,
       });
+      if (this.$store.getters.filtered.length === 0) {
+        this.$store.dispatch("setMatch");
+      }
     },
     clearFilters() {
       this.$store.commit("clearFilters");

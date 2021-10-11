@@ -56,10 +56,6 @@ export default {
   flex-direction: row;
   position: relative;
   max-width: 78rem;
-  @media (min-width: 768px) {
-    margin: 0 auto;
-  }
-  // background: $base-color;
 }
 .toggle-button {
   position: absolute;
