@@ -41,7 +41,9 @@ export default {
     state.shortage = payload;
   },
   setMismatch(state) {
+    console.log(state.noMatch);
     state.noMatch = true;
+    console.log(state.noMatch);
   },
   matchDefault(state) {
     state.noMatch = null;
@@ -54,7 +56,6 @@ export default {
     state.objFiltered = {};
   },
   setFiltered(state, payload) {
-    console.log(payload);
     for (let key in payload) {
       if (payload[key] === "Любая") {
         continue;
@@ -62,8 +63,6 @@ export default {
         state.objFiltered[key] = payload[key];
       }
     }
-    console.log(state.objFiltered);
-    console.log(state.catalogue);
 
     if (Object.values(state.objFiltered).length === 0) {
       return;
@@ -72,7 +71,6 @@ export default {
     function setPriceFilter(carousel, mode) {
       let str1 = +state.objFiltered.price.slice(0, 4);
       let str2 = +state.objFiltered.price.slice(5);
-      console.log(mode, str2);
       if (mode === "priceFilter") {
         let filtered = carousel.filter((obj) => {
           if (str1 < obj.price && obj.price < str2) {
@@ -95,9 +93,7 @@ export default {
       state.filtered = state.catalogue.filter(
         (obj) => obj[0].name === state.objFiltered.name
       );
-      console.log(state.filtered, state.objFiltered.price);
       if (state.objFiltered.price) {
-        console.log(state.filtered);
         setPriceFilter(state.filtered, "bothFilters");
       }
     } else {

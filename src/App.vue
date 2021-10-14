@@ -2,18 +2,17 @@
   <div class="wrapper">
     <the-header></the-header>
     <router-view class="router"></router-view>
-    <the-footer></the-footer>
+    <base-support
+    ></base-support>
   </div>
 </template>
 
 <script>
 import TheHeader from "./components/nav/TheHeader.vue";
-import TheFooter from "./components/nav/TheFooter.vue";
 
 export default {
   components: {
     TheHeader,
-    TheFooter,
   },
   created() {
     return this.$store.dispatch('tryLogin');
@@ -38,6 +37,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Allison&display=swap');
+@import './variables.scss';
 
 * {
   box-sizing: border-box;
@@ -80,4 +80,5 @@ ul {
 a {
   text-decoration: none;
 }
+
 </style>

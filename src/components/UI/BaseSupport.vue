@@ -110,6 +110,10 @@ export default {
   display: block;
   width: 5rem;
   height: 5rem;
+  @media (max-width: $tablets) {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
 }
 
 .chat-info-balloon {
@@ -128,6 +132,12 @@ export default {
   border-radius: 0.5rem;
   background-color: #fff;
   transform: translate(-70px, -70px);
+  @media (max-width: $tablets) {
+    bottom: -2.5rem;
+    right: -2.5rem;
+    min-width: 90vw;
+    padding: 0.35rem 0.5rem;
+  }
   img {
     width: 100px;
     height: 100px;
@@ -135,6 +145,11 @@ export default {
     border-radius: 100%;
     border: 2px solid #f76c6c;
     margin-bottom: 0.7rem;
+    @media (max-width: $tablets) {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 0.35rem;
+    }
   }
   p {
     font-family: Georgia;
@@ -143,6 +158,10 @@ export default {
     font-style: italic;
     line-height: 1em;
     margin: 0.7rem 0;
+    @media (max-width: $tablets) {
+      margin: 0.35rem 0;
+      font-size: 0.6rem;
+    }
   }
   input {
     border-radius: 0.25rem;
@@ -178,8 +197,8 @@ export default {
 
 .customer-support {
   position: fixed;
-  bottom: 1.3rem;
-  right: 1rem;
+  bottom: 3vw;
+  right: 3vw;
 
   button {
     display: block;
@@ -195,6 +214,10 @@ export default {
     outline: none;
     position: relative;
     transition: all 0.4s ease;
+    @media (max-width: $tablets) {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
     .fa-comments {
       font-size: 2.5rem;
       color: #f76c6c;
@@ -204,6 +227,9 @@ export default {
       transform: translate(-50%, -50%);
       transition: all 0.4s ease;
       opacity: 0;
+      @media (max-width: $tablets) {
+        font-size: 1.25rem;
+      }
     }
     .fa-times {
       font-size: 2.5rem;
@@ -214,6 +240,9 @@ export default {
       transform: translate(-50%, -50%);
       transition: all 0.4s ease;
       opacity: 0;
+      @media (max-width: $tablets) {
+        font-size: 1.25rem;
+      }
     }
     img {
       width: 100%;
@@ -249,6 +278,9 @@ export default {
       opacity: 1;
       pointer-events: all;
       transform: translate(-10.5rem, -5rem) !important;
+      @media (max-width: $tablets) {
+      transform: translate(-20%, -50%) !important;
+      }
     }
   }
   .submit-form {
@@ -271,6 +303,9 @@ export default {
       outline: none;
       position: relative;
       transition: all 0.4s ease;
+      @media (max-width: $tablets) {
+        width: auto;
+      }
       &:hover {
         background: $secondary-color;
         color: $headers-color;

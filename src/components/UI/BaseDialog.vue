@@ -35,11 +35,11 @@ export default {
     },
     titleFail: {
       type: String,
-      required: false
+      required: false,
     },
     titleSuccess: {
       type: String,
-      required: false
+      required: false,
     },
   },
   computed: {
@@ -51,6 +51,14 @@ export default {
         ? "Заказ уже спешит к Вам, скоро Вы окунетесь в невероятный цветочный аромат!"
         : `К сожалению, в наличии у нас только ${this.$store.getters.shortage.initialStock} ${this.$store.getters.shortage.name}, пожалуйста, выберите другие цветы либо укажите меньшее число. Спасибо за понимание!`;
     },
+  },
+  created() {
+    let body = document.querySelector("body");
+    body.style.overflow = "hidden";
+  },
+  unmounted() {
+    let body = document.querySelector("body");
+    body.style.overflow = "auto";
   },
   methods: {
     tryClose() {

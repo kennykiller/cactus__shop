@@ -13,7 +13,7 @@
       <catalogue-filters
         v-if="filtersAreVisible"
         class="catalogue-filters"
-        @apply-filters="applyFilters"
+        @close="toggleFilters"
       ></catalogue-filters>
     </transition>
 
@@ -41,9 +41,6 @@ export default {
     toggleFilters() {
       this.filtersAreVisible = !this.filtersAreVisible;
     },
-    applyFilters(filters) {
-      this.$store.commit("setFiltered", filters);
-    },
   },
 };
 </script>
@@ -60,8 +57,8 @@ export default {
 .toggle-button {
   position: absolute;
   left: 0.2rem;
-  top: -1rem;
-  @media (min-width: 80rem) {
+  z-index: 300;
+  @media (min-width: $tablets) {
     display: none;
   }
 }
@@ -87,26 +84,4 @@ export default {
 .catalogue-main {
   overflow-y: scroll;
 }
-// @media (min-width: 768px) {
-//   .wrapper {
-//     display: grid;
-//     margin: 1.5rem;
-//     grid-template-columns: repeat(4, 25%);
-//     grid-template-rows: 3rem 45rem 1fr;
-//     grid-gap: 10px;
-//     grid-template-areas:
-//       ". searchingField searchingField ."
-//       "side main main main"
-//       ". main main main";
-//     justify-items: center;
-//   }
-
-//   .catalogue-filters {
-//     grid-area: side;
-//   }
-
-//   .catalogue-main {
-//     grid-area: main;
-//   }
-// }
 </style>

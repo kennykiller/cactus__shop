@@ -58,13 +58,18 @@ export default {
       return Object.keys(this.$store.getters.objFiltered).length === 1;
     },
     filters() {
-      return Object.keys(this.$store.getters.objFiltered).length === 2;
+      return (
+        Object.keys(this.$store.getters.objFiltered).length === 2 &&
+        this.$store.getters.filtered.length > 0
+      );
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../../variables.scss";
+
 .catalogue-items__list {
   padding-inline-start: 0;
 }
@@ -74,12 +79,13 @@ main {
   flex-direction: column;
   min-width: calc(100% - 18rem);
   overflow-y: auto;
-  height: calc(100vh - 10rem);
-  &::-webkit-scrollbar {
-    width: 0.7rem;
+  height: calc(100vh - 1rem);
+  @media (min-width: $tablets) {
+    height: calc(100vh - 10rem);
   }
+
   &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 0.4rem rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     background-color: #f5f5f5;
   }
@@ -91,13 +97,25 @@ main {
 
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 0.4rem rgba(0, 0, 0, 0.3);
     background-color: #555;
+  }
+  @media (max-width: $tablets) {
+    padding-bottom: 3rem;
+  }
+  @media (max-width: $default) {
+    overflow-y: hidden;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 .loading {
   align-items: center;
   justify-content: center;
+  @media (max-width: $tablets) {
+    width: 100%;
+  }
   .loading-spinner {
     display: flex;
     justify-content: space-between;

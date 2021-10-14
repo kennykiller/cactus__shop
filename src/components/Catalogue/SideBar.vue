@@ -48,7 +48,7 @@
                   </button>
                   <button @click="applyFilters">Применить</button>
                 </div>
-                <p v-if="!!noMatch">
+                <p v-if="noMatch">
                   К сожалению нет соответствий Вашим требованиям.
                 </p>
               </div>
@@ -165,8 +165,7 @@ export default {
       return !!this.$store.getters.isAuthenticated;
     },
     noMatch() {
-      console.log(this.$store.getters.noMatch); 
-      return this.$store.getters.noMatch;
+      return !!this.$store.getters.noMatch;
     },
   },
   methods: {
@@ -194,6 +193,8 @@ export default {
       });
       if (this.$store.getters.filtered.length === 0) {
         this.$store.dispatch("setMatch");
+      } else {
+        this.setFilters();
       }
     },
     clearFilters() {
@@ -233,6 +234,9 @@ export default {
   left: calc((100vw - 116rem) / 2);
   bottom: 5rem;
   border-radius: 0.5rem;
+  @media (max-width: $tablets) {
+    display: none;
+  }
   @media (max-width: 115rem) {
     position: static;
     height: calc(100vh - 10rem);

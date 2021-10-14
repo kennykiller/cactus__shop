@@ -25,15 +25,15 @@ export default {
   props: ["name", "amount", "price", "img", "counter", "id"],
   data() {
     return {
-      updatedCounter: this.counter
-    }
+      updatedCounter: this.counter,
+    };
   },
   watch: {
     counter(value) {
       if (value !== this.updatedCounter) {
         this.updatedCounter = value;
       }
-    }
+    },
   },
   methods: {
     reduceFromCart() {
@@ -43,7 +43,7 @@ export default {
       this.$store.commit("qtyIncrease", {
         value: 1,
         id: this.id,
-        name: this.name
+        name: this.name,
       });
     },
     addFromCart() {
@@ -58,7 +58,7 @@ export default {
       this.$store.commit("qtyDecrease", {
         value: 1,
         id: this.id,
-        name: this.name
+        name: this.name,
       });
     },
   },
@@ -66,12 +66,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../variables.scss';
 .product {
   display: grid;
   grid-template-columns: 20% 10% 10% 10% 30% 20%;
   align-items: center;
   justify-content: space-between;
   text-align: center;
+  @media (max-width: $tablets) {
+    grid-template-columns: 25% 10% 10% 10% 30% 15%;
+  }
 }
 
 .cartImage {

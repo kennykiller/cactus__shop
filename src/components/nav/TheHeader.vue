@@ -9,18 +9,6 @@
           <router-link to="/">Kaktus</router-link>
         </h1>
       </div>
-      <nav class="desktop-view">
-        <ul>
-          <!-- <li>
-            <router-link to="/cart">Корзина</router-link>
-          </li> -->
-          <li></li>
-          <li v-if="!isAuthenticated">
-            <router-link to="/auth">Войти в личный кабинет</router-link>
-          </li>
-          <!-- <li><router-link to="/auth">Выйти</router-link></li> -->
-        </ul>
-      </nav>
       <catalogue-cart></catalogue-cart>
     </header>
     <transition name="openedBar">
@@ -52,9 +40,6 @@ export default {
     ordersQuantity() {
       return this.$store.getters.orders.length;
     },
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    },
   },
   methods: {
     toggleBurger() {
@@ -68,7 +53,7 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  z-index: 50;
+  z-index: 2001;
 }
 header {
   width: 100%;
@@ -90,11 +75,6 @@ div {
   display: flex;
   align-items: center;
 }
-.cart-container {
-  position: relative;
-  height: auto;
-  width: auto;
-}
 // burger starts
 .burger {
   position: absolute;
@@ -108,7 +88,7 @@ div {
   span:after {
     width: 100%;
     position: absolute;
-    height: 0.625rem;
+    height: 0.5rem;
     background-color: black;
     display: block;
     transition: 0.4s;
@@ -158,33 +138,6 @@ a.router-link-active {
   background: white;
 }
 
-.cartBtn-container {
-  display: flex;
-  padding: 0.5rem;
-}
-
-.cartBtn-name {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.cartBtn-count {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.25rem;
-  min-width: 1.25rem;
-  max-width: 1.25rem;
-  height: 1.25rem;
-  max-height: 1.25rem;
-  font-family: inherit;
-  font-size: 0.625rem;
-  margin-left: 0.6rem;
-  border-radius: 50%;
-  background-color: black;
-  color: white;
-}
-
 h1 {
   margin: 0;
   a {
@@ -203,16 +156,6 @@ h1 {
 @media (min-width: 500px) {
   h1 a {
     font-size: 3.5rem;
-  }
-  .cartBtn-name {
-    font-size: 2rem;
-  }
-  .cartBtn-count {
-    min-width: 2rem;
-    max-width: 2rem;
-    height: 2rem;
-    max-height: 2rem;
-    font-size: 1rem;
   }
 }
 
