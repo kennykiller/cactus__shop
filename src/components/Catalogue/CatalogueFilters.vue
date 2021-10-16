@@ -1,44 +1,53 @@
 <template>
-  <div class="container">
-    <h1>Фильтры</h1>
-    <div class="filter-option__mobile">
-      <label for="filter-type__mobile">По типу растений:</label>
-      <select name="type" id="filter-type__mobile">
-        <option value="Любая">Любые</option>
-        <option
-          v-for="item in $store.getters.catalogue"
-          :key="item[0].name"
-          :value="item[0].name"
-          >{{ item[0].name }}</option
-        >
-      </select>
-    </div>
-    <div class="filter-option__mobile">
-      <label for="filter-price__mobile">По цене (руб):</label>
-      <select name="price" id="filter-price__mobile">
-        <option value="Любая">Любая</option>
-        <option value="0    1000">До 1000</option>
-        <option value="1000 1500">1000 - 1500</option>
-        <option value="1500 2500">1500 - 2500</option>
-        <option value="2500 5000">2500 - 5000</option>
-        <option value="5000 9999">5000 - 9999</option>
-        <option value="9999 9999999">Дороже 10000</option>
-      </select>
-    </div>
+  <div class="backdrop" @click="close"></div>
+    <div class="container">
+      <h1>Фильтры</h1>
+      <div class="filter-option__mobile">
+        <label for="filter-type__mobile">По типу растений:</label>
+        <select name="type" id="filter-type__mobile">
+          <option value="Любая">Любые</option>
+          <option
+            v-for="item in $store.getters.catalogue"
+            :key="item[0].name"
+            :value="item[0].name"
+            >{{ item[0].name }}</option
+          >
+        </select>
+      </div>
+      <div class="filter-option__mobile">
+        <label for="filter-price__mobile">По цене (руб):</label>
+        <select name="price" id="filter-price__mobile">
+          <option value="Любая">Любая</option>
+          <option value="0    1000">До 1000</option>
+          <option value="1000 1500">1000 - 1500</option>
+          <option value="1500 2500">1500 - 2500</option>
+          <option value="2500 5000">2500 - 5000</option>
+          <option value="5000 9999">5000 - 9999</option>
+          <option value="9999 9999999">Дороже 10000</option>
+        </select>
+      </div>
 
-    <div class="button-container">
-      <button @click="clearFilters">Убрать фильтры</button>
-      <button @click="applyFilters">Применить</button>
+      <div class="button-container">
+        <button @click="clearFilters">Убрать фильтры</button>
+        <button @click="applyFilters">Применить</button>
+      </div>
+      <p v-if="noMatch">
+        К сожалению нет соответствий Вашим требованиям.
+      </p>
     </div>
-    <p v-if="noMatch">
-      К сожалению нет соответствий Вашим требованиям.
-    </p>
-  </div>
 </template>
 
 <script>
 export default {
   emits: ["close"],
+  created() {
+    let body = document.querySelector("body");
+    body.style.overflow = "hidden";
+  },
+  unmounted() {
+    let body = document.querySelector("body");
+    body.style.overflow = "auto";
+  },
   computed: {
     noMatch() {
       return !!this.$store.getters.noMatch;
@@ -65,6 +74,9 @@ export default {
     clearFilters() {
       this.$store.commit("clearFilters");
     },
+    close() {
+      this.$emit("close");
+    },
   },
 };
 </script>
@@ -82,7 +94,17 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 15;
+  z-index: 5001;
+  animation: filters .3s ease;
+}
+
+@keyframes filters {
+  from {
+    transform: scale(0.9) translateX(-40rem);
+  }
+  to {
+    transform: scale(1) translateX(0);
+  }
 }
 
 h1 {

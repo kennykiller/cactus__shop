@@ -92,6 +92,7 @@ export default {
       console.log(this.$store.getters.catalogue);
     },
     submitOrder() {
+      this.toggleCart();
       this.$store.dispatch("checkStock");
       this.successfulOrder = true;
     },

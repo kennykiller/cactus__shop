@@ -1,21 +1,15 @@
 <template>
-  <base-dialog
-    v-if="filtersAreVisible"
-    :show="false"
-    @close="toggleFilters"
-  ></base-dialog>
   <div class="wrapper">
     <side-bar></side-bar>
     <div class="toggle-button">
       <img src="../assets/filter.png" alt="" @click="toggleFilters" />
     </div>
-    <transition name="filters">
+
       <catalogue-filters
         v-if="filtersAreVisible"
         class="catalogue-filters"
         @close="toggleFilters"
       ></catalogue-filters>
-    </transition>
 
     <catalogue-main class="catalogue-main"></catalogue-main>
   </div>
@@ -62,25 +56,6 @@ export default {
     display: none;
   }
 }
-
-.filters-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.filters-leave-active {
-  transition: all 0.3s ease-in;
-}
-
-.filters-enter-from,
-.filters-leave-to {
-  transform: scale(0.9) translateX(-40rem);
-}
-
-.filters-enter-to,
-.filters-leave-from {
-  transform: scale(1) translateX(0);
-}
-
 .catalogue-main {
   overflow-y: scroll;
 }

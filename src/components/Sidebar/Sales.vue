@@ -1,4 +1,5 @@
 <template>
+  <div class="backdrop" @click="close"></div>
   <div class="base-form">
     <header class="base-header">
       <p>В нашем магазине применяются следующие акции:</p>
@@ -63,6 +64,14 @@
 <script>
 export default {
   emits: ["toggle-info"],
+  created() {
+    let body = document.querySelector("body");
+    body.style.overflow = "hidden";
+  },
+  unmounted() {
+    let body = document.querySelector("body");
+    body.style.overflow = "auto";
+  },
   methods: {
     toggleInfo() {
       this.$emit("toggle-info");
@@ -74,11 +83,15 @@ export default {
 <style lang="scss" scoped>
 @import "../../variables.scss";
 @import "./sidebar-form.scss";
+.backdrop {
+  @media (max-width: $tablets) {
+    display: none;
+  }
+}
 .base-form {
   box-shadow: 1rem 1rem 2.5rem $fourth-color;
   text-shadow: 1px 1px 2px $fourth-color;
   width: 45rem;
-  // height: 80vh;
   top: 45%;
   .fa-window-close {
     position: absolute;
@@ -90,6 +103,13 @@ export default {
     &:hover {
       transform: scale(1.2);
     }
+  }
+  @media (max-width: $tablets) {
+    width: 100vw;
+    top: 0;
+    height: 100vh;
+    left: 0;
+    transform: none;
   }
 }
 .sales-items-list {
@@ -115,11 +135,17 @@ export default {
       max-width: 14rem;
       text-align: center;
       margin: 0 3rem;
+      @media (max-width: $tablets) {
+        margin: 0;
+      }
       .sales-condition {
         font-style: italic;
         font-weight: 700;
         color: rgb(165, 72, 72);
       }
+    }
+    @media (max-width: $tablets) {
+      margin-bottom: 1rem;
     }
   }
 }

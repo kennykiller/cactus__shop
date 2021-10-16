@@ -9,16 +9,18 @@
           <router-link to="/">Kaktus</router-link>
         </h1>
       </div>
+      <div class="aboutUs">
+        <h3>
+          Наш адрес: г.Санкт-Петербург, Комендантский 17к1
+        </h3>
+        <h3>
+          Время работы: 06.50 - 22.50
+        </h3>
+      </div>
       <catalogue-cart></catalogue-cart>
     </header>
-    <transition name="openedBar">
-      <nav-bar v-if="burgerIsOpened" @close="toggleBurger"></nav-bar>
-    </transition>
-    <base-dialog
-      v-if="burgerIsOpened"
-      @close="toggleBurger"
-      :show="false"
-    ></base-dialog>
+
+    <nav-bar v-if="burgerIsOpened" @close="toggleBurger"></nav-bar>
   </div>
 </template>
 
@@ -50,6 +52,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../variables.scss';
 .container {
   display: flex;
   flex-direction: column;
@@ -74,6 +77,15 @@ header {
 div {
   display: flex;
   align-items: center;
+}
+.aboutUs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  @media (max-width: $default) {
+    display: none;
+  } 
 }
 // burger starts
 .burger {
@@ -168,18 +180,6 @@ header nav {
 }
 .openedBar-leave-active {
   animation: modal 0.5s ease-in reverse;
-}
-
-@keyframes modal {
-  from {
-    opacity: 0;
-    transform: translateX(-3rem) scale(0.8);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
 }
 
 @media (min-width: 748px) {

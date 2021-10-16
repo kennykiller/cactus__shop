@@ -198,7 +198,7 @@ export default {
 .customer-support {
   position: fixed;
   bottom: 3vw;
-  right: 3vw;
+  right: 5vw;
 
   button {
     display: block;

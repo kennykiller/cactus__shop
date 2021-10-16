@@ -1,11 +1,12 @@
 <template>
+  <div class="backdrop" @click="close"></div>
   <menu class="container--mobile">
     <nav>
       <ul>
-        <li v-if="!isAuthenticated">
+        <li v-if="!isAuthenticated" @click="close">
           <router-link to="/register">Зарегистрироваться</router-link>
         </li>
-        <li v-if="!isAuthenticated">
+        <li v-if="!isAuthenticated" @click="close">
           <router-link to="/auth">Войти в личный кабинет</router-link>
         </li>
         <li v-else @click="logout">
@@ -18,16 +19,16 @@
         <li @click="toggleInfo('location')">Где нас найти</li>
       </ul>
     </nav>
-    <delivery
-      v-if="infoIsOpened.delivery"
-      @toggleInfo="toggleInfo('delivery')"
-    ></delivery>
-    <sales v-if="infoIsOpened.sales" @toggleInfo="toggleInfo('sales')"></sales>
-    <shop-location
-      v-if="infoIsOpened.location"
-      @toggleInfo="toggleInfo('location')"
-    ></shop-location>
   </menu>
+  <delivery
+    v-if="infoIsOpened.delivery"
+    @toggleInfo="toggleInfo('delivery')"
+  ></delivery>
+  <sales v-if="infoIsOpened.sales" @toggleInfo="toggleInfo('sales')"></sales>
+  <shop-location
+    v-if="infoIsOpened.location"
+    @toggleInfo="toggleInfo('location')"
+  ></shop-location>
 </template>
 
 <script>
@@ -41,6 +42,14 @@ export default {
     Delivery,
     Sales,
   },
+  created() {
+    let body = document.querySelector("body");
+    body.style.overflow = "hidden";
+  },
+  unmounted() {
+    let body = document.querySelector("body");
+    body.style.overflow = "auto";
+  },
   data() {
     return {
       infoIsOpened: {
@@ -50,8 +59,13 @@ export default {
       },
     };
   },
+  computed: {
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
   methods: {
-    tryClose() {
+    close() {
       this.$emit("close");
     },
     toggleInfo(item) {
@@ -65,15 +79,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../variables.scss';
+@import "../../variables.scss";
 
 .container--mobile {
   position: absolute;
   padding-left: 0;
   top: 5rem;
   left: 0;
-  z-index: 10;
+  z-index: 5001;
   background-color: $fourth-color;
+  animation: openedBar 0.5s ease;
   ul {
     display: flex;
     flex-direction: column;
@@ -90,6 +105,17 @@ export default {
   li a {
     color: black;
     font-size: 1.2rem;
+  }
+}
+@keyframes openedBar {
+  from {
+    opacity: 0;
+    transform: translateX(-3rem) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
   }
 }
 </style>
