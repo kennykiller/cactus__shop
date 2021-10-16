@@ -92,6 +92,7 @@ export default {
       console.log(this.$store.getters.catalogue);
     },
     submitOrder() {
+      this.toggleCart();
       this.$store.dispatch("checkStock");
       this.successfulOrder = true;
     },
@@ -118,10 +119,14 @@ export default {
   right: 0;
   top: 0;
   text-align: right;
-  background: rgba(255, 226, 226, 0.85);
-
   color: black;
   z-index: 1000;
+  @media (max-width: $tablets) {
+    transform: translate(-4rem, -5px);
+  }
+  @media (min-width: $tablets) {
+    background: rgba(255, 226, 226, 0.85);
+  }
 
   .cart-indicator {
     display: flex;
@@ -152,9 +157,23 @@ export default {
 
   .cart-items {
     padding: 0 1rem 0.5rem 1rem;
+    @media (max-width: $tablets) {
+      width: 100vw;
+      padding: 0;
+      background: rgba(255, 226, 226, 0.85);
+      transform: translate(4.25rem, -3px);
+    }
 
     .cart-container {
       width: 25rem;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        width: 2px;
+        background-color: #f5f5f5;
+      }
+      @media (max-width: $tablets) {
+        width: auto;
+      }
     }
   }
 
@@ -174,6 +193,19 @@ export default {
     }
     .checkoutCart {
       margin: 2rem 0 1rem 2rem;
+      color: black;
+    }
+    @media (max-width: $tablets) {
+      .clearCart {
+        margin: 0;
+        margin-bottom: 0.5rem;
+        font-size: 0.8rem;
+      }
+      .checkoutCart {
+        margin: 0;
+        margin-bottom: 0.5rem;
+        font-size: 0.8rem;
+      }
     }
   }
 }

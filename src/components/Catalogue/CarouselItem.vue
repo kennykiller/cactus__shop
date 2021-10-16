@@ -1,5 +1,5 @@
 <template>
-  <li class="carousel__item" v-if="idChecker">
+  <li class="carousel__item" v-if="idChecker" :class="{ filtered: filtered }">
     <div class="carousel__image-container">
       <img :src="require(`@/assets/${front}`)" alt="" />
       <img :src="require(`@/assets/${back}`)" alt="" />
@@ -42,6 +42,7 @@ export default {
     "counter",
     "price",
     "initialStock",
+    "filtered"
   ],
   data() {
     return {
@@ -119,24 +120,26 @@ export default {
       cursor: pointer;
     }
     img:nth-child(2) {
-      // overflow: hidden;
-      // opacity: 0;
-      // height: 0;
-      // transition: height 0ms 400ms, opacity 600ms 0ms;
-      // box-shadow: none;
       display: none;
     }
   }
 }
+
+.carousel__item.filtered {
+  width: 25rem;
+  .carousel__image-container {
+    width: 100%;
+    img {
+      width: 70%;
+    }
+  }
+}
+
 .carousel__image-container:hover > img:nth-child(1) {
   display: none;
   box-shadow: none;
 }
 .carousel__image-container:hover > img:nth-child(2) {
-  // opacity: 1;
-  // height: auto;
-  // transition: height 0ms 0ms, opacity 600ms 0ms;
-  // box-shadow: 3px 2px 3px lightgray;
   display: block;
 }
 .description-container {

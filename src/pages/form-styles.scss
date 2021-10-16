@@ -17,7 +17,7 @@ h1 {
 }
 
 .alert {
-  z-index: 999;
+  z-index: 1000;
   position: relative;
   border-radius: 0.25rem;
   min-height: 7rem;
@@ -30,6 +30,14 @@ h1 {
   top: 5rem;
   right: 4rem;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+  @media (max-width: $tablets) {
+    top: 0;
+    bottom: 5rem;
+    width: 100vw;
+    position: relative;
+    right: 0;
+    left: 0;
+  }
 
   &:before {
     content: "";
@@ -57,22 +65,23 @@ h1 {
   position: relative;
   margin: 0 auto;
   padding: 3rem;
-  padding-bottom: 85px;
+  padding-bottom: 5.5rem;
   max-width: 400px;
   background: #fff;
   box-sizing: border-box;
-  min-height: 436px;
-  border-radius: 4px;
+  min-height: 27.25rem;
+  border-radius: 0.25rem;
   text-align: center;
-  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0.25rem 0.75rem 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  @media (max-height: $tablets) {
+    padding: 0.2rem 0.4rem;
+    min-height: 23rem;
+    width: 80%;
+  }
 }
 
 .auth-footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: #f7f7f7;
   font-size: 0.9rem;
   color: #727272;
@@ -84,15 +93,13 @@ h1 {
   position: relative;
 }
 
-$_HEIGHT: 3rem;
-$_BORDER_WIDTH: 1px;
 input {
   font-size: 1rem;
-  height: $_HEIGHT;
+  height: 3rem;
   width: 100%;
   padding: 0 0.75rem;
   padding-top: 1rem;
-  border: $_BORDER_WIDTH solid #ced4da;
+  border: 1px solid #ced4da;
   outline: none;
   border-radius: 3px;
   box-shadow: none;
@@ -109,7 +116,7 @@ label {
   pointer-events: none;
   left: 12px;
   top: 0;
-  line-height: $_HEIGHT;
+  line-height: 3rem;
   transition: 0.3s;
   color: #6b757c;
 

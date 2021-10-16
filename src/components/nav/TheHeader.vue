@@ -9,28 +9,18 @@
           <router-link to="/">Kaktus</router-link>
         </h1>
       </div>
-      <nav class="desktop-view">
-        <ul>
-          <!-- <li>
-            <router-link to="/cart">Корзина</router-link>
-          </li> -->
-          <li></li>
-          <li v-if="!isAuthenticated">
-            <router-link to="/auth">Войти в личный кабинет</router-link>
-          </li>
-          <!-- <li><router-link to="/auth">Выйти</router-link></li> -->
-        </ul>
-      </nav>
+      <div class="aboutUs">
+        <h3>
+          Наш адрес: г.Санкт-Петербург, Комендантский 17к1
+        </h3>
+        <h3>
+          Время работы: 06.50 - 22.50
+        </h3>
+      </div>
       <catalogue-cart></catalogue-cart>
     </header>
-    <transition name="openedBar">
-      <nav-bar v-if="burgerIsOpened" @close="toggleBurger"></nav-bar>
-    </transition>
-    <base-dialog
-      v-if="burgerIsOpened"
-      @close="toggleBurger"
-      :show="false"
-    ></base-dialog>
+
+    <nav-bar v-if="burgerIsOpened" @close="toggleBurger"></nav-bar>
   </div>
 </template>
 
@@ -52,9 +42,6 @@ export default {
     ordersQuantity() {
       return this.$store.getters.orders.length;
     },
-    isAuthenticated() {
-      return this.$store.getters.isAuthenticated;
-    },
   },
   methods: {
     toggleBurger() {
@@ -65,10 +52,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../variables.scss';
 .container {
   display: flex;
   flex-direction: column;
-  z-index: 50;
+  z-index: 2001;
 }
 header {
   width: 100%;
@@ -90,10 +78,14 @@ div {
   display: flex;
   align-items: center;
 }
-.cart-container {
-  position: relative;
-  height: auto;
-  width: auto;
+.aboutUs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  @media (max-width: $default) {
+    display: none;
+  } 
 }
 // burger starts
 .burger {
@@ -108,7 +100,7 @@ div {
   span:after {
     width: 100%;
     position: absolute;
-    height: 0.625rem;
+    height: 0.5rem;
     background-color: black;
     display: block;
     transition: 0.4s;
@@ -158,33 +150,6 @@ a.router-link-active {
   background: white;
 }
 
-.cartBtn-container {
-  display: flex;
-  padding: 0.5rem;
-}
-
-.cartBtn-name {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.cartBtn-count {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.25rem;
-  min-width: 1.25rem;
-  max-width: 1.25rem;
-  height: 1.25rem;
-  max-height: 1.25rem;
-  font-family: inherit;
-  font-size: 0.625rem;
-  margin-left: 0.6rem;
-  border-radius: 50%;
-  background-color: black;
-  color: white;
-}
-
 h1 {
   margin: 0;
   a {
@@ -204,16 +169,6 @@ h1 {
   h1 a {
     font-size: 3.5rem;
   }
-  .cartBtn-name {
-    font-size: 2rem;
-  }
-  .cartBtn-count {
-    min-width: 2rem;
-    max-width: 2rem;
-    height: 2rem;
-    max-height: 2rem;
-    font-size: 1rem;
-  }
 }
 
 header nav {
@@ -225,18 +180,6 @@ header nav {
 }
 .openedBar-leave-active {
   animation: modal 0.5s ease-in reverse;
-}
-
-@keyframes modal {
-  from {
-    opacity: 0;
-    transform: translateX(-3rem) scale(0.8);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
 }
 
 @media (min-width: 748px) {

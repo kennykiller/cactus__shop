@@ -1,62 +1,83 @@
 <template>
-  <div class="container">
-    <h1>Фильтры</h1>
-    <div class="filter-option__mobile">
-      <label for="filter-type__mobile">По типу растений:</label>
-      <select name="type" id="filter-type__mobile">
-        <option value="Любая">Любые</option>
-        <option value="Сухоцвет">Сухоцветы</option>
-        <option value="Роза">Розы</option>
-        <option value="Кустовые цветы">Кустовые цветы</option>
-        <option value="Горшечные цветы">Горшечные цветы</option>
-        <option value="Букеты">Букеты</option>
-        <option value="Экзотика">Экзотика</option>
-      </select>
+  <div class="backdrop" @click="close"></div>
+    <div class="container">
+      <h1>Фильтры</h1>
+      <div class="filter-option__mobile">
+        <label for="filter-type__mobile">По типу растений:</label>
+        <select name="type" id="filter-type__mobile">
+          <option value="Любая">Любые</option>
+          <option
+            v-for="item in $store.getters.catalogue"
+            :key="item[0].name"
+            :value="item[0].name"
+            >{{ item[0].name }}</option
+          >
+        </select>
+      </div>
+      <div class="filter-option__mobile">
+        <label for="filter-price__mobile">По цене (руб):</label>
+        <select name="price" id="filter-price__mobile">
+          <option value="Любая">Любая</option>
+          <option value="0    1000">До 1000</option>
+          <option value="1000 1500">1000 - 1500</option>
+          <option value="1500 2500">1500 - 2500</option>
+          <option value="2500 5000">2500 - 5000</option>
+          <option value="5000 9999">5000 - 9999</option>
+          <option value="9999 9999999">Дороже 10000</option>
+        </select>
+      </div>
+
+      <div class="button-container">
+        <button @click="clearFilters">Убрать фильтры</button>
+        <button @click="applyFilters">Применить</button>
+      </div>
+      <p v-if="noMatch">
+        К сожалению нет соответствий Вашим требованиям.
+      </p>
     </div>
-    <div class="filter-option__mobile">
-      <label for="filter-price__mobile">По цене (руб):</label>
-      <select name="price" id="filter-price__mobile">
-        <option value="Любая">Любая</option>
-        <option value="0    1000">До 1000</option>
-        <option value="1000 1500">1000 - 1500</option>
-        <option value="1500 2500">1500 - 2500</option>
-        <option value="2500 5000">2500 - 5000</option>
-        <option value="5000 9999">5000 - 9999</option>
-        <option value="9999 9999999">Дороже 10000</option>
-      </select>
-    </div>
-    <div class="filter-option__mobile">
-      <label for="filter-popularity__mobile">По популярности:</label>
-      <select name="popularity" id="filter-popularity__mobile">
-        <option value="Любая">Любая</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-    </div>
-    <base-button class="apply" @click="applyFilters">Применить</base-button>
-  </div>
 </template>
 
 <script>
-
 export default {
-  emits: ['apply-filters'],
+  emits: ["close"],
+  created() {
+    let body = document.querySelector("body");
+    body.style.overflow = "hidden";
+  },
+  unmounted() {
+    let body = document.querySelector("body");
+    body.style.overflow = "auto";
+  },
+  computed: {
+    noMatch() {
+      return !!this.$store.getters.noMatch;
+    },
+  },
   methods: {
     applyFilters() {
-      let name = document.querySelector('#filter-type__mobile').value;
-      console.log(name);
-      let price = document.querySelector('#filter-price__mobile').value;
-      console.log(price);
-      let popularity = document.querySelector('#filter-popularity__mobile').value;
-      console.log(popularity);
-      this.$emit('apply-filters', {
+      this.clearFilters();
+      this.$store.commit("matchDefault");
+      let name = document.querySelector("#filter-type__mobile").value;
+      let price = document.querySelector("#filter-price__mobile").value;
+
+      this.$store.commit("setFiltered", {
         name: name,
         price: price,
-        popularity: popularity
-      })
-    }
-  }
+      });
+
+      if (this.$store.getters.filtered.length === 0) {
+        this.$store.dispatch("setMatch");
+      } else {
+        this.$emit("close");
+      }
+    },
+    clearFilters() {
+      this.$store.commit("clearFilters");
+    },
+    close() {
+      this.$emit("close");
+    },
+  },
 };
 </script>
 
@@ -65,7 +86,7 @@ export default {
   position: absolute;
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
   left: 0;
-  top: 2rem;
+  top: 7vh;
   width: 100%;
   background-color: white;
   border: 1px solid rgb(161, 161, 161);
@@ -73,11 +94,22 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 15;
+  z-index: 5001;
+  animation: filters .3s ease;
+}
+
+@keyframes filters {
+  from {
+    transform: scale(0.9) translateX(-40rem);
+  }
+  to {
+    transform: scale(1) translateX(0);
+  }
 }
 
 h1 {
   margin-left: 1.5rem;
+  margin-bottom: 0;
 }
 
 .filter-option__mobile {
@@ -91,7 +123,7 @@ h1 {
   select {
     width: 95%;
     border-radius: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     padding: 0.5rem;
     box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
     -webkit-appearance: none;
@@ -116,55 +148,22 @@ h1 {
     outline: none;
   }
 }
-.apply {
-  background-color: #ffffff;
-  margin: 0.5rem 0 1.5rem 1.5rem;
-  width: 40%;
-  color: black;
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0;
+  button {
+    border: 1px solid lightgray;
+    border-radius: 0.25rem;
+    padding: 0.6rem;
+    font-family: "Raleway", sans-serif;
+    color: black;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+}
+p {
+  text-align: center;
 }
 </style>
-
-
-/* @media (min-width: 41rem) {
-  aside {
-    border: 1px solid black;
-    padding: 1rem;
-    text-align: center;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    margin: 2rem auto;
-    width: 100%;
-    max-width: 11.75rem;
-  } */
-
-  /* .container {
-    display: flex;
-    flex-direction: column;
-  } */
-
-  /* .filter-option {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0.5rem;
-  } */
-
-  /* .filter-option.radio {
-    align-items: baseline;
-    margin-bottom: 0.5rem;
-  }
-
-  .filter-option label,
-  .filter-option p {
-    margin: 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  .filter-option select {
-    padding: 0.5rem;
-    font-size: 0.8rem;
-    min-width: 9rem;
-  } */
-/* } */
-

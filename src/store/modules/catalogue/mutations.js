@@ -1,31 +1,35 @@
 export default {
   qtyDecrease(state, payload) {
     let orderedType = state.catalogue.find((a) => payload.name === a[0].name);
-    let orderedItem = orderedType.find(a => payload.id === a.name + a.front);
+    let orderedItem = orderedType.find((a) => payload.id === a.name + a.front);
     orderedItem.stockLeft -= payload.value;
     orderedItem.counter += payload.value;
   },
   qtyIncrease(state, payload) {
     let orderedType = state.catalogue.find((a) => payload.name === a[0].name);
-    let orderedItem = orderedType.find(a => payload.id === a.name + a.front);
+    let orderedItem = orderedType.find((a) => payload.id === a.name + a.front);
     orderedItem.stockLeft += payload.value;
     orderedItem.counter -= payload.value;
   },
   resetCounter(state, payload) {
-    let orderedCarousel = state.catalogue.find((a) => a[0].name === payload.name);
-    let orderedItem = orderedCarousel.find(obj => obj.name + obj.front === payload.id);
+    let orderedCarousel = state.catalogue.find(
+      (a) => a[0].name === payload.name
+    );
+    let orderedItem = orderedCarousel.find(
+      (obj) => obj.name + obj.front === payload.id
+    );
     orderedItem.counter = 1;
     orderedItem.stockLeft = orderedItem.initialStock;
   },
   setItems(state, payload) {
     const withKeys = {};
-    payload.arr.forEach(item => {
+    payload.arr.forEach((item) => {
       const keyExists = withKeys[item.name];
       if (keyExists) {
-        return keyExists.push(item)
+        return keyExists.push(item);
       }
       withKeys[item.name] = [item];
-    })
+    });
     state.catalogue = Object.values(withKeys);
     state.id = payload.id;
     console.log(state.catalogue, state.id);
@@ -36,55 +40,70 @@ export default {
   setShortage(state, payload) {
     state.shortage = payload;
   },
+  setMismatch(state) {
+    console.log(state.noMatch);
+    state.noMatch = true;
+    console.log(state.noMatch);
+  },
+  matchDefault(state) {
+    state.noMatch = null;
+  },
   clearShortage(state) {
     state.shortage = null;
   },
   clearFilters(state) {
     state.filtered.length = 0;
+    state.objFiltered = {};
   },
   setFiltered(state, payload) {
-    let objFiltered = {};
     for (let key in payload) {
       if (payload[key] === "Любая") {
         continue;
       } else {
-        objFiltered[key] = payload[key];
+        state.objFiltered[key] = payload[key];
       }
     }
 
-    if (Object.values(objFiltered).length === 0) {
+    if (Object.values(state.objFiltered).length === 0) {
       return;
     }
 
-    function setPriceFilter(filteredCarousel) { //function for check price property in carousels
-      let str1 = +objFiltered.price.slice(0, 4);
-      let str2 = +objFiltered.price.slice(5);
-      for (let item in filteredCarousel) {
-        if (
-          str1 < filteredCarousel[item].price &&
-          filteredCarousel[item].price < str2
-        ) {
-          continue;
-        } else {
-          delete filteredCarousel[item];
-        }
+    function setPriceFilter(carousel, mode) {
+      let str1 = +state.objFiltered.price.slice(0, 4);
+      let str2 = +state.objFiltered.price.slice(5);
+      if (mode === "priceFilter") {
+        let filtered = carousel.filter((obj) => {
+          if (str1 < obj.price && obj.price < str2) {
+            return true;
+          }
+          return false;
+        });
+        state.filtered.push(filtered);
+      } else {
+          state.filtered = carousel[0].filter((obj) => {
+            if (str1 < obj.price && obj.price < str2) {
+              return true;
+            }
+            return false;
+          });
       }
     }
 
-    state.filtered = JSON.parse(JSON.stringify(state.catalogue)) //new array filled with data from catalogue, otherwise state.catalogue will be also changed
-
-    if (objFiltered.name) { //case 1: just name as a filter OR name && price
-      state.filtered = state.filtered.filter(obj => obj.name === objFiltered.name);
-      if (objFiltered.price) {
-        setPriceFilter(state.filtered[0].carousel);
+    if (state.objFiltered.name) {
+      state.filtered = state.catalogue.filter(
+        (obj) => obj[0].name === state.objFiltered.name
+      );
+      if (state.objFiltered.price) {
+        setPriceFilter(state.filtered, "bothFilters");
       }
-    } else { //case 2: just price
-      state.filtered.forEach(obj => setPriceFilter(obj.carousel));
-      state.filtered = state.filtered.filter(obj => { //filter of a state.filtered array to avoid carousels without data
-        if (Object.values(obj.carousel).length === 0) {
+    } else {
+      state.catalogue.forEach((obj) => setPriceFilter(obj, "priceFilter"));
+      state.filtered = state.filtered.filter((obj) => {
+        if (obj.length === 0) {
           return false;
-        } return true;
-      })
+        }
+        return true;
+      });
     }
   },
 };

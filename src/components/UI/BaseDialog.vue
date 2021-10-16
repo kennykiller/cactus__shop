@@ -1,25 +1,23 @@
 <template>
   <teleport to="body">
     <div class="backdrop" @click="tryClose"></div>
-    <transition name="dialog">
-      <dialog open v-if="show">
-        <header>
-          <slot name="header">
-            {{ title }}
-          </slot>
-        </header>
-        <section>
-          <slot>
-            {{ text }}
-          </slot>
-        </section>
-        <menu>
-          <slot name="actions">
-            <base-button @click="tryClose">Закрыть</base-button>
-          </slot>
-        </menu>
-      </dialog>
-    </transition>
+    <dialog open v-if="show">
+      <header>
+        <slot name="header">
+          {{ title }}
+        </slot>
+      </header>
+      <section>
+        <slot>
+          {{ text }}
+        </slot>
+      </section>
+      <menu>
+        <slot name="actions">
+          <base-button @click="tryClose">Закрыть</base-button>
+        </slot>
+      </menu>
+    </dialog>
   </teleport>
 </template>
 
@@ -35,11 +33,11 @@ export default {
     },
     titleFail: {
       type: String,
-      required: false
+      required: false,
     },
     titleSuccess: {
       type: String,
-      required: false
+      required: false,
     },
   },
   computed: {
@@ -52,6 +50,14 @@ export default {
         : `К сожалению, в наличии у нас только ${this.$store.getters.shortage.initialStock} ${this.$store.getters.shortage.name}, пожалуйста, выберите другие цветы либо укажите меньшее число. Спасибо за понимание!`;
     },
   },
+  created() {
+    let body = document.querySelector("body");
+    body.style.overflow = "hidden";
+  },
+  unmounted() {
+    let body = document.querySelector("body");
+    body.style.overflow = "auto";
+  },
   methods: {
     tryClose() {
       this.$emit("close");
@@ -61,31 +67,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100%;
-  background-color: rgba(22, 22, 22, 0.185);
-  z-index: 5;
-}
-
+@import '../../variables.scss';
 dialog {
   position: fixed;
-  top: 20vh;
-  left: 10%;
-  width: 80%;
-  z-index: 100;
-  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  transform: translate(-50%, -50%);
+  z-index: 5001;
+  border-radius: 1rem;
   border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  box-shadow: 0 2px 0.5rem rgba(0, 0, 0, 0.26);
   padding: 0;
   margin: 0;
   overflow: hidden;
   background-color: #fff;
+  animation: dialog 0.4s ease;
+  @media (max-width: $tablets) {
+    width: 80%;
+  }
 }
-
+@keyframes dialog {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 header {
   background-color: teal;
   color: #fff;

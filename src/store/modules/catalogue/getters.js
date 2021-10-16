@@ -6,9 +6,15 @@ export default {
         return state.shortage;
     },
     filtered(state) {
-        return state.filtered
+        return state.filtered;
     },
     id(state) {
         return state.id;
+    },
+    objFiltered(state) {
+        return state.objFiltered;
+    },
+    noMatch(state) {
+        return state.noMatch;
     }
 }

@@ -12,6 +12,7 @@
     "cloudinary-vue": "^1.2.3",
     "core-js": "^3.6.5",
     "dotenv": "^10.0.0",
+    "router": "^1.3.5",
     "titanic-icons": "^1.2.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.11",

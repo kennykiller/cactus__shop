@@ -9,7 +9,9 @@ export default {
             filtered: [],
             shortage: null,
             unsuccessfulFilter: null,
-            id: null
+            id: null,
+            objFiltered: {},
+            noMatch: null
         }
     },
     mutations,

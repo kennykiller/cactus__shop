@@ -7,7 +7,7 @@
       @mouseover="displayArrows"
       @mouseout="hideArrows"
     >
-      <ul class="carousel__list">
+      <ul class="carousel__list" :class="{ filtered: itemAmount }">
         <carousel-item
           v-for="item in carousel"
           :key="item.front"
@@ -20,6 +20,7 @@
           :desc="item.description"
           :back="item.back"
           :front="item.front"
+          :filtered="itemAmount"
         ></carousel-item>
       </ul>
       <div class="arrows">
@@ -44,7 +45,10 @@ export default {
   computed: {
     _name() {
       return this.name.replace(/\s+/g, "");
-    }
+    },
+    itemAmount() {
+      return this.carousel.length > 4 ? false : true;
+    },
   },
   methods: {
     sideScroll(element, direction, speed, distance, step) {
@@ -97,41 +101,26 @@ export default {
     font-size: 2rem;
     font-weight: 400;
     color: rgb(58, 100, 58);
+    @media (max-width: $default) {
+      margin: 0.3rem 0;
+    }
   }
 }
 .carousel__list-container {
   min-height: 20rem;
   width: auto;
-  overflow-x: hidden;
   overflow-y: hidden;
-  &::-webkit-scrollbar {
-    height: 0.7rem;
-  }
-  &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    background-color: #f5f5f5;
-  }
+  // overflow-x: hidden;
 
-  &::-webkit-scrollbar {
-    width: 12px;
-    background-color: #f5f5f5;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #555;
-  }
-  @media (min-width: 80rem) {
-    .carousel__list-container {
-      min-height: 25rem;
-      width: auto;
-      overflow-x: none;
+  @media (max-width: $default) {
+    &::-webkit-scrollbar {
+      width: 0 !important;
     }
-    .carousel__list {
-      // justify-content: center;
-    }
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+  }
+  @media (min-width: $default) {
+    overflow-x: hidden;
   }
 }
 
@@ -140,6 +129,14 @@ export default {
   padding: 0;
   list-style: none;
   height: 100%;
+  @media (max-width: $default) {
+    margin: 0.5rem 0;
+  }
+}
+.filtered {
+  @media (min-width: $default) {
+    justify-content: center;
+  }
 }
 
 .arrows {
@@ -164,5 +161,8 @@ export default {
 .arrows.active {
   opacity: 1;
   height: auto;
+  @media (max-width: $default) {
+    display: none;
+  }
 }
 </style>

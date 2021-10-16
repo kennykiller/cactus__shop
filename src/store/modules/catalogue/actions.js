@@ -26,9 +26,10 @@ export default {
   },
   async updateStock(context, checkedItems) {
     for (let flower of checkedItems) {
-      let token = context.getters.isAuthenticated;
+      const index = flower.index;
+      const token = context.getters.isAuthenticated;
       const response = await fetch(
-        `https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBaseDataNew/-Ml5gTvGGBuLKxxN8TJO/index.json?auth=` +
+        `https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBaseDataNew/-Ml5gTvGGBuLKxxN8TJO/${index}.json?auth=` +
           token,
         {
           method: "PATCH",
@@ -47,5 +48,9 @@ export default {
     }
     context.commit("clearCatalogue");
     context.dispatch("getItems");
+  },
+  setMatch(context) {
+    context.commit("setMismatch");
+    setTimeout(() => context.commit("matchDefault"), 3000);
   },
 };
