@@ -1,8 +1,8 @@
 <template>
   <li class="carousel__item" v-if="idChecker" :class="{ filtered: filtered }">
     <div class="carousel__image-container">
-      <img :src="require(`@/assets/${front}`)" alt="" />
-      <img :src="require(`@/assets/${back}`)" alt="" />
+      <img :src="require(`@/assets/${front}`)" alt="" @click="openDetails" />
+      <img :src="require(`@/assets/${back}`)" alt="" @click="openDetails" />
     </div>
     <div class="description-container">
       <p>{{ desc }}</p>
@@ -42,7 +42,7 @@ export default {
     "counter",
     "price",
     "initialStock",
-    "filtered"
+    "filtered",
   ],
   data() {
     return {
@@ -86,7 +86,7 @@ export default {
       this.$store.commit("qtyDecrease", {
         value: 1,
         id: this.id,
-        name: this.name
+        name: this.name,
       });
     },
     reduceFromCart() {
@@ -98,6 +98,13 @@ export default {
         id: this.id,
         name: this.name,
       });
+    },
+    openDetails() {
+      let regexp = this.front.match(/\w+\/\d/);
+      let shortId = regexp[0].replace("/", "");
+      console.log(shortId);
+
+      this.$router.push(`/iteminfo/${shortId}`);
     },
   },
 };
