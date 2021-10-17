@@ -83,6 +83,12 @@ div {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  h3:first-child {
+    margin-bottom: 0;
+  }
+  h3:last-child {
+    margin-top: 0;
+  }
   @media (max-width: $default) {
     display: none;
   } 

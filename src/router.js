@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-
 import Catalogue from './pages/Catalogue.vue';
 import Auth from './pages/Auth.vue';
 import UserRegistration from './pages/UserRegistration.vue';
