@@ -96,6 +96,7 @@ export default {
   },
   unmounted() {
     this.item = null;
+    this.items = null;
   },
 };
 </script>
@@ -111,8 +112,8 @@ export default {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
-  width: 70%;
-  max-height: 50vh;
+  width: 80%;
+  max-height: 40vh;
 }
 .info--container {
   display: flex;
@@ -146,5 +147,28 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.similar-items-section {
+  max-height: 45%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  .similar-items--container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .similar-items {
+      width: 100%;
+      .similar-items--list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+        width: 100%;
+      }
+    }
+  }
 }
 </style>
