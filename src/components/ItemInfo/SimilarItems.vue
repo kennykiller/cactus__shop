@@ -28,8 +28,7 @@ li {
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
     img {
-      max-height: 13vh;
-      height: 10vh;
+      height: 16vh;
       box-shadow: 0.25rem 0.5rem 1rem lightgray;
       &:hover + .similar-item--info {
         opacity: 1;

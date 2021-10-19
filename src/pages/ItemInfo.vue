@@ -23,22 +23,33 @@
       </div>
     </section>
     <section class="similar-items-section">
-      <div class="similar-items--container">
+      <div class="similar-items--container" @mouseover="stop" @mouseout="start">
         <p>Также Вас могут заинтересовать:</p>
         <div class="similar-items">
-          <ul class="similar-items--list">
-            <similar-item
-              v-for="item in items"
-              :key="item.front"
-              :name="item.name"
-              :desc="item.description"
-              :front="item.front"
-              :price="item.price"
-            ></similar-item>
-          </ul>
+          <transition name="fade" mode="out-in">
+            <ul class="similar-items--list" v-if="firstIsVisible">
+              <similar-item
+                v-for="item in items"
+                :key="item.front"
+                :name="item.name"
+                :desc="item.description"
+                :front="item.front"
+                :price="item.price"
+              ></similar-item>
+            </ul>
+            <ul class="similar-items--list" v-else>
+              <similar-item
+                v-for="item in items1"
+                :key="item.front"
+                :name="item.name"
+                :desc="item.description"
+                :front="item.front"
+                :price="item.price"
+              ></similar-item></ul
+          ></transition>
         </div>
       </div>
-      <div class="similar-items--container">
+      <div class="similar-items--container" @mouseover="stop" @mouseout="start">
         <p>С этим букетом Вам может понадобиться:</p>
         <div class="similar-items">
           <ul class="similar-items--list">
@@ -67,6 +78,9 @@ export default {
     return {
       item: null,
       items: null,
+      items1: null,
+      firstIsVisible: true,
+      interval: null,
     };
   },
   created() {
@@ -87,16 +101,37 @@ export default {
     let categoryArr = this.$store.getters.catalogue.find(
       (arr) => arr[0].name === categoryName
     );
-    console.log(categoryArr);
     let similarArr = categoryArr.filter(
       (obj) => obj.front !== selectedItem.front
     );
-    console.log(similarArr);
-    this.items = similarArr;
+    if (similarArr.length > 5) {
+      const mid = Math.floor(similarArr.length / 2);
+      this.items = similarArr.slice(0, mid);
+      this.items1 = similarArr.slice(mid);
+    } else {
+      this.items = similarArr;
+    }
+  },
+  mounted() {
+    this.start();
   },
   unmounted() {
     this.item = null;
     this.items = null;
+    this.items1 = null;
+    clearInterval(this.interval);
+  },
+  methods: {
+    stop() {
+      clearInterval(this.interval);
+    },
+    start() {
+      if (this.items1) {
+        this.interval = setInterval(() => {
+          this.firstIsVisible = !this.firstIsVisible;
+        }, 7000);
+      }
+    },
   },
 };
 </script>
@@ -159,16 +194,21 @@ export default {
     display: flex;
     flex-direction: column;
     .similar-items {
-      width: 100%;
       .similar-items--list {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        padding: 0;
-        width: 100%;
+        padding: 0 0.5rem;
       }
     }
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
