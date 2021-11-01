@@ -54,12 +54,9 @@
         <div class="similar-items">
           <ul class="similar-items--list">
             <similar-item
-              v-for="item in items"
-              :key="item.front"
-              :name="item.name"
-              :desc="item.description"
-              :front="item.front"
-              :price="item.price"
+              v-for="item in extra[0]"
+              :key="item"
+              :front="item"
             ></similar-item>
           </ul>
         </div>
@@ -81,6 +78,8 @@ export default {
       items1: null,
       firstIsVisible: true,
       interval: null,
+      extraInterval: null,
+      extra: [],
     };
   },
   created() {
@@ -111,15 +110,18 @@ export default {
     } else {
       this.items = similarArr;
     }
+    this.$store.dispatch("getItems", "extra");
   },
   mounted() {
     this.start();
+    this.extraStart();
   },
   unmounted() {
     this.item = null;
     this.items = null;
     this.items1 = null;
     clearInterval(this.interval);
+    // this.$store.commit("resetExtra");
   },
   methods: {
     stop() {
@@ -131,6 +133,15 @@ export default {
           this.firstIsVisible = !this.firstIsVisible;
         }, 7000);
       }
+    },
+    extraStart() {
+      console.log(this.$store.getters.extraItems);
+      this.extra = this.$store.getters.extraItems;
+      console.log(this.extra);
+      this.extraInterval = setInterval(() => {
+        let lastBlock = this.extra.shift();
+        this.extra.push(lastBlock);
+      }, 5000);
     },
   },
 };
@@ -208,7 +219,8 @@ export default {
 .fade-leave-active {
   transition: all 0.5s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

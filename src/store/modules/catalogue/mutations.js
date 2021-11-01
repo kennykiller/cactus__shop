@@ -21,6 +21,16 @@ export default {
     orderedItem.counter = 1;
     orderedItem.stockLeft = orderedItem.initialStock;
   },
+  setExtraItems(state, payload) {
+    let arr = [...payload];
+    arr.forEach((v, i) => {
+      if (i % 4 === 0) {
+        state.extraItems.push([v]);
+      } else {
+        state.extraItems[state.extraItems.length - 1].push(v);
+      }
+    });
+  },
   setItems(state, payload) {
     const withKeys = {};
     payload.arr.forEach((item) => {
@@ -54,6 +64,9 @@ export default {
   clearFilters(state) {
     state.filtered.length = 0;
     state.objFiltered = {};
+  },
+  resetExtra(state) {
+    state.extraItems = null;
   },
   setFiltered(state, payload) {
     for (let key in payload) {

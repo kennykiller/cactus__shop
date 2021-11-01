@@ -1,7 +1,11 @@
 export default {
-  async getItems(context) {
+  async getItems(context, mode) {
+    let url = "https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBaseDataNew.json";
+    if (mode === "extra") {
+      url = "https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/extra.json"
+    }
     const response = await fetch(
-      "https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBaseDataNew.json",
+      url,
       {
         method: "GET",
       }
@@ -17,11 +21,16 @@ export default {
     }
 
     console.log(responseData);
-    for (let obj in responseData) {
-      context.commit("setItems", {
-        id: obj,
-        arr: responseData[obj],
-      });
+
+    if (mode === "extra") {
+      context.commit("setExtraItems", responseData)
+    } else {
+      for (let obj in responseData) {
+        context.commit("setItems", {
+          id: obj,
+          arr: responseData[obj],
+        });
+      }
     }
   },
   async updateStock(context, checkedItems) {
@@ -30,7 +39,7 @@ export default {
       const token = context.getters.isAuthenticated;
       const response = await fetch(
         `https://floristic-shop-default-rtdb.europe-west1.firebasedatabase.app/flowerBaseDataNew/-Ml5gTvGGBuLKxxN8TJO/${index}.json?auth=` +
-          token,
+        token,
         {
           method: "PATCH",
           headers: {

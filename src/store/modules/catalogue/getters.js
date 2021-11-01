@@ -16,5 +16,8 @@ export default {
     },
     noMatch(state) {
         return state.noMatch;
+    },
+    extraItems(state) {
+        return state.extraItems;
     }
 }

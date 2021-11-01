@@ -6,6 +6,7 @@ export default {
     state() {
         return {
             catalogue: [],
+            extraItems: [],
             filtered: [],
             shortage: null,
             unsuccessfulFilter: null,

@@ -2,7 +2,7 @@
   <li>
     <div class="similar-item--container">
       <img :src="require(`@/assets/${front}`)" alt="" />
-      <div class="similar-item--info">
+      <div class="similar-item--info" v-if="price && desc">
         <span class="name">{{ desc }}</span>
         <span class="price">{{ price }}</span>
       </div>
@@ -12,7 +12,17 @@
 
 <script>
 export default {
-  props: ["desc", "price", "front"],
+  props: {
+    desc: {
+      required: false,
+    },
+    price: {
+      required: false,
+    },
+    front: {
+      required: false,
+    },
+  },
 };
 </script>
 
