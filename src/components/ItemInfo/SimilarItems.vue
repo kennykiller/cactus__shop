@@ -1,10 +1,20 @@
 <template>
-  <li>
+  <li v-if="price && desc">
     <div class="similar-item--container">
       <img :src="require(`@/assets/${front}`)" alt="" />
-      <div class="similar-item--info" v-if="price && desc">
-        <span class="name">{{ desc }}</span>
+      <div class="similar-item--info">
+        <div class="name">
+          <span>{{ desc }}</span>
+        </div>
         <span class="price">{{ price }}</span>
+      </div>
+    </div>
+  </li>
+  <li class="extra-block" v-else>
+    <div class="similar-item--container extra">
+      <img class="extra-img" :src="require(`@/assets/${front}`)" alt="" />
+      <div class="extra similar-item--info">
+        <span class="price">{{ randomPrice }}</span>
       </div>
     </div>
   </li>
@@ -23,45 +33,46 @@ export default {
       required: false,
     },
   },
+  computed: {
+    randomPrice() {
+      return Math.floor(Math.random() * 3000);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../variables.scss";
 li {
-  max-width: 10rem;
-  max-height: 10rem;
+  height: 14rem;
   display: flex;
   justify-content: center;
   .similar-item--container {
     position: relative;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem;
+    box-shadow: 0.25rem 0.5rem 1rem lightgray;
+    border: 1px solid lightgray;
+    border-radius: 0.25rem;
+    width: 12rem;
     img {
       height: 16vh;
-      box-shadow: 0.25rem 0.5rem 1rem lightgray;
-      &:hover + .similar-item--info {
-        opacity: 1;
-      }
+      margin-bottom: 1rem;
     }
     .similar-item--info {
       display: flex;
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      background-color: $base-color-transparent;
-      box-shadow: 0.2rem 0.2rem 0.5rem black;
-      min-width: 5rem;
+      justify-content: space-between;
       flex-direction: column;
       align-items: center;
-      border-radius: 0.2rem;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 0.3s ease-in;
-      padding: 0.2rem;
-      span {
-        font-size: 0.7rem;
+      .name,
+      .price {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
         font-family: Georgia, "Times New Roman", Times, serif;
       }
       .price {
@@ -69,5 +80,14 @@ li {
       }
     }
   }
+}
+.extra-block {
+  height: auto;
+}
+.extra-img {
+  margin: 0 !important;
+}
+.extra.similar-item--info {
+  margin: 0.5rem 0;
 }
 </style>
