@@ -121,7 +121,7 @@ export default {
     this.items = null;
     this.items1 = null;
     clearInterval(this.interval);
-    // this.$store.commit("resetExtra");
+    clearInterval(this.extraInterval);
   },
   methods: {
     stop() {

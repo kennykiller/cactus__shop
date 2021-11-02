@@ -65,9 +65,6 @@ export default {
     state.filtered.length = 0;
     state.objFiltered = {};
   },
-  resetExtra(state) {
-    state.extraItems = null;
-  },
   setFiltered(state, payload) {
     for (let key in payload) {
       if (payload[key] === "Любая") {

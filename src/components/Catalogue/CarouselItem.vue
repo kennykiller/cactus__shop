@@ -20,9 +20,11 @@
             >{{ price }} Руб</base-button
           >
           <div class="addToCart-container" v-else>
-            <button @click="reduceFromCart">-</button>
-            <div class="counter-container">{{ quantity }}</div>
-            <button @click="addToCart">+</button>
+            <i class="far fa-minus-square fa-2x" @click="reduceFromCart"></i>
+            <i class="fas fa-shopping-cart fa-2x"
+              ><span>{{ quantity }}</span></i
+            >
+            <i class="far fa-plus-square fa-2x" @click="addToCart"></i>
           </div>
         </div>
       </footer>
@@ -64,10 +66,7 @@ export default {
     idChecker() {
       if (this.$store.getters.filtered.length === 0) {
         let idCheck = this.id;
-        let checkingFormula = +idCheck
-          .match(/\/\d+/g)
-          .join()
-          .slice(1);
+        let checkingFormula = +idCheck.match(/\/\d+/g).join().slice(1);
         return checkingFormula > 10 ? false : true;
       }
       return true;
@@ -192,24 +191,27 @@ export default {
 .addToCart-container {
   display: flex;
   align-items: center;
-  button {
-    height: 2rem;
-    width: 2rem;
-    font-size: 1.5rem;
-    font-family: Roboto, sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .fa-plus-square,
+  .fa-minus-square {
+    color: lightblue;
+    cursor: pointer;
   }
-}
-.counter-container {
-  width: 3rem;
-  height: 3rem;
-  border: 1px solid lightgray;
-  margin: 0 0.7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
+  .fa-shopping-cart {
+    color: $base-color-transparent;
+    position: relative;
+    margin: 0 0.7rem;
+    span {
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      border: 1px solid lightgray;
+      right: -0.5rem;
+      top: -0.5rem;
+      font-size: 1.2rem;
+      color: black;
+      background-color: $secondary-color;
+    }
+  }
 }
 </style>
