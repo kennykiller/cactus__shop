@@ -111,6 +111,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../variables.scss";
+@import "../UI/prices.scss";
 .carousel__item {
   margin: 0 0.3rem;
   min-height: 15rem;
@@ -178,39 +179,6 @@ export default {
     .sizes-value {
       padding-left: 0.1rem;
       font-family: Helvetica, sans-serif;
-    }
-  }
-}
-.price-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-}
-
-.addToCart-container {
-  display: flex;
-  align-items: center;
-  .fa-plus-square,
-  .fa-minus-square {
-    color: lightblue;
-    cursor: pointer;
-  }
-  .fa-shopping-cart {
-    color: $base-color-transparent;
-    position: relative;
-    margin: 0 0.7rem;
-    span {
-      position: absolute;
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 50%;
-      border: 1px solid lightgray;
-      right: -0.5rem;
-      top: -0.5rem;
-      font-size: 1.2rem;
-      color: black;
-      background-color: $secondary-color;
     }
   }
 }

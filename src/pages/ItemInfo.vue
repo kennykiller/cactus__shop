@@ -1,6 +1,10 @@
 <template>
-  <div class="info--container">
-    <section class="item-info--section">
+  <div class="info--container" :class="{ loading: isLoading }">
+    <div v-if="isLoading" class="loading-spinner">
+      <span class="fa fa-spin fa-3x fa-spinner" aria-hidden="true"></span>
+      <span>Информация о товаре загружается...</span>
+    </div>
+    <section class="item-info--section" v-else>
       <div class="item-info--container">
         <div class="item-info--image">
           <img :src="require(`@/assets/${item.front}`)" alt="" />
@@ -8,21 +12,55 @@
           <h2>{{ item.description }}</h2>
         </div>
         <div class="info-description--container">
-          <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-            iusto beatae voluptatem illum suscipit illo, ea dignissimos libero
-            iure nisi. Eos, culpa architecto reiciendis laboriosam maxime atque
-            aliquid amet neque.
+          <div class="target-customers">
+            <p>
+              Данный букет идеально подойдет для любых случаев. Дни рождения,
+              свадьба, и, как ни странно, даже похороны. Какой бы ни была
+              причина, радостная или грустная, наши букеты придутся к месту.
+              Кроме того, мы гарантируем, что цена, которую Вы видите на ценнике
+              - окончательная, никаких доплат за ленточки, обертки и прочую
+              мишуру. Ваш заказ - первостепенная задача для нашего магазина, на
+              выполнение которой будут брошены лучшие флористы - мастера
+              цветочного дела. Сделайте первый заказ и Вы поймете, что с нами
+              можно строить долгосрочные отношения, основанные на доверии и
+              гарантии выдерживания поставленных сроков.
+            </p>
+            <div class="price-container">
+              <base-button v-if="item.counter < 2" @click="addToCart"
+                >{{ item.price }} Руб</base-button
+              >
+              <div class="addToCart-container" v-else>
+                <i
+                  class="far fa-minus-square fa-2x"
+                  @click="reduceFromCart"
+                ></i>
+                <i class="fas fa-shopping-cart fa-2x"
+                  ><span>{{ quantity }}</span></i
+                >
+                <i class="far fa-plus-square fa-2x" @click="addToCart"></i>
+              </div>
+            </div>
+            <div>
+              <h3>Цена за единицу: {{ item.price }} Рублей</h3>
+              <h3>Общая сумма этого товара: {{ totalForBucket }} Рублей</h3>
+            </div>
           </div>
-
-          <div>
-            <h3>Цена за единицу: {{ item.price }}</h3>
-            <h3>Общая сумма:</h3>
+          <div class="info-sublist">
+            <h3>В состав букета входят:</h3>
+            <ul class="subflowers--list">
+              <li>Роза кахала</li>
+              <li>3 гвоздики</li>
+              <li>Альстромерия</li>
+              <li>Зелень</li>
+              <li>Пион</li>
+              <li>Подсолнух</li>
+              <li>Кора дуба</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
-    <section class="similar-items-section">
+    <section class="similar-items-section" v-if="!isLoading">
       <div class="similar-items--container" @mouseover="stop" @mouseout="start">
         <p>Также Вас могут заинтересовать:</p>
         <div class="similar-items">
@@ -35,6 +73,7 @@
                 :desc="item.description"
                 :front="item.front"
                 :price="item.price"
+                @routeTo="routeToPage"
               ></similar-item>
             </ul>
             <ul class="similar-items--list" v-else>
@@ -45,6 +84,7 @@
                 :desc="item.description"
                 :front="item.front"
                 :price="item.price"
+                @routeTo="routeToPage"
               ></similar-item></ul
           ></transition>
         </div>
@@ -80,9 +120,15 @@ export default {
       interval: null,
       extraInterval: null,
       extra: [],
+      isLoading: false,
     };
   },
-  created() {
+  async created() {
+    if (this.$store.getters.catalogue.length === 0) {
+      this.isLoading = true;
+      await this.$store.dispatch("getItems");
+      this.isLoading = false;
+    }
     const params = this.$route.params.id;
     const num = +params.match(/\d/);
     const str = params.match(/\D/g).join("");
@@ -123,6 +169,20 @@ export default {
     clearInterval(this.interval);
     clearInterval(this.extraInterval);
   },
+  computed: {
+    quantity() {
+      if (this.item.counter === 1) {
+        return 0;
+      } else {
+        return this.$store.getters.orders.find(
+          (el) => this.item.name + this.item.front === el.id
+        ).quantityOrdered;
+      }
+    },
+    totalForBucket() {
+      return this.item.price * this.quantity;
+    },
+  },
   methods: {
     stop() {
       clearInterval(this.interval);
@@ -143,16 +203,61 @@ export default {
         this.extra.push(lastBlock);
       }, 5000);
     },
+    routeToPage(shortId) {
+      this.$router.push(`/iteminfo/${shortId}`);
+    },
+    addToCart() {
+      this.$store.commit("addToCart", {
+        id: this.item.name + this.item.front,
+        name: this.item.name,
+        price: this.item.price,
+        quantityOrdered: this.item.counter,
+        img: this.item.front,
+        initialStock: this.item.initialStock,
+      });
+      this.$store.commit("qtyDecrease", {
+        value: 1,
+        id: this.item.name + this.item.front,
+        name: this.item.name,
+      });
+    },
+    reduceFromCart() {
+      this.$store.commit("reduceFromCart", {
+        id: this.item.name + this.item.front,
+      });
+      this.$store.commit("qtyIncrease", {
+        value: 1,
+        id: this.item.name + this.item.front,
+        name: this.item.name,
+      });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../variables.scss";
+@import "../components/UI/prices.scss";
 .info--container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.loading {
+  align-items: center;
+  justify-content: center;
+  @media (max-width: $tablets) {
+    width: 100%;
+  }
+  .loading-spinner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    span {
+      padding: 1rem;
+    }
+  }
 }
 .item-info--section {
   display: flex;
@@ -167,7 +272,6 @@ export default {
 }
 .item-info--container {
   display: flex;
-  justify-content: space-between;
 }
 .item-info--image {
   margin-right: 1.5rem;
@@ -191,8 +295,27 @@ export default {
 }
 .info-description--container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  .target-customers {
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .price-container {
+      justify-content: flex-start;
+    }
+  }
+  .info-sublist {
+    margin: 0 1.5rem;
+    padding: 0 1rem;
+    .subflowers--list {
+      padding: 0;
+      list-style: circle;
+      :not(li:last-child) {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
 }
 .similar-items-section {
   max-height: 45%;
