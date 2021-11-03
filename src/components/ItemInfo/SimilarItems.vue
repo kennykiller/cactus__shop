@@ -1,7 +1,7 @@
 <template>
   <li v-if="price && desc">
     <div class="similar-item--container" @click="goToItem">
-      <img :src="require(`@/assets/${front}`)" alt="" />
+        <img :src="require(`@/assets/${front}`)" alt="" />
       <div class="similar-item--info">
         <div class="name">
           <span>{{ desc }}</span>
@@ -33,8 +33,8 @@ export default {
       required: false,
     },
     name: {
-      required: false
-    }
+      required: false,
+    },
   },
   emits: ["routeTo"],
   computed: {
@@ -46,9 +46,9 @@ export default {
     goToItem() {
       let regexp = this.front.match(/\w+\/\d/);
       let shortId = regexp[0].replace("/", "");
-      this.$emit('routeTo', shortId)
-    }
-  }
+      this.$emit("routeTo", shortId);
+    },
+  },
 };
 </script>
 
@@ -72,7 +72,7 @@ li {
     cursor: pointer;
     img {
       height: 16vh;
-      margin-bottom: 1rem;
+      margin-bottom: 0.3rem;
     }
     .similar-item--info {
       display: flex;
@@ -81,6 +81,7 @@ li {
       align-items: center;
       .name,
       .price {
+        text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;

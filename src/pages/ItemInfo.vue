@@ -9,22 +9,10 @@
         <div class="item-info--image">
           <img :src="require(`@/assets/${item.front}`)" alt="" />
           <img :src="require(`@/assets/${item.back}`)" alt="" />
-          <h2>{{ item.description }}</h2>
         </div>
         <div class="info-description--container">
           <div class="target-customers">
-            <p>
-              Данный букет идеально подойдет для любых случаев. Дни рождения,
-              свадьба, и, как ни странно, даже похороны. Какой бы ни была
-              причина, радостная или грустная, наши букеты придутся к месту.
-              Кроме того, мы гарантируем, что цена, которую Вы видите на ценнике
-              - окончательная, никаких доплат за ленточки, обертки и прочую
-              мишуру. Ваш заказ - первостепенная задача для нашего магазина, на
-              выполнение которой будут брошены лучшие флористы - мастера
-              цветочного дела. Сделайте первый заказ и Вы поймете, что с нами
-              можно строить долгосрочные отношения, основанные на доверии и
-              гарантии выдерживания поставленных сроков.
-            </p>
+            <h2>{{ item.description }}</h2>
             <div class="price-container">
               <base-button v-if="item.counter < 2" @click="addToCart"
                 >{{ item.price }} Руб</base-button
@@ -44,7 +32,22 @@
               <h3>Цена за единицу: {{ item.price }} Рублей</h3>
               <h3>Общая сумма этого товара: {{ totalForBucket }} Рублей</h3>
             </div>
+            <div class="contacts">
+              <p>
+                По этим ссылкам Вы можете обратиться за дополнительной помощью:
+              </p>
+              <div class="links--container">
+                <a href="https://t.me/floristickaktusshop"
+                  ><i class="fab fa-telegram"></i
+                ></a>
+                <a href="https://vk.com/realmadridinmyheart"
+                  ><i class="fab fa-vk"></i
+                ></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+              </div>
+            </div>
           </div>
+
           <div class="info-sublist">
             <h3>В состав букета входят:</h3>
             <ul class="subflowers--list">
@@ -264,7 +267,7 @@ export default {
   justify-content: center;
   margin-top: 2rem;
   width: 80%;
-  max-height: 40vh;
+  max-height: 35vh;
 }
 .info--container {
   display: flex;
@@ -300,9 +303,32 @@ export default {
     padding: 0 0.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    h2 {
+      margin-top: 0;
+    }
     .price-container {
       justify-content: flex-start;
+    }
+    .links--container {
+      display: flex;
+      a {
+        color: black;
+        :not(a:first-child) {
+          margin-left: 1rem;
+        }
+        .fab {
+          font-size: 1.5rem;
+        }
+        .fa-vk {
+          color: #0077ff;
+        }
+        .fa-telegram {
+          color: #30a3e6;
+        }
+        .fa-whatsapp {
+          color: #4ced69;
+        }
+      }
     }
   }
   .info-sublist {
