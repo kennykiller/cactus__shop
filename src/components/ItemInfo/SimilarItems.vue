@@ -1,7 +1,7 @@
 <template>
   <li v-if="price && desc">
     <div class="similar-item--container" @click="goToItem">
-        <img :src="require(`@/assets/${front}`)" alt="" />
+      <img :src="require(`@/assets/${front}`)" alt="" />
       <div class="similar-item--info">
         <div class="name">
           <span>{{ desc }}</span>
@@ -58,6 +58,9 @@ li {
   height: 14rem;
   display: flex;
   justify-content: center;
+  @media (max-width: $tablets) {
+    height: auto;
+  }
   .similar-item--container {
     position: relative;
     margin-right: 0.5rem;
@@ -70,9 +73,15 @@ li {
     border-radius: 0.25rem;
     width: 12rem;
     cursor: pointer;
+    @media (max-width: $tablets) {
+      margin-right: 0;
+    }
     img {
       height: 16vh;
       margin-bottom: 0.3rem;
+      @media (max-width: $tablets) {
+        height: auto;
+      }
     }
     .similar-item--info {
       display: flex;

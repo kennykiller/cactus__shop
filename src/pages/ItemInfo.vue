@@ -5,8 +5,46 @@
       <span>Информация о товаре загружается...</span>
     </div>
     <section class="item-info--section" v-else>
-      <div class="item-info--container">
-        <div class="item-info--image">
+      <div class="item-name">
+        <h2>{{ item.description }}</h2>
+      </div>
+      <div class="item-info--mobile">
+        <div class="item-info--image mobile">
+          <img :src="require(`@/assets/${item.front}`)" alt="" />
+          <img :src="require(`@/assets/${item.back}`)" alt="" />
+          <div class="price-container">
+            <base-button v-if="item.counter < 2" @click="addToCart"
+              >{{ item.price }} Руб</base-button
+            >
+            <div class="addToCart-container" v-else>
+              <i class="far fa-minus-square fa-2x" @click="reduceFromCart"></i>
+              <i class="fas fa-shopping-cart fa-2x"
+                ><span>{{ quantity }}</span></i
+              >
+              <i class="far fa-plus-square fa-2x" @click="addToCart"></i>
+            </div>
+          </div>
+          <div>
+            <h3>Общая сумма этого товара: {{ totalForBucket }} Рублей</h3>
+          </div>
+        </div>
+        <div class="info-description--mobile">
+          <div class="info-sublist">
+            <h3>В состав букета входят:</h3>
+            <ul class="subflowers--list">
+              <li>Роза кахала</li>
+              <li>Гипсофила</li>
+              <li>Альстромерия</li>
+              <li>Фисташка</li>
+              <li>Пион</li>
+              <li>Подсолнух</li>
+              <li>Эвкалипт</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="item-info--desktop">
+        <div class="item-info--image desktop">
           <img :src="require(`@/assets/${item.front}`)" alt="" />
           <img :src="require(`@/assets/${item.back}`)" alt="" />
         </div>
@@ -28,36 +66,21 @@
                 <i class="far fa-plus-square fa-2x" @click="addToCart"></i>
               </div>
             </div>
-            <div>
+            <div class="price-total">
               <h3>Цена за единицу: {{ item.price }} Рублей</h3>
               <h3>Общая сумма этого товара: {{ totalForBucket }} Рублей</h3>
             </div>
-            <div class="contacts">
-              <p>
-                По этим ссылкам Вы можете обратиться за дополнительной помощью:
-              </p>
-              <div class="links--container">
-                <a href="https://t.me/floristickaktusshop"
-                  ><i class="fab fa-telegram"></i
-                ></a>
-                <a href="https://vk.com/realmadridinmyheart"
-                  ><i class="fab fa-vk"></i
-                ></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-              </div>
-            </div>
           </div>
-
           <div class="info-sublist">
             <h3>В состав букета входят:</h3>
             <ul class="subflowers--list">
               <li>Роза кахала</li>
-              <li>3 гвоздики</li>
+              <li>Гипсофила</li>
               <li>Альстромерия</li>
-              <li>Зелень</li>
+              <li>Фисташка</li>
               <li>Пион</li>
               <li>Подсолнух</li>
-              <li>Кора дуба</li>
+              <li>Эвкалипт</li>
             </ul>
           </div>
         </div>
@@ -105,6 +128,17 @@
         </div>
       </div>
     </section>
+    <div class="contacts">
+      <div class="links--container">
+        <a href="https://t.me/floristickaktusshop"
+          ><i class="fab fa-telegram"></i
+        ></a>
+        <a href="https://vk.com/realmadridinmyheart"
+          ><i class="fab fa-vk"></i
+        ></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -262,28 +296,48 @@ export default {
     }
   }
 }
-.item-info--section {
+.item-info--desktop {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
-  width: 80%;
-  max-height: 35vh;
+  @media (max-width: $tablets) {
+    display: none;
+  }
 }
-.info--container {
-  display: flex;
-  flex-direction: column;
-}
-.item-info--container {
-  display: flex;
+.item-name {
+  text-align: center;
+  @media (min-width: $tablets) {
+    display: none;
+  }
 }
 .item-info--image {
   margin-right: 1.5rem;
   text-align: center;
+  @media (max-width: $tablets) {
+    margin: 0;
+  }
+  &.desktop {
+    @media (max-width: $tablets) {
+      display: none;
+    }
+  }
+  &.mobile {
+    .price-container {
+      display: flex;
+      justify-content: center;
+    }
+    @media (min-width: $tablets) {
+      display: none;
+    }
+  }
   img {
     display: block;
     margin: 0.5rem auto;
     box-shadow: 3px 2px 3px lightgray;
     height: 70%;
+    @media (max-width: $tablets) {
+      width: 85%;
+      margin-bottom: 1rem;
+    }
   }
   img:nth-child(2) {
     display: none;
@@ -296,53 +350,61 @@ export default {
     display: block;
   }
 }
-.info-description--container {
-  display: flex;
-  justify-content: space-between;
-  .target-customers {
-    padding: 0 0.5rem;
+.item-info--mobile {
+  display: none;
+  @media (max-width: $tablets) {
     display: flex;
-    flex-direction: column;
-    h2 {
+    align-items: center;
+  }
+  .info-description--mobile {
+    display: none;
+    @media (max-width: $tablets) {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+    }
+    h3 {
+      margin-bottom: 1rem;
       margin-top: 0;
     }
-    .price-container {
-      justify-content: flex-start;
-    }
-    .links--container {
-      display: flex;
-      a {
-        color: black;
-        :not(a:first-child) {
-          margin-left: 1rem;
+    .info-sublist {
+      .subflowers--list {
+        padding-left: 1rem;
+        list-style: circle;
+        margin: 0;
+        :not(li:last-child) {
+          margin-bottom: 0.5rem;
         }
-        .fab {
-          font-size: 1.5rem;
-        }
-        .fa-vk {
-          color: #0077ff;
-        }
-        .fa-telegram {
-          color: #30a3e6;
-        }
-        .fa-whatsapp {
-          color: #4ced69;
-        }
-      }
-    }
-  }
-  .info-sublist {
-    margin: 0 1.5rem;
-    padding: 0 1rem;
-    .subflowers--list {
-      padding: 0;
-      list-style: circle;
-      :not(li:last-child) {
-        margin-bottom: 0.5rem;
       }
     }
   }
 }
+.item-info--section {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 80%;
+  max-height: 35vh;
+  @media (max-width: $tablets) {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 0;
+    max-height: none;
+  }
+}
+.info--container {
+  display: flex;
+  flex-direction: column;
+}
+.item-info--container {
+  display: flex;
+  @media (max-width: $tablets) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+
 .similar-items-section {
   max-height: 45%;
   width: 80%;
@@ -360,6 +422,10 @@ export default {
         justify-content: space-between;
         align-items: center;
         padding: 0 0.5rem;
+        @media (max-width: $tablets) {
+          padding: 0;
+          justify-content: center;
+        }
       }
     }
   }
@@ -371,5 +437,76 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+
+.info-description--container {
+  display: flex;
+  justify-content: space-between;
+  .target-customers {
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: $tablets) {
+      display: none;
+    }
+    h2,
+    h3 {
+      margin-top: 0;
+    }
+    .price-container {
+      justify-content: flex-start;
+      @media (max-width: $tablets) {
+        justify-content: center;
+      }
+    }
+    .price-total {
+      margin-top: 1rem;
+    }
+  }
+  .info-sublist {
+    margin: 0 1.5rem;
+    padding: 0 1rem;
+    h3 {
+      margin-top: 0;
+    }
+    .subflowers--list {
+      padding: 0;
+      list-style: circle;
+      @media (max-width: $tablets) {
+        margin: 0;
+      }
+      :not(li:last-child) {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+.contacts {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  .links--container {
+    display: flex;
+    a {
+      color: black;
+      :not(a:first-child) {
+        margin-left: 1rem;
+      }
+      .fab {
+        font-size: 1.5rem;
+      }
+      .fa-vk {
+        color: #0077ff;
+      }
+      .fa-telegram {
+        color: #30a3e6;
+      }
+      .fa-whatsapp {
+        color: #4ced69;
+      }
+    }
+  }
 }
 </style>

@@ -231,7 +231,8 @@ export default {
   padding: 0;
   position: fixed;
   top: 5rem;
-  left: calc((100vw - 116rem) / 2);
+  left: 17rem;
+  z-index: 100;
   bottom: 5rem;
   border-radius: 0.5rem;
   @media (max-width: $tablets) {
