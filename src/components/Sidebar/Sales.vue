@@ -111,6 +111,14 @@ export default {
     left: 0;
     transform: none;
   }
+  @media (min-width: $tablets) and (max-width: $default) {
+    width: 60vw;
+    height: 55vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    justify-content: center;
+  }
 }
 .sales-items-list {
   padding: 0;

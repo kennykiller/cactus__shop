@@ -7,13 +7,13 @@
     @close="closeDialog"
   ></base-dialog>
   <div class="wrapper">
-    <div class="cart">
+    <div class="cart" :class="{ opened: cartIsOpened }">
       <div
         class="cart-indicator"
         @click="toggleCart"
         :class="{ opened: cartIsOpened }"
       >
-        <span class="cart-size" v-if="!cartIsOpened">{{ ordersQuantity }}</span>
+        <span class="cart-size">{{ ordersQuantity }}</span>
         <span class="fa fa-shopping-cart"></span>
       </div>
       <div class="cart-items" v-if="cartIsOpened">
@@ -111,7 +111,7 @@ export default {
 
 .wrapper {
   position: relative;
-  transform: translate(1px);
+  transform: translate(0px);
 }
 
 .cart {
@@ -127,14 +127,21 @@ export default {
   @media (min-width: $tablets) {
     background: rgba(255, 226, 226, 0.85);
   }
-
+  &.opened {
+    background-color: transparent;
+    pointer-events: none;
+  }
   .cart-indicator {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
   }
   .cart-indicator.opened {
     justify-content: flex-end;
+    background-color: white;
+    pointer-events: auto;
   }
 
   .fa-shopping-cart,
@@ -157,11 +164,16 @@ export default {
 
   .cart-items {
     padding: 0 1rem 0.5rem 1rem;
+    pointer-events: auto;
     @media (max-width: $tablets) {
       width: 100vw;
       padding: 0;
       background: rgba(255, 226, 226, 0.85);
-      transform: translate(4.25rem, -3px);
+      transform: translate(4.31rem, -3px);
+    }
+    @media (min-width: $tablets) and (max-width: $default) {
+      width: 50vw;
+      transform: translate(4.31rem, 2px);
     }
 
     .cart-container {

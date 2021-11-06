@@ -49,15 +49,18 @@ export default {
 <style lang="scss" scoped>
 @import "../../variables.scss";
 @import "./sidebar-form.scss";
+#mobile-location {
+  @media (min-width: $tablets) {
+    display: none;
+  }
+}
 .backdrop,
 #desktop-location {
   @media (max-width: $tablets) {
     display: none;
   }
-}
-#mobile-location {
   @media (min-width: $tablets) {
-    display: none;
+    display: block;
   }
 }
 .base-form {

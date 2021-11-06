@@ -144,7 +144,7 @@ div {
   span.active {
     background: rgba(255, 255, 255, 0);
   }
-  @media (min-width: 768px) {
+  @media (min-width: $default) {
     display: none;
   }
 }
@@ -158,6 +158,9 @@ a.router-link-active {
 
 h1 {
   margin: 0;
+  @media (min-width: $tablets) and (max-width: $default) {
+    height: 4.2rem;
+  }
   a {
     color: rgb(58, 100, 58);
     font-family: "Allison", cursive;
@@ -177,37 +180,10 @@ h1 {
   }
 }
 
-header nav {
-  display: none;
-}
-
 .openedBar-enter-active {
   animation: modal 0.5s ease-out;
 }
 .openedBar-leave-active {
   animation: modal 0.5s ease-in reverse;
-}
-
-@media (min-width: 748px) {
-  header nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 4rem;
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      li {
-        margin: 0 0.5rem;
-        a {
-          font-size: 1.5rem;
-        }
-      }
-    }
-  }
 }
 </style>

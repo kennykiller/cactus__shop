@@ -135,8 +135,11 @@ export default {
   @media (max-width: $tablets) {
     bottom: -2.5rem;
     right: -2.5rem;
-    min-width: 90vw;
+    min-width: 18rem;
     padding: 0.35rem 0.5rem;
+  }
+  @media (min-width: $tablets) and (max-width: $default) {
+    min-width: 22rem;
   }
   img {
     width: 100px;

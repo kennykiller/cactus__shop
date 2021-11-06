@@ -52,7 +52,7 @@ export default {
   position: absolute;
   left: 0.2rem;
   z-index: 300;
-  @media (min-width: $tablets) {
+  @media (min-width: $default) {
     display: none;
   }
 }

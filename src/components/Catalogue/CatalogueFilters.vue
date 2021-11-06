@@ -1,40 +1,39 @@
 <template>
   <div class="backdrop" @click="close"></div>
-    <div class="container">
-      <h1>Фильтры</h1>
-      <div class="filter-option__mobile">
-        <label for="filter-type__mobile">По типу растений:</label>
-        <select name="type" id="filter-type__mobile">
-          <option value="Любая">Любые</option>
-          <option
-            v-for="item in $store.getters.catalogue"
-            :key="item[0].name"
-            :value="item[0].name"
-            >{{ item[0].name }}</option
-          >
-        </select>
-      </div>
-      <div class="filter-option__mobile">
-        <label for="filter-price__mobile">По цене (руб):</label>
-        <select name="price" id="filter-price__mobile">
-          <option value="Любая">Любая</option>
-          <option value="0    1000">До 1000</option>
-          <option value="1000 1500">1000 - 1500</option>
-          <option value="1500 2500">1500 - 2500</option>
-          <option value="2500 5000">2500 - 5000</option>
-          <option value="5000 9999">5000 - 9999</option>
-          <option value="9999 9999999">Дороже 10000</option>
-        </select>
-      </div>
-
-      <div class="button-container">
-        <button @click="clearFilters">Убрать фильтры</button>
-        <button @click="applyFilters">Применить</button>
-      </div>
-      <p v-if="noMatch">
-        К сожалению нет соответствий Вашим требованиям.
-      </p>
+  <div class="container">
+    <h1>Фильтры</h1>
+    <div class="filter-option__mobile">
+      <label for="filter-type__mobile">По типу растений:</label>
+      <select name="type" id="filter-type__mobile">
+        <option value="Любая">Любые</option>
+        <option
+          v-for="item in $store.getters.catalogue"
+          :key="item[0].name"
+          :value="item[0].name"
+        >
+          {{ item[0].name }}
+        </option>
+      </select>
     </div>
+    <div class="filter-option__mobile">
+      <label for="filter-price__mobile">По цене (руб):</label>
+      <select name="price" id="filter-price__mobile">
+        <option value="Любая">Любая</option>
+        <option value="0    1000">До 1000</option>
+        <option value="1000 1500">1000 - 1500</option>
+        <option value="1500 2500">1500 - 2500</option>
+        <option value="2500 5000">2500 - 5000</option>
+        <option value="5000 9999">5000 - 9999</option>
+        <option value="9999 9999999">Дороже 10000</option>
+      </select>
+    </div>
+
+    <div class="button-container">
+      <button @click="clearFilters">Убрать фильтры</button>
+      <button @click="applyFilters">Применить</button>
+    </div>
+    <p v-if="noMatch">К сожалению нет соответствий Вашим требованиям.</p>
+  </div>
 </template>
 
 <script>
@@ -82,6 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../variables.scss";
 .container {
   position: absolute;
   box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
@@ -95,7 +95,14 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   z-index: 5001;
-  animation: filters .3s ease;
+  animation: filters 0.3s ease;
+  @media (min-width: $tablets) and (max-width: $default) {
+    width: 60%;
+    left: 50%;
+    top: 5rem;
+    transform: translateX(-50%);
+    animation: scaled 0.5s ease-in;
+  }
 }
 
 @keyframes filters {
@@ -104,6 +111,15 @@ export default {
   }
   to {
     transform: scale(1) translateX(0);
+  }
+}
+
+@keyframes scaled {
+  from {
+    transform: scale(0.7) translateX(0);
+  }
+  to {
+    transform: scale(1) translateX(-15rem);
   }
 }
 
