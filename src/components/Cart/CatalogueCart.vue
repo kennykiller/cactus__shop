@@ -128,6 +128,9 @@ export default {
     background: rgba(255, 226, 226, 0.85);
     transform: translate(-4rem, -5px);
   }
+  @media (min-width: $default) {
+    transform: none;
+  }
   &.opened {
     background-color: transparent;
     pointer-events: none;
@@ -143,6 +146,9 @@ export default {
     justify-content: flex-end;
     background-color: white;
     pointer-events: auto;
+    @media (min-width: $default) {
+      background-color: transparent;
+    }
   }
 
   .fa-shopping-cart,
@@ -175,6 +181,9 @@ export default {
     @media (min-width: $tablets) and (max-width: $default) {
       width: 50vw;
       transform: translate(4.31rem, 1px);
+    }
+    @media (min-width: $default) {
+      transform: translate(-7px, 12px)
     }
 
     .cart-container {
