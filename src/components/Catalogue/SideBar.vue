@@ -235,7 +235,7 @@ export default {
   z-index: 100;
   bottom: 5rem;
   border-radius: 0.5rem;
-  @media (max-width: $tablets) {
+  @media (max-width: $default) {
     display: none;
   }
   @media (max-width: 115rem) {

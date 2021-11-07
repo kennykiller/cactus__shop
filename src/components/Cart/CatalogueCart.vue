@@ -126,6 +126,7 @@ export default {
   }
   @media (min-width: $tablets) {
     background: rgba(255, 226, 226, 0.85);
+    transform: translate(-4rem, -5px);
   }
   &.opened {
     background-color: transparent;
@@ -165,15 +166,15 @@ export default {
   .cart-items {
     padding: 0 1rem 0.5rem 1rem;
     pointer-events: auto;
+    background: rgba(255, 226, 226, 0.85);
     @media (max-width: $tablets) {
       width: 100vw;
       padding: 0;
-      background: rgba(255, 226, 226, 0.85);
       transform: translate(4.31rem, -3px);
     }
     @media (min-width: $tablets) and (max-width: $default) {
       width: 50vw;
-      transform: translate(4.31rem, 2px);
+      transform: translate(4.31rem, 1px);
     }
 
     .cart-container {

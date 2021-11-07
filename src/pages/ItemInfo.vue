@@ -316,7 +316,7 @@ export default {
     margin: 0;
   }
   &.desktop {
-    @media (max-width: $tablets) {
+    @media (max-width: 1023px) {
       display: none;
     }
   }
@@ -325,7 +325,7 @@ export default {
       display: flex;
       justify-content: center;
     }
-    @media (min-width: $tablets) {
+    @media (min-width: $default) {
       display: none;
     }
   }
