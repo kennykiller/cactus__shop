@@ -12,7 +12,8 @@ const router = createRouter({
         { path: '/register', component: UserRegistration },
         { path: '/auth', component: Auth },
         { path: '/iteminfo', component: ItemInfo },
-        { path: '/iteminfo/:id', component: ItemInfo}
+        { path: '/iteminfo/:id', component: ItemInfo},
+        { path: '(.*)', redirect: '/catalogue'}
         // { path: '/:notFound(.*)', component: NotFound },
     ]
 })
