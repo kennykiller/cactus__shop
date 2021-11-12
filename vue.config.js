@@ -1,1 +1,5 @@
-module.exports = { publicPath: '/cactus__shop/' }
+module.exports = {
+    publicPath: process.env.NODE_ENV === 'production'
+      ? '/cactus__shop/'
+      : '/'
+  }
